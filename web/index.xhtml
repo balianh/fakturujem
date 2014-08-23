@@ -11,35 +11,37 @@
         <h:form id="loginForm">          
             <p:growl id="msg" showDetail="true" life="3000" />
             <p:panel header="Login" style="width: 360px;">
- 
+
                 <h:panelGrid id="loginPanel" columns="2">
- 
+
                     <h:outputText value="Email" />
- 
+
                     <p:inputText id="email" value="#{loginBean.email}" ></p:inputText>
- 
+
                     <p:spacer></p:spacer>
- 
+
                     <p:message for="email" ></p:message>
- 
+
                     <h:outputText value="Heslo" />
- 
+
                     <p:password id="password" value="#{loginBean.password}"  feedback="false"></p:password>
- 
+
                     <p:spacer></p:spacer>
- 
+
                     <p:message for="password"></p:message>
- 
+
                     <p:spacer></p:spacer>
- 
+
                     <p:commandButton action="#{loginBean.loginProject}" value="Login" update="loginForm" ajax="true"></p:commandButton>
- 
+
                 </h:panelGrid>
- 
+
             </p:panel>
- 
+
         </h:form>
- 
+
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body> 
- 
+
 </html>
