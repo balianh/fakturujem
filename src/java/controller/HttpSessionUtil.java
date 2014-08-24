@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
  
  
-public class LoginUtil {
+public class HttpSessionUtil {
  
       public static HttpSession getSession() {
         return (HttpSession)
@@ -31,7 +31,7 @@ public class LoginUtil {
       {
         HttpSession session = getSession();
         if ( session != null )
-            return (String) session.getAttribute("userid");
+            return (String) session.getAttribute("logedid");
         else
             return null;
       }

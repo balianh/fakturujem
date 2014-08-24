@@ -5,18 +5,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>login</title>
+        <title>Fakturujem.cz</title>
     </h:head>
-    <h:body>
-        <h:form id="loginForm">          
-            <p:growl id="msg" showDetail="true" life="3000" />
+    <h:body >
+        
+        
+        
+        <h:form id="loginForm" >         
+            <p:growl id="msg" showDetail="true" life="3000"  />
             <p:panel header="Login" style="width: 360px;">
 
                 <h:panelGrid id="loginPanel" columns="2">
 
                     <h:outputText value="Email" />
 
-                    <p:inputText id="email" value="#{loginBean.email}" ></p:inputText>
+                    <p:inputText id="email" value="#{indexBean.email}" ></p:inputText>
 
                     <p:spacer></p:spacer>
 
@@ -24,7 +27,7 @@
 
                     <h:outputText value="Heslo" />
 
-                    <p:password id="password" value="#{loginBean.password}"  feedback="false"></p:password>
+                    <p:password id="password" value="#{indexBean.password}"  feedback="false"></p:password>
 
                     <p:spacer></p:spacer>
 
@@ -32,7 +35,7 @@
 
                     <p:spacer></p:spacer>
 
-                    <p:commandButton action="#{loginBean.loginProject}" value="Login" update="loginForm" ajax="true"></p:commandButton>
+                    <p:commandButton action="#{indexBean.loginProject}" value="Login" update="loginForm" ajax="false"></p:commandButton>
 
                 </h:panelGrid>
 

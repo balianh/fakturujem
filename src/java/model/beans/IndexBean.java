@@ -6,26 +6,24 @@
 
 package model.beans;
 
-import controller.queries.AccountQuery;
+import controller.HttpSessionUtil;
+import controller.queries.MainQuery;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import controller.LoginUtil;
 
  
-@ManagedBean(name = "loginBean")
+@ManagedBean(name = "indexBean")
 @SessionScoped
-public class LoginBean implements Serializable {
+public class IndexBean implements Serializable {
  
     private static final long serialVersionUID = 1L;
     private String message, email, password;
-    
-    public LoginBean(){
    
-    }
+    private boolean initialized =false;
  
     public String getMessage() {
         return message;
@@ -53,11 +51,18 @@ public class LoginBean implements Serializable {
  
     public String loginProject() {
         
-        boolean result = AccountQuery.login(email, password);
+        if (!initialized){
+            
+            initialized = true;
+        }
+        
+        
+        
+        boolean result = MainQuery.login(email, password);
         if (result) {
             // Vezme HTTP sessionu a uloží do ní uživatele (možno sloučit s ID v AccountQuery)
-            HttpSession session = LoginUtil.getSession();
-            session.setAttribute("email", email);
+            HttpSession s = HttpSessionUtil.getSession();
+            s.setAttribute("email", email);
  
             return "dashboard";
         } else {
@@ -76,8 +81,10 @@ public class LoginBean implements Serializable {
     }
  
     public String logout() {
-      HttpSession session = LoginUtil.getSession();
-      session.invalidate();
+      HttpSession s = HttpSessionUtil.getSession();
+      s.invalidate();
       return "index";
    }
+
+    
 }

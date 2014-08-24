@@ -4,13 +4,29 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Fakturujem.cz - Dashboard</title>
     </h:head>
     <h:body>
         <h:form>       
-            <p>Welcome, #{loginBean.email}</p>
-        <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="true"></p:commandButton>
-    </h:form>
+            <p>Vítej, #{indexBean.email} s ID: #{dashboardBean.logedID} </p>
+            <p:commandButton action="#{indexBean.logout}" value="Odhlásit se"  ajax="false"></p:commandButton>
+        </h:form>
+        
+        <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
+            <p:column headerText="Id">
+                <h:outputText value="#{invoice.idinvoice}" />
+            </p:column>
+
+            <p:column headerText="DUZP">
+                <h:outputText value="#{invoice.duzp}" />
+            </p:column>
+
+            <p:column headerText="Datup splatnosti">
+                <h:outputText value="#{invoice.due}" />
+            </p:column>
+
+        </p:dataTable>
+
     </h:body>
 </html>
 

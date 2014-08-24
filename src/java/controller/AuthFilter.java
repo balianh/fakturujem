@@ -10,6 +10,7 @@ package controller;
  *
  * @author Michal
  */
+import controller.queries.MainQuery;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -30,7 +31,7 @@ public class AuthFilter implements Filter {
  
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-         
+         MainQuery.init();
     }
  
     @Override
