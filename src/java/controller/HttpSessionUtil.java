@@ -21,18 +21,4 @@ public class HttpSessionUtil {
           getExternalContext().getRequest();
       }
  
-      public static String getUserName()
-      {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        return  session.getAttribute("email").toString();
-      }
-       
-      public static String getUserId()
-      {
-        HttpSession session = getSession();
-        if ( session != null )
-            return (String) session.getAttribute("logedid");
-        else
-            return null;
-      }
 }
