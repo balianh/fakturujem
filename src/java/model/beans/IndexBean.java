@@ -7,7 +7,7 @@
 package model.beans;
 
 import controller.HttpSessionUtil;
-import controller.queries.MainQuery;
+import controller.Queries;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -58,7 +58,7 @@ public class IndexBean implements Serializable {
         
         
         
-        boolean result = MainQuery.login(email, password);
+        boolean result = Queries.login(email, password);
         if (result) {
             // Vezme HTTP sessionu a uloží do ní uživatele (možno sloučit s ID v AccountQuery)
             HttpSession s = HttpSessionUtil.getSession();

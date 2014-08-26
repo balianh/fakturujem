@@ -8,7 +8,7 @@ package model.beans;
 
 import controller.HttpSessionUtil;
 import static controller.HttpSessionUtil.getSession;
-import controller.queries.MainQuery;
+import controller.Queries;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -35,7 +35,7 @@ public class DashboardBean implements Serializable {
         if ( s != null )
             setLogedID( (s.getAttribute("logedid").toString()));
        
-        invoices = MainQuery.getInvoices(Integer.parseInt(logedID));
+        invoices = Queries.getInvoices(Integer.parseInt(logedID));
     }
     
      

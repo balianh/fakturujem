@@ -1,9 +1,8 @@
 /*
  * Třída obsahující metody, jenž se dotazují na Account uživatele. 
  */
-package controller.queries;
+package controller;
 
-import controller.HttpSessionUtil;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.Account;
@@ -14,7 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class MainQuery {
+public class Queries {
 
     static SessionFactory sessionFactory = null;
 
