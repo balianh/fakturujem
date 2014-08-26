@@ -1,12 +1,68 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         Hello from Facelets
+
+        <h:form>
+            <p:panel header="Validate">
+                <p:messages autoUpdate="true"/>
+
+                <h:panelGrid id="grid" columns="4" cellpadding="5">
+                    <h:outputLabel for="email" value="E-mail:" style="font-weight:bold"/>                   
+                    <p:inputText id="email" value="#{registrationBean.email}" required="true" label="E-mail"/>
+                    <p:message for="email" />
+                    <h:outputText value="#{registrationBean.email}" />
+
+                    <h:outputLabel for="password1" value="Heslo:" style="font-weight:bold"/>                   
+                    <p:inputText id="password1" value="#{registrationBean.password1}" required="true" label="Heslo"/>
+                    <p:message for="password1" />
+                    <h:outputText value="#{registrationBean.password1}" />
+
+                    <h:outputLabel for="password2" value="Heslo znovu:" style="font-weight:bold"/>                   
+                    <p:inputText id="password2" value="#{registrationBean.password2}" required="true" label="Heslo znovu"/>
+                    <p:message for="password2" />
+                    <h:outputText value="#{registrationBean.password2}" />
+
+                    <h:outputLabel for="ico" value="IČO:" style="font-weight:bold"/>                   
+                    <p:inputText id="ico" value="#{registrationBean.ICO}" required="false" label="IČO" />
+                    <p:message for="ico" />
+                    <h:outputText value="#{registrationBean.ICO}" />
+
+                    <h:outputLabel for="city" value="Město:" style="font-weight:bold"/>                   
+                    <p:inputText id="city" value="#{registrationBean.city}" required="true" label="Město"/>
+                    <p:message for="city" />
+                    <h:outputText value="#{registrationBean.city}" />
+
+                    <h:outputLabel for="pcode" value="PSČ:" style="font-weight:bold"/>                   
+                    <p:inputText id="pcode" value="#{registrationBean.pcode}" required="true" label="PSČ"/>
+                    <p:message for="pcode" />
+                    <h:outputText value="#{registrationBean.pcode}" />
+
+
+                    <h:outputLabel for="street" value="Ulice a číslo popisné/orientační:" style="font-weight:bold"/>                   
+                    <p:inputText id="street" value="#{registrationBean.street}" required="true" label="Ulice a číslo popisné/orientační"/>
+                    <p:message for="street" />
+                    <h:outputText value="#{registrationBean.street}" />
+
+                    <h:outputLabel for="agreed" value="Souhlas:" style="font-weight:bold" />
+                    <p:selectBooleanCheckbox id="agreed" value="#{registrationBean.agreed}" required="true" label="Ulice a číslo popisné/orientační" />
+                    <p:message for="agreed" />
+                    <h:outputText/>
+                    
+                    <p:commandButton value="Registrovat" actionListener="#{registrationBean.done}" ajax="true" icon="ui-icon-check" validateClient="true"/>
+
+                </h:panelGrid>
+
+            </p:panel>
+        </h:form>
+
     </h:body>
 </html>
 
