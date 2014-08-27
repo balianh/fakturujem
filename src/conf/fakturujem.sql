@@ -2,8 +2,7 @@
 SQLyog Community v9.62 
 MySQL - 5.6.20 : Database - fakturujem
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -13,7 +12,7 @@ MySQL - 5.6.20 : Database - fakturujem
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`fakturujem` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_czech_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`fakturujem` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `fakturujem`;
 
@@ -23,10 +22,10 @@ DROP TABLE IF EXISTS `account`;
 
 CREATE TABLE `account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) CHARACTER SET latin1 NOT NULL,
-  `password` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `account` */
 
@@ -50,7 +49,7 @@ CREATE TABLE `invoice` (
   `specificsymbol` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `invoice` */
 
@@ -66,7 +65,7 @@ CREATE TABLE `invoice_has_item` (
   `item_iditem` int(11) NOT NULL,
   `count` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `invoice_has_item` */
 
@@ -80,7 +79,7 @@ CREATE TABLE `invoice_has_person` (
   `person_idperson` int(11) NOT NULL,
   `relation` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `invoice_has_person` */
 
@@ -94,11 +93,11 @@ CREATE TABLE `item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `account_idaccount` int(11) NOT NULL,
   `rate_idrate` int(11) NOT NULL,
-  `title` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `title` varchar(45) NOT NULL,
   `price` int(11) NOT NULL,
-  `code` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `code` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `item` */
 
@@ -108,9 +107,9 @@ DROP TABLE IF EXISTS `method`;
 
 CREATE TABLE `method` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `method` */
 
@@ -123,27 +122,27 @@ DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `account_idaccount` int(11) NOT NULL,
-  `name` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `lastname` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `company` varchar(45) COLLATE utf8_czech_ci DEFAULT NULL,
-  `street` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `city` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `company` varchar(45) DEFAULT NULL,
+  `street` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
   `pcode` int(11) DEFAULT NULL,
-  `state` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
   `isowner` tinyint(1) DEFAULT NULL,
   `phone` int(11) DEFAULT NULL,
-  `email` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
   `fax` int(11) DEFAULT NULL,
-  `www` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `bankaccount` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `www` varchar(45) DEFAULT NULL,
+  `bankaccount` varchar(45) DEFAULT NULL,
   `ico` int(11) DEFAULT NULL,
-  `dic` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `dic` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `person` */
 
-insert  into `person`(`id`,`account_idaccount`,`name`,`lastname`,`company`,`street`,`city`,`pcode`,`state`,`isowner`,`phone`,`email`,`fax`,`www`,`bankaccount`,`ico`,`dic`) values (1,1,'Michal','Prenner',NULL,'A. Krej?ího 2050/2','?B',37007,'?R',1,420,'micha.prenner@gmail.com',NULL,NULL,NULL,NULL,NULL),(2,1,'Franta','Lála',NULL,'Šmoulová 5','Praha',25005,'R',0,123456123,'lala@franta.cz',NULL,NULL,NULL,NULL,NULL);
+insert  into `person`(`id`,`account_idaccount`,`name`,`lastname`,`company`,`street`,`city`,`pcode`,`state`,`isowner`,`phone`,`email`,`fax`,`www`,`bankaccount`,`ico`,`dic`) values (1,1,'Michal','Prenner',NULL,'A. Krej?ího 2050/2','?B',37007,'?R',1,420,'micha.prenner@gmail.com',NULL,NULL,NULL,NULL,NULL),(2,1,'Franta','?e?icha',NULL,'Šmoulová 5','Praha',25005,'R',0,123456123,'lala@franta.cz',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `rate` */
 
@@ -151,10 +150,10 @@ DROP TABLE IF EXISTS `rate`;
 
 CREATE TABLE `rate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) COLLATE utf8_czech_ci NOT NULL,
+  `title` varchar(45) NOT NULL,
   `value` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `rate` */
 
