@@ -2,13 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Registrace</title>
     </h:head>
     <h:body>
-        Hello from Facelets
 
         <h:form>
             <p:panel header="Validate">
@@ -52,11 +50,12 @@
                     <h:outputText value="#{registrationBean.street}" />
 
                     <h:outputLabel for="agreed" value="Souhlas:" style="font-weight:bold" />
-                    <p:selectBooleanCheckbox id="agreed" value="#{registrationBean.agreed}" required="true" label="Ulice a číslo popisné/orientační" />
+                    <p:selectBooleanCheckbox id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" />
                     <p:message for="agreed" />
                     <h:outputText/>
-                    
-                    <p:commandButton value="Registrovat" actionListener="#{registrationBean.done}" ajax="true" icon="ui-icon-check" validateClient="true"/>
+
+                    <p:commandButton value="Registrovat" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>
+
 
                 </h:panelGrid>
 

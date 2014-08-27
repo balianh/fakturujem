@@ -9,27 +9,43 @@ package model.beans;
 import java.awt.event.ActionEvent;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 /**
  *
  * @author fiktivni
  */
-@ManagedBean
+@ManagedBean(name = "registrationBean")
+@SessionScoped
 public class RegistrationBean {
-     
+    
+    @Size(max=45)
     private String email;
-    @Size(min=6,max=64)
+    
+    @Size(min=6,max=45)
     private String password1;
+    
     private String password2;
-    @Digits(integer=8,fraction=0)
-    @Size(min=8,max=8)
+    
+    @Digits(integer=8,fraction=0) @Min(0) @Max(99999999)
     private Integer ICO;
+    
+    @Size(max=45)
     private String city;
+    
+    @Digits(integer=5,fraction=0)
     private Integer pcode;
+    
+    @Size(max=45)
     private String street;
+    
+    @AssertTrue
     private boolean agreed;
 
     public String getEmail() {
@@ -94,15 +110,6 @@ public class RegistrationBean {
 
     public void setAgreed(boolean agreed) {
         this.agreed = agreed;
-    }
- 
-    public void done(ActionEvent actionEvent) {
-        addMessage("Vidím, že jsi kliknul na tlačítko Registrovat.");
-    }
-     
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
 }
