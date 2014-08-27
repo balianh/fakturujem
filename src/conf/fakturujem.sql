@@ -2,7 +2,8 @@
 SQLyog Community v9.62 
 MySQL - 5.6.20 : Database - fakturujem
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -25,7 +26,7 @@ CREATE TABLE `account` (
   `email` varchar(45) CHARACTER SET latin1 NOT NULL,
   `password` varchar(45) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `account` */
 
@@ -49,11 +50,11 @@ CREATE TABLE `invoice` (
   `specificsymbol` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `invoice` */
 
-insert  into `invoice`(`id`,`invoicenumber`,`account_idaccount`,`state_idstate`,`method_idmethod`,`created`,`due`,`duzp`,`variablesymbol`,`constantsymbol`,`specificsymbol`,`total`) values (1,50,1,1,1,'2014-08-22','2014-08-22','2014-08-22',777,555,666,0);
+insert  into `invoice`(`id`,`invoicenumber`,`account_idaccount`,`state_idstate`,`method_idmethod`,`created`,`due`,`duzp`,`variablesymbol`,`constantsymbol`,`specificsymbol`,`total`) values (1,50,1,1,1,'2014-08-22','2014-08-22','2014-08-22',777,555,666,965);
 
 /*Table structure for table `invoice_has_item` */
 
@@ -65,7 +66,7 @@ CREATE TABLE `invoice_has_item` (
   `item_iditem` int(11) NOT NULL,
   `count` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `invoice_has_item` */
 
@@ -79,7 +80,7 @@ CREATE TABLE `invoice_has_person` (
   `person_idperson` int(11) NOT NULL,
   `relation` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `invoice_has_person` */
 
@@ -97,7 +98,7 @@ CREATE TABLE `item` (
   `price` int(11) NOT NULL,
   `code` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `item` */
 
@@ -109,7 +110,7 @@ CREATE TABLE `method` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `method` */
 
@@ -138,7 +139,7 @@ CREATE TABLE `person` (
   `ico` int(11) DEFAULT NULL,
   `dic` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `person` */
 
@@ -150,10 +151,10 @@ DROP TABLE IF EXISTS `rate`;
 
 CREATE TABLE `rate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `title` varchar(45) COLLATE utf8_czech_ci NOT NULL,
   `value` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  ;
 
 /*Data for the table `rate` */
 
@@ -165,13 +166,13 @@ DROP TABLE IF EXISTS `state`;
 
 CREATE TABLE `state` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `state` */
 
-insert  into `state`(`id`,`title`) values (1,'Otevrena');
+insert  into `state`(`id`,`title`) values (1,'Otevřená');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
