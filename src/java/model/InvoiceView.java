@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class InvoiceView  implements java.io.Serializable {
 
-
+     private Integer idInvoice;
      private Integer invoiceNumber;
      private String receiver;
      private Date created;
@@ -16,13 +16,17 @@ public class InvoiceView  implements java.io.Serializable {
      private Integer total;
 
 	
-    public InvoiceView (int idInvoice, Date created, int state) {
-           
-        this.invoiceNumber = idInvoice;
+    public InvoiceView (int idInvoice, Date created, int idState) {
+        
+        Invoice invoice = Queries.getInvoiceAtId(idInvoice);
+        State state = Queries.getStateAtId(idState);
+        
+        this.idInvoice = idInvoice;
+        this.invoiceNumber = invoice.getInvoicenumber();
         this.created = created;
         this.receiver = Queries.getName(idInvoice);
-        this.state = "Otevřená";
-        this.total = 100;
+        this.state = state.getTitle();
+        this.total = invoice.getTotal();
         
     }
 

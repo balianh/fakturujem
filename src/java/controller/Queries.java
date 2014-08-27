@@ -10,6 +10,8 @@ import model.HibernateUtil;
 import model.Invoice;
 import model.InvoiceHasPerson;
 import model.Person;
+import model.State;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,23 +31,24 @@ public class Queries {
      vrátí true a zaznamená ID do session (TO DO)
      */
     public static boolean login(String email, String password) {
-        List<Account> logedAccount = null;
+        Account logedAccount = null;
         Session session = sessionFactory.openSession();
         Transaction tx;
         try {
             tx = session.beginTransaction();
             Query q = session.createQuery("from Account where password ='" + password + "' and email ='" + email + "'");
-            logedAccount = (List<Account>) q.list();
+            logedAccount = (Account) q.uniqueResult();
 
-            if (logedAccount.size() == 1){
+            if (logedAccount != null){
+                
+                //Get HTML Session and put there user's id as attribute "logedid"
                 HttpSession s = HttpSessionUtil.getSession();
-                Account loggedAcc =logedAccount.get(0);
-                s.setAttribute("logedid", loggedAcc.getId());
+                s.setAttribute("logedid", logedAccount.getId());
+                //
                 return true;
             } else
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -66,7 +69,6 @@ public class Queries {
 
             return invoices;
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -74,10 +76,48 @@ public class Queries {
         return invoices;
     }
     
+    public static Invoice getInvoiceAtId(int id){
+        
+        Session session = sessionFactory.openSession();
+        Invoice result = null;
+        
+        try {      
+            Transaction tx = session.beginTransaction();
+
+            Query q = session.createQuery("from Invoice where "
+                    + "id ='" + id + "'");
+            result= (Invoice) q.uniqueResult();     
+            return result;
+        } catch (HibernateException e) {
+        } finally {
+           session.close(); 
+        }
+        return result;
+    }
+    
+    public static State getStateAtId(int id){
+        
+        Session session = sessionFactory.openSession();
+        State result = null;
+        
+        try {      
+            Transaction tx = session.beginTransaction();
+
+            Query q = session.createQuery("from State where "
+                    + "id ='" + id + "'");
+            result= (State) q.uniqueResult();     
+            return result;
+        } catch (HibernateException e) {
+        } finally {
+           session.close(); 
+        }
+        return result;
+    }
+    
     public static String getName(int idInvoice){
         
-        List<InvoiceHasPerson> personId = null;
-        Person person = null;
+        InvoiceHasPerson personId;
+        Person person;
         
         String name = null;
         int userId;
@@ -86,9 +126,11 @@ public class Queries {
             Session session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
-            Query q = session.createQuery("from InvoiceHasPerson where invoice_idinvoice ='" + idInvoice + "'");
-            personId = (List<InvoiceHasPerson>) q.list();
-            userId = personId.get(0).getId();
+            Query q = session.createQuery("from InvoiceHasPerson where "
+                    + "invoice_idinvoice ='" + idInvoice + "' "
+                    + "and relation ='" + 1 + "'");
+            personId = (InvoiceHasPerson)q.uniqueResult();
+            userId = personId.getId();
             session.close();
             
             session = sessionFactory.openSession();
@@ -100,12 +142,8 @@ public class Queries {
             name = person.getName() + " " + person.getLastname();
 
             return name;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            
-        }
-
+        } catch (HibernateException e) {
+        } 
         return name;
     }
         

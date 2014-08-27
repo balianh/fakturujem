@@ -37,7 +37,7 @@ public class DashboardBean implements Serializable {
         invoiceViews = new ArrayList<>(invoices.size()); 
         
         for (Invoice invoice : invoices) {
-            InvoiceView iw = new InvoiceView(invoice.getId(),invoice.getCreated() , 0);
+            InvoiceView iw = new InvoiceView(invoice.getId(),invoice.getCreated() , 1);
             invoiceViews.add(iw);
         }
 
