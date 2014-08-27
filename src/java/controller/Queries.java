@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.HibernateUtil;
 import model.Invoice;
+import model.InvoiceHasPerson;
+import model.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,7 +40,7 @@ public class Queries {
             if (logedAccount.size() == 1){
                 HttpSession s = HttpSessionUtil.getSession();
                 Account loggedAcc =logedAccount.get(0);
-                s.setAttribute("logedid", loggedAcc.getIdacount());
+                s.setAttribute("logedid", loggedAcc.getId());
                 return true;
             } else
             return false;
@@ -71,5 +73,44 @@ public class Queries {
 
         return invoices;
     }
+    
+    public static String getName(int idInvoice){
+        
+        List<InvoiceHasPerson> personId = null;
+        Person person = null;
+        
+        String name = null;
+        int userId;
+        
+        try {
+            Session session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+
+            Query q = session.createQuery("from InvoiceHasPerson where invoice_idinvoice ='" + idInvoice + "'");
+            personId = (List<InvoiceHasPerson>) q.list();
+            userId = personId.get(0).getId();
+            session.close();
+            
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            q = session.createQuery("from Person where id ='" + userId + "'");
+            person = (Person) q.uniqueResult();
+            session.close();
+            
+            name = person.getName() + " " + person.getLastname();
+
+            return name;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            
+        }
+
+        return name;
+    }
+        
+        
+    
+    
 
 }

@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0 -->
+<!-- Generated 27.8.2014 20:47:13 by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.InvoiceHasPerson" table="invoice_has_person" catalog="fakturujem">
-        <composite-id name="id" class="model.InvoiceHasPersonId">
-            <key-property name="invoiceIdinvoice" type="int">
-                <column name="invoice_idinvoice" />
-            </key-property>
-            <key-property name="personIdperson" type="int">
-                <column name="person_idperson" />
-            </key-property>
-        </composite-id>
-        <property name="payer" type="boolean">
-            <column name="payer" not-null="true" />
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="invoiceIdinvoice" type="int">
+            <column name="invoice_idinvoice" not-null="true" />
+        </property>
+        <property name="personIdperson" type="int">
+            <column name="person_idperson" not-null="true" />
+        </property>
+        <property name="relation" type="boolean">
+            <column name="relation" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 package model;
-// Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0
+// Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
 
 
 
@@ -9,15 +9,16 @@ package model;
 public class Person  implements java.io.Serializable {
 
 
-     private Integer idperson;
+     private Integer id;
      private int accountIdaccount;
      private String name;
-     private String surname;
+     private String lastname;
+     private String company;
      private String street;
      private String city;
      private Integer pcode;
      private String state;
-     private String owner;
+     private Boolean isowner;
      private Integer phone;
      private String email;
      private Integer fax;
@@ -33,15 +34,16 @@ public class Person  implements java.io.Serializable {
     public Person(int accountIdaccount) {
         this.accountIdaccount = accountIdaccount;
     }
-    public Person(int accountIdaccount, String name, String surname, String street, String city, Integer pcode, String state, String owner, Integer phone, String email, Integer fax, String www, String bankaccount, Integer ico, String dic) {
+    public Person(int accountIdaccount, String name, String lastname, String company, String street, String city, Integer pcode, String state, Boolean isowner, Integer phone, String email, Integer fax, String www, String bankaccount, Integer ico, String dic) {
        this.accountIdaccount = accountIdaccount;
        this.name = name;
-       this.surname = surname;
+       this.lastname = lastname;
+       this.company = company;
        this.street = street;
        this.city = city;
        this.pcode = pcode;
        this.state = state;
-       this.owner = owner;
+       this.isowner = isowner;
        this.phone = phone;
        this.email = email;
        this.fax = fax;
@@ -51,12 +53,12 @@ public class Person  implements java.io.Serializable {
        this.dic = dic;
     }
    
-    public Integer getIdperson() {
-        return this.idperson;
+    public Integer getId() {
+        return this.id;
     }
     
-    public void setIdperson(Integer idperson) {
-        this.idperson = idperson;
+    public void setId(Integer id) {
+        this.id = id;
     }
     public int getAccountIdaccount() {
         return this.accountIdaccount;
@@ -72,12 +74,19 @@ public class Person  implements java.io.Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public String getSurname() {
-        return this.surname;
+    public String getLastname() {
+        return this.lastname;
     }
     
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    public String getCompany() {
+        return this.company;
+    }
+    
+    public void setCompany(String company) {
+        this.company = company;
     }
     public String getStreet() {
         return this.street;
@@ -107,12 +116,12 @@ public class Person  implements java.io.Serializable {
     public void setState(String state) {
         this.state = state;
     }
-    public String getOwner() {
-        return this.owner;
+    public Boolean getIsowner() {
+        return this.isowner;
     }
     
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setIsowner(Boolean isowner) {
+        this.isowner = isowner;
     }
     public Integer getPhone() {
         return this.phone;

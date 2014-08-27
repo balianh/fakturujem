@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0 -->
+<!-- Generated 27.8.2014 20:47:13 by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.Person" table="person" catalog="fakturujem">
-        <id name="idperson" type="java.lang.Integer">
-            <column name="idperson" />
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
             <generator class="identity" />
         </id>
         <property name="accountIdaccount" type="int">
@@ -14,8 +14,11 @@
         <property name="name" type="string">
             <column name="name" length="45" />
         </property>
-        <property name="surname" type="string">
-            <column name="surname" length="45" />
+        <property name="lastname" type="string">
+            <column name="lastname" length="45" />
+        </property>
+        <property name="company" type="string">
+            <column name="company" length="45" />
         </property>
         <property name="street" type="string">
             <column name="street" length="45" />
@@ -29,8 +32,8 @@
         <property name="state" type="string">
             <column name="state" length="45" />
         </property>
-        <property name="owner" type="string">
-            <column name="owner" length="45" />
+        <property name="isowner" type="java.lang.Boolean">
+            <column name="isowner" />
         </property>
         <property name="phone" type="java.lang.Integer">
             <column name="phone" />

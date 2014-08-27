@@ -1,5 +1,5 @@
 package model;
-// Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0
+// Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -10,7 +10,8 @@ import java.util.Date;
 public class Invoice  implements java.io.Serializable {
 
 
-     private Integer idinvoice;
+     private Integer id;
+     private int invoicenumber;
      private int accountIdaccount;
      private int stateIdstate;
      private int methodIdmethod;
@@ -20,12 +21,14 @@ public class Invoice  implements java.io.Serializable {
      private int variablesymbol;
      private Integer constantsymbol;
      private Integer specificsymbol;
+     private Integer total;
 
     public Invoice() {
     }
 
 	
-    public Invoice(int accountIdaccount, int stateIdstate, int methodIdmethod, Date created, Date due, Date duzp, int variablesymbol) {
+    public Invoice(int invoicenumber, int accountIdaccount, int stateIdstate, int methodIdmethod, Date created, Date due, Date duzp, int variablesymbol) {
+        this.invoicenumber = invoicenumber;
         this.accountIdaccount = accountIdaccount;
         this.stateIdstate = stateIdstate;
         this.methodIdmethod = methodIdmethod;
@@ -34,7 +37,8 @@ public class Invoice  implements java.io.Serializable {
         this.duzp = duzp;
         this.variablesymbol = variablesymbol;
     }
-    public Invoice(int accountIdaccount, int stateIdstate, int methodIdmethod, Date created, Date due, Date duzp, int variablesymbol, Integer constantsymbol, Integer specificsymbol) {
+    public Invoice(int invoicenumber, int accountIdaccount, int stateIdstate, int methodIdmethod, Date created, Date due, Date duzp, int variablesymbol, Integer constantsymbol, Integer specificsymbol, Integer total) {
+       this.invoicenumber = invoicenumber;
        this.accountIdaccount = accountIdaccount;
        this.stateIdstate = stateIdstate;
        this.methodIdmethod = methodIdmethod;
@@ -44,14 +48,22 @@ public class Invoice  implements java.io.Serializable {
        this.variablesymbol = variablesymbol;
        this.constantsymbol = constantsymbol;
        this.specificsymbol = specificsymbol;
+       this.total = total;
     }
    
-    public Integer getIdinvoice() {
-        return this.idinvoice;
+    public Integer getId() {
+        return this.id;
     }
     
-    public void setIdinvoice(Integer idinvoice) {
-        this.idinvoice = idinvoice;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public int getInvoicenumber() {
+        return this.invoicenumber;
+    }
+    
+    public void setInvoicenumber(int invoicenumber) {
+        this.invoicenumber = invoicenumber;
     }
     public int getAccountIdaccount() {
         return this.accountIdaccount;
@@ -115,6 +127,13 @@ public class Invoice  implements java.io.Serializable {
     
     public void setSpecificsymbol(Integer specificsymbol) {
         this.specificsymbol = specificsymbol;
+    }
+    public Integer getTotal() {
+        return this.total;
+    }
+    
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
 

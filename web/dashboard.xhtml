@@ -14,25 +14,25 @@
         <p:tabView>
             <p:tab title="Faktury">
                 
-                <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
+                <p:dataTable paginator="true" var="invoiceView" value="#{dashboardBean.invoiceViews}">
                     <p:column headerText="Id">
-                        <h:outputText value="#{invoice.idinvoice}" />
+                        <h:outputText value="#{invoiceView.invoiceNumber}" />
                     </p:column>
 
                     <p:column headerText="Příjemce">
-                        <h:outputText value="#{invoice.created}" />
+                        <h:outputText value="#{invoiceView.receiver}" />
                     </p:column>
 
                     <p:column headerText="Datum vystavení">
-                        <h:outputText value="#{invoice.created}" />
+                        <h:outputText value="#{invoiceView.created}" />
                     </p:column>
                     
                     <p:column headerText="Částka celkem">
-                        <h:outputText value="TO DO" />
+                        <h:outputText value="#{invoiceView.total} Kč" />
                     </p:column>
                     
                     <p:column headerText="Stav">
-                        <h:outputText value="#{invoice.stateIdstate}" />
+                        <h:outputText value="#{invoiceView.state}" />
                     </p:column>
                     
                     

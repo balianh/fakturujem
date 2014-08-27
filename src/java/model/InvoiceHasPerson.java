@@ -1,5 +1,5 @@
 package model;
-// Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0
+// Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
 
 
 
@@ -9,30 +9,47 @@ package model;
 public class InvoiceHasPerson  implements java.io.Serializable {
 
 
-     private InvoiceHasPersonId id;
-     private boolean payer;
+     private Integer id;
+     private int invoiceIdinvoice;
+     private int personIdperson;
+     private boolean relation;
 
     public InvoiceHasPerson() {
     }
 
-    public InvoiceHasPerson(InvoiceHasPersonId id, boolean payer) {
-       this.id = id;
-       this.payer = payer;
+    public InvoiceHasPerson(int invoiceIdinvoice, int personIdperson, boolean relation) {
+       this.invoiceIdinvoice = invoiceIdinvoice;
+       this.personIdperson = personIdperson;
+       this.relation = relation;
     }
    
-    public InvoiceHasPersonId getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(InvoiceHasPersonId id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-    public boolean isPayer() {
-        return this.payer;
+    public int getInvoiceIdinvoice() {
+        return this.invoiceIdinvoice;
     }
     
-    public void setPayer(boolean payer) {
-        this.payer = payer;
+    public void setInvoiceIdinvoice(int invoiceIdinvoice) {
+        this.invoiceIdinvoice = invoiceIdinvoice;
+    }
+    public int getPersonIdperson() {
+        return this.personIdperson;
+    }
+    
+    public void setPersonIdperson(int personIdperson) {
+        this.personIdperson = personIdperson;
+    }
+    public boolean isRelation() {
+        return this.relation;
+    }
+    
+    public void setRelation(boolean relation) {
+        this.relation = relation;
     }
 
 

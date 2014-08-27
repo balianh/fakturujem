@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0 -->
+<!-- Generated 27.8.2014 20:47:13 by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.Invoice" table="invoice" catalog="fakturujem">
-        <id name="idinvoice" type="java.lang.Integer">
-            <column name="idinvoice" />
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
             <generator class="identity" />
         </id>
+        <property name="invoicenumber" type="int">
+            <column name="invoicenumber" not-null="true" />
+        </property>
         <property name="accountIdaccount" type="int">
             <column name="account_idaccount" not-null="true" />
         </property>
@@ -34,6 +37,9 @@
         </property>
         <property name="specificsymbol" type="java.lang.Integer">
             <column name="specificsymbol" />
+        </property>
+        <property name="total" type="java.lang.Integer">
+            <column name="total" />
         </property>
     </class>
 </hibernate-mapping>

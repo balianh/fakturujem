@@ -1,5 +1,5 @@
 package model;
-// Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0
+// Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
 
 
 
@@ -9,23 +9,40 @@ package model;
 public class InvoiceHasItem  implements java.io.Serializable {
 
 
-     private InvoiceHasItemId id;
+     private Integer id;
+     private int invoiceIdinvoice;
+     private int itemIditem;
      private int count;
 
     public InvoiceHasItem() {
     }
 
-    public InvoiceHasItem(InvoiceHasItemId id, int count) {
-       this.id = id;
+    public InvoiceHasItem(int invoiceIdinvoice, int itemIditem, int count) {
+       this.invoiceIdinvoice = invoiceIdinvoice;
+       this.itemIditem = itemIditem;
        this.count = count;
     }
    
-    public InvoiceHasItemId getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(InvoiceHasItemId id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+    public int getInvoiceIdinvoice() {
+        return this.invoiceIdinvoice;
+    }
+    
+    public void setInvoiceIdinvoice(int invoiceIdinvoice) {
+        this.invoiceIdinvoice = invoiceIdinvoice;
+    }
+    public int getItemIditem() {
+        return this.itemIditem;
+    }
+    
+    public void setItemIditem(int itemIditem) {
+        this.itemIditem = itemIditem;
     }
     public int getCount() {
         return this.count;

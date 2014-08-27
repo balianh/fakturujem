@@ -21,22 +21,22 @@ USE `fakturujem`;
 DROP TABLE IF EXISTS `account`;
 
 CREATE TABLE `account` (
-  `idacount` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(45) CHARACTER SET latin1 NOT NULL,
   `password` varchar(45) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`idacount`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `account` */
 
-insert  into `account`(`idacount`,`email`,`password`) values (1,'michal.prenner@gmail.com','123456');
+insert  into `account`(`id`,`email`,`password`) values (1,'michal.prenner@gmail.com','123456');
 
 /*Table structure for table `invoice` */
 
 DROP TABLE IF EXISTS `invoice`;
 
 CREATE TABLE `invoice` (
-  `idinvoice` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoicenumber` int(11) NOT NULL,
   `account_idaccount` int(11) NOT NULL,
   `state_idstate` int(11) NOT NULL,
@@ -48,22 +48,23 @@ CREATE TABLE `invoice` (
   `constantsymbol` int(11) DEFAULT NULL,
   `specificsymbol` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idinvoice`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `invoice` */
 
-insert  into `invoice`(`idinvoice`,`invoicenumber`,`account_idaccount`,`state_idstate`,`method_idmethod`,`created`,`due`,`duzp`,`variablesymbol`,`constantsymbol`,`specificsymbol`,`total`) values (1,50,1,1,1,'2014-08-22','2014-08-22','2014-08-22',777,555,666,0);
+insert  into `invoice`(`id`,`invoicenumber`,`account_idaccount`,`state_idstate`,`method_idmethod`,`created`,`due`,`duzp`,`variablesymbol`,`constantsymbol`,`specificsymbol`,`total`) values (1,50,1,1,1,'2014-08-22','2014-08-22','2014-08-22',777,555,666,0);
 
 /*Table structure for table `invoice_has_item` */
 
 DROP TABLE IF EXISTS `invoice_has_item`;
 
 CREATE TABLE `invoice_has_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_idinvoice` int(11) NOT NULL,
   `item_iditem` int(11) NOT NULL,
   `count` int(11) NOT NULL,
-  PRIMARY KEY (`invoice_idinvoice`,`item_iditem`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `invoice_has_item` */
@@ -73,26 +74,29 @@ CREATE TABLE `invoice_has_item` (
 DROP TABLE IF EXISTS `invoice_has_person`;
 
 CREATE TABLE `invoice_has_person` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_idinvoice` int(11) NOT NULL,
   `person_idperson` int(11) NOT NULL,
-  `payer` tinyint(1) NOT NULL,
-  PRIMARY KEY (`invoice_idinvoice`,`person_idperson`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+  `relation` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `invoice_has_person` */
+
+insert  into `invoice_has_person`(`id`,`invoice_idinvoice`,`person_idperson`,`relation`) values (1,1,1,0),(2,1,2,1);
 
 /*Table structure for table `item` */
 
 DROP TABLE IF EXISTS `item`;
 
 CREATE TABLE `item` (
-  `iditem` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `account_idaccount` int(11) NOT NULL,
   `rate_idrate` int(11) NOT NULL,
   `title` varchar(45) CHARACTER SET latin1 NOT NULL,
   `price` int(11) NOT NULL,
   `code` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  PRIMARY KEY (`iditem`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `item` */
@@ -102,29 +106,30 @@ CREATE TABLE `item` (
 DROP TABLE IF EXISTS `method`;
 
 CREATE TABLE `method` (
-  `idmethod` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`idmethod`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `method` */
 
-insert  into `method`(`idmethod`,`title`) values (1,'Bankovní prevod');
+insert  into `method`(`id`,`title`) values (1,'Bankovní prevod');
 
 /*Table structure for table `person` */
 
 DROP TABLE IF EXISTS `person`;
 
 CREATE TABLE `person` (
-  `idperson` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `account_idaccount` int(11) NOT NULL,
   `name` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `surname` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `lastname` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `company` varchar(45) COLLATE utf8_czech_ci DEFAULT NULL,
   `street` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
   `city` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
   `pcode` int(11) DEFAULT NULL,
   `state` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `owner` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `isowner` tinyint(1) DEFAULT NULL,
   `phone` int(11) DEFAULT NULL,
   `email` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
   `fax` int(11) DEFAULT NULL,
@@ -132,39 +137,41 @@ CREATE TABLE `person` (
   `bankaccount` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
   `ico` int(11) DEFAULT NULL,
   `dic` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  PRIMARY KEY (`idperson`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `person` */
+
+insert  into `person`(`id`,`account_idaccount`,`name`,`lastname`,`company`,`street`,`city`,`pcode`,`state`,`isowner`,`phone`,`email`,`fax`,`www`,`bankaccount`,`ico`,`dic`) values (1,1,'Michal','Prenner',NULL,'A. Krej?ího 2050/2','?B',37007,'?R',1,420,'micha.prenner@gmail.com',NULL,NULL,NULL,NULL,NULL),(2,1,'Franta','Lála',NULL,'Šmoulová 5','Praha',25005,'R',0,123456123,'lala@franta.cz',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `rate` */
 
 DROP TABLE IF EXISTS `rate`;
 
 CREATE TABLE `rate` (
-  `idrate` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) CHARACTER SET latin1 NOT NULL,
   `value` int(11) NOT NULL,
-  PRIMARY KEY (`idrate`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `rate` */
 
-insert  into `rate`(`idrate`,`title`,`value`) values (1,'Basic',21);
+insert  into `rate`(`id`,`title`,`value`) values (1,'Basic',21);
 
 /*Table structure for table `state` */
 
 DROP TABLE IF EXISTS `state`;
 
 CREATE TABLE `state` (
-  `idstate` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`idstate`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 /*Data for the table `state` */
 
-insert  into `state`(`idstate`,`title`) values (1,'Otevrena');
+insert  into `state`(`id`,`title`) values (1,'Otevrena');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

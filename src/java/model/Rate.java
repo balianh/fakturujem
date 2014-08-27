@@ -1,5 +1,5 @@
 package model;
-// Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0
+// Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
 
 
 
@@ -9,7 +9,7 @@ package model;
 public class Rate  implements java.io.Serializable {
 
 
-     private Integer idrate;
+     private Integer id;
      private String title;
      private int value;
 
@@ -21,12 +21,12 @@ public class Rate  implements java.io.Serializable {
        this.value = value;
     }
    
-    public Integer getIdrate() {
-        return this.idrate;
+    public Integer getId() {
+        return this.id;
     }
     
-    public void setIdrate(Integer idrate) {
-        this.idrate = idrate;
+    public void setId(Integer id) {
+        this.id = id;
     }
     public String getTitle() {
         return this.title;

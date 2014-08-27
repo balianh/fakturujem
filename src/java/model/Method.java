@@ -1,5 +1,5 @@
 package model;
-// Generated 23.8.2014 17:14:34 by Hibernate Tools 3.6.0
+// Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
 
 
 
@@ -9,7 +9,7 @@ package model;
 public class Method  implements java.io.Serializable {
 
 
-     private Integer idmethod;
+     private Integer id;
      private String title;
 
     public Method() {
@@ -19,12 +19,12 @@ public class Method  implements java.io.Serializable {
        this.title = title;
     }
    
-    public Integer getIdmethod() {
-        return this.idmethod;
+    public Integer getId() {
+        return this.id;
     }
     
-    public void setIdmethod(Integer idmethod) {
-        this.idmethod = idmethod;
+    public void setId(Integer id) {
+        this.id = id;
     }
     public String getTitle() {
         return this.title;
