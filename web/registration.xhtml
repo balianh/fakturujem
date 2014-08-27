@@ -9,8 +9,7 @@
     <h:body>
 
         <h:form>
-            <p:panel header="Validate">
-                <p:messages autoUpdate="true"/>
+            <p:panel header="Registrace">
 
                 <h:panelGrid id="grid" columns="4" cellpadding="5">
                     <h:outputLabel for="email" value="E-mail:" style="font-weight:bold"/>                   
@@ -19,12 +18,12 @@
                     <h:outputText value="#{registrationBean.email}" />
 
                     <h:outputLabel for="password1" value="Heslo:" style="font-weight:bold"/>                   
-                    <p:inputText id="password1" value="#{registrationBean.password1}" required="true" label="Heslo"/>
+                    <p:password id="password1" value="#{registrationBean.password1}" required="true" label="Heslo"/>
                     <p:message for="password1" />
                     <h:outputText value="#{registrationBean.password1}" />
 
                     <h:outputLabel for="password2" value="Heslo znovu:" style="font-weight:bold"/>                   
-                    <p:inputText id="password2" value="#{registrationBean.password2}" required="true" label="Heslo znovu"/>
+                    <p:password id="password2" value="#{registrationBean.password2}" required="true" match="password1" label="Heslo znovu"/>
                     <p:message for="password2" />
                     <h:outputText value="#{registrationBean.password2}" />
 
@@ -44,8 +43,8 @@
                     <h:outputText value="#{registrationBean.pcode}" />
 
 
-                    <h:outputLabel for="street" value="Ulice a číslo popisné/orientační:" style="font-weight:bold"/>                   
-                    <p:inputText id="street" value="#{registrationBean.street}" required="true" label="Ulice a číslo popisné/orientační"/>
+                    <h:outputLabel for="street" value="Ulice:" style="font-weight:bold"/>                   
+                    <p:inputText id="street" value="#{registrationBean.street}" required="true" label="Ulice"/>
                     <p:message for="street" />
                     <h:outputText value="#{registrationBean.street}" />
 
@@ -54,7 +53,7 @@
                     <p:message for="agreed" />
                     <h:outputText/>
 
-                    <p:commandButton value="Registrovat" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>
+                    <p:commandButton value="Registrovat" ajax="false" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>
 
 
                 </h:panelGrid>

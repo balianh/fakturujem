@@ -6,11 +6,8 @@
 
 package model.beans;
 
-import java.awt.event.ActionEvent;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -39,7 +36,7 @@ public class RegistrationBean {
     @Size(max=45)
     private String city;
     
-    @Digits(integer=5,fraction=0)
+    @Digits(integer=5,fraction=0) @Min(0) @Max(99999)
     private Integer pcode;
     
     @Size(max=45)

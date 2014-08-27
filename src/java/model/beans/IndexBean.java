@@ -22,8 +22,6 @@ public class IndexBean implements Serializable {
  
     private static final long serialVersionUID = 1L;
     private String message, email, password;
-   
-    private boolean initialized =false;
  
     public String getMessage() {
         return message;
@@ -50,14 +48,7 @@ public class IndexBean implements Serializable {
     }
  
     public String loginProject() {
-        
-        if (!initialized){
-            
-            initialized = true;
-        }
-        
-        
-        
+
         boolean result = Queries.login(email, password);
         if (result) {
             // Vezme HTTP sessionu a uloží do ní uživatele (možno sloučit s ID v AccountQuery)
