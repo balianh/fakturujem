@@ -6,6 +6,7 @@
 
 package model.beans;
 
+import controller.Queries;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.AssertTrue;
@@ -13,6 +14,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import model.Account;
+import model.Person;
 
 /**
  *
@@ -24,6 +27,12 @@ public class RegistrationBean {
     
     @Size(max=45)
     private String email;
+    
+    @Size(max=45)
+    private String name;
+    
+    @Size(max=45)
+    private String lastname;
     
     @Size(min=6,max=45)
     private String password1;
@@ -123,5 +132,42 @@ public class RegistrationBean {
     public void setAgreed(boolean agreed) {
         this.agreed = agreed;
     }
+    
+    public void registerNewUser() {
+        
+        Account newAccount = new Account(email, password1);
+        newAccount.setId(Queries.createAccount(newAccount));
+        Person newPerson = new Person(newAccount.getId(), "Franta", "Lála", email, street, city, pcode, street, agreed, pcode, email, ICO, city, password1, ICO, city);     
+                    
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the lastname
+     */
+    public String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * @param lastname the lastname to set
+     */
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    
     
 }

@@ -146,6 +146,33 @@ public class Queries {
         } 
         return name;
     }
+    
+    public static int createAccount(Account newAccount){
+        
+        Session session = null;
+        State result = null;
+        
+        try {      
+            session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.save(newAccount);
+            tx.commit();
+            session.close();
+            
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Account where password ='" + 
+                    newAccount.getPassword() + "' and email ='" + newAccount.getEmail() + "'");
+            newAccount = (Account) q.uniqueResult();
+            session.close();
+            
+            return newAccount.getId();
+
+        } catch (HibernateException e) {
+        } 
+        return 0;
+    }
+    
         
         
     
