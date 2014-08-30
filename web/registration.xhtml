@@ -27,6 +27,14 @@
                     <h:outputLabel for="password2" value="Heslo znovu:" style="font-weight:bold"/>                   
                     <p:password id="password2" value="#{registrationBean.password2}" required="false" label="Heslo znovu"/>
                     <p:message for="password2" />
+                    
+                    <h:outputLabel for="name" value="Jméno:" style="font-weight:bold"/>                   
+                    <p:inputText id="name" value="#{registrationBean.name}" required="false" label="Jméno" />
+                    <p:message for="name" />
+                    
+                    <h:outputLabel for="lastName" value="Příjmení:" style="font-weight:bold"/>                   
+                    <p:inputText id="lastName" value="#{registrationBean.lastName}" required="false" label="Příjmení" />
+                    <p:message for="lastName" />
 
                     <h:outputLabel for="ico" value="IČO:" style="font-weight:bold"/>                   
                     <p:inputText id="ico" value="#{registrationBean.ICO}" required="false" label="IČO" />
@@ -39,7 +47,6 @@
                     <h:outputLabel for="pcode" value="PSČ:" style="font-weight:bold"/>                   
                     <p:inputText id="pcode" value="#{registrationBean.pcode}" required="false" label="PSČ"/>
                     <p:message for="pcode" />
-
 
                     <h:outputLabel for="street" value="Ulice:" style="font-weight:bold"/>                   
                     <p:inputText id="street" value="#{registrationBean.street}" required="false" label="Ulice"/>
