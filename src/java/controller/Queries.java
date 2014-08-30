@@ -173,6 +173,23 @@ public class Queries {
         return 0;
     }
     
+    public static void createPerson(Person newPerson){
+        
+        Session session = null;
+        State result = null;
+        
+        try {      
+            
+            session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.save(newPerson);
+            tx.commit();
+            session.close();
+
+        } catch (HibernateException e) {
+        } 
+    }
+    
         
         
     

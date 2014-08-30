@@ -32,7 +32,10 @@ public class RegistrationBean {
     private String name;
     
     @Size(max=45)
-    private String lastname;
+    private String lastName;
+    
+    @Size(max=45)
+    private String company;
     
     @Size(min=6,max=45)
     private String password1;
@@ -133,12 +136,14 @@ public class RegistrationBean {
         this.agreed = agreed;
     }
     
-    public void registerNewUser() {
+    public String registerNewUser() {
         
         Account newAccount = new Account(email, password1);
         newAccount.setId(Queries.createAccount(newAccount));
-        Person newPerson = new Person(newAccount.getId(), "Franta", "Lála", email, street, city, pcode, street, agreed, pcode, email, ICO, city, password1, ICO, city);     
-                    
+         Person newPerson = new Person(newAccount.getId(), name, lastName, 
+                 company, street + " " + house, city, pcode, true, email, ICO);
+        Queries.createPerson(newPerson);
+         return "index";
     }
 
     /**
@@ -158,15 +163,29 @@ public class RegistrationBean {
     /**
      * @return the lastname
      */
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
     /**
      * @param lastname the lastname to set
      */
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
+    }
+
+    /**
+     * @return the company
+     */
+    public String getCompany() {
+        return company;
+    }
+
+    /**
+     * @param company the company to set
+     */
+    public void setCompany(String company) {
+        this.company = company;
     }
     
     

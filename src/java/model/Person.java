@@ -52,6 +52,22 @@ public class Person  implements java.io.Serializable {
        this.ico = ico;
        this.dic = dic;
     }
+    
+    public Person(int accountIdaccount, String name, String lastname, 
+            String company, String street, String city, Integer pcode,
+            Boolean isowner, String email, Integer ico) {
+       this.accountIdaccount = accountIdaccount;
+       this.name = name;
+       this.lastname = lastname;
+       this.company = company;
+       this.street = street;
+       this.city = city;
+       this.pcode = pcode;
+       this.state = "Česká Republika";
+       this.isowner = isowner;
+       this.email = email;
+       this.ico = ico;
+    }
    
     public Integer getId() {
         return this.id;
