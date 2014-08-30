@@ -9,6 +9,10 @@
     <h:body>
 
         <h:form>
+            <p:commandButton action="index.xhtml" value="Index" ajax="false" />
+        </h:form>
+        
+        <h:form>
             <p:panel header="Registrace">
 
                 <h:panelGrid id="grid" columns="3" cellpadding="5">
@@ -40,6 +44,10 @@
                     <h:outputLabel for="street" value="Ulice:" style="font-weight:bold"/>                   
                     <p:inputText id="street" value="#{registrationBean.street}" required="false" label="Ulice"/>
                     <p:message for="street" />
+                    
+                    <h:outputLabel for="house" value="Číslo:" style="font-weight:bold"/>                   
+                    <p:inputText id="house" value="#{registrationBean.house}" required="false" label="Číslo"/>
+                    <p:message for="house" />
 
                     <h:outputLabel for="agreed" value="Souhlas:" style="font-weight:bold"/>
                     <p:selectBooleanCheckbox id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" />

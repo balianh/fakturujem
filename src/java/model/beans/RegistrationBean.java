@@ -42,8 +42,23 @@ public class RegistrationBean {
     @Size(max=45)
     private String street;
     
+    @Size(max=45)
+    private String house;
+    
     @AssertTrue
     private boolean agreed;
+
+    
+    
+    
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
+    }
+    
 
     public String getEmail() {
         return email;

@@ -1,12 +1,132 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Faktura</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+
+        <h:form id="form">
+            <p:growl id="msgs" />
+
+            <p:commandButton action="dashboard.xhtml" value="Zpět na přehled"  ajax="false" />
+            <p:commandButton action="none" value="Import"  ajax="false" />
+
+            <p:panel header="Hlavička">
+
+                <h:panelGrid id="options" columns="4"  cellpadding="5" >
+
+                    <p:selectBooleanCheckbox id="receiverIsPurchaser" value="#{invoiceBean.receiverIsPurchaser}" label="Příjemce = Odběratel" />
+                    <h:outputLabel for="receiverIsPurchaser" value="Příjemce = Odběratel"/>
+
+                    <p:selectBooleanCheckbox id="duzpIsEqualToCreated" value="#{invoiceBean.duzpIsEqualToCreated}" label="DUZP = Datum vystavení" />
+                    <h:outputLabel for="duzpIsEqualToCreated" value="DUZP = Datum vystavení"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid id="details" columns="3"  cellpadding="5" >
+
+                    <p:outputLabel value="Příjemce:" for="receiver" />
+                    <p:autoComplete id="receiver" dropdown="true" required="true" value="#{invoiceBean.receiver}" completeMethod="#{invoiceBean.completeReceiver}" />
+                    <p:message for="receiver" />
+
+                    <p:outputLabel value="Odběratel:" for="purchaser" />
+                    <p:autoComplete id="purchaser" dropdown="true" required="true" value="#{invoiceBean.purchaser}" completeMethod="#{invoiceBean.completePurchaser}" />
+                    <p:message for="purchaser" />
+
+                    <h:outputLabel for="code" value="Kód faktury:"/>                   
+                    <p:inputText id="code" value="#{invoiceBean.code}" required="false" label="Kód faktury"/>
+                    <p:message for="code" />
+
+                    <p:outputLabel value="Forma platby:" for="method" />
+                    <p:autoComplete id="method" dropdown="true" required="true" value="#{invoiceBean.method}" completeMethod="#{invoiceBean.completeMethod}" />
+                    <p:message for="method" />
+
+                    <h:outputLabel for="created" value="Datum vystavení:"/>
+                    <p:calendar id="created" value="#{invoiceBean.created}" showOn="button" required="true" />
+                    <p:message for="created" />
+
+                    <h:outputLabel for="due" value="Splatnost:"/>                   
+                    <p:calendar id="due" value="#{invoiceBean.due}" required="true" showOn="button" />
+                    <p:message for="due" />
+
+                    <h:outputLabel for="duzp" value="DUZP:"/>                   
+                    <p:calendar id="duzp" value="#{invoiceBean.duzp}" required="true" showOn="button" />
+                    <p:message for="duzp" />
+
+                </h:panelGrid>
+
+            </p:panel>   
+
+            <p:panel header="Položky">
+                <p:messages autoUpdate="true"/>
+
+                <h:panelGrid id="itemInputs" columns="7"  cellpadding="5" >
+
+                    <p:outputLabel value="Položka:" for="inputTitle" />
+                    <p:autoComplete id="inputTitle" dropdown="true" value="#{invoiceBean.item.title}" required="true" completeMethod="#{invoiceBean.completeItemTitle}" />
+
+                    <p:outputLabel value="Cena za kus:" for="inputPrice" />
+                    <p:autoComplete id="inputPrice" dropdown="true" value="#{invoiceBean.item.price}" required="true" completeMethod="#{invoiceBean.completeItemPrice}" />
+
+                    <h:outputLabel for="inputAmount" value="Množství:"/>                   
+                    <p:spinner id="inputAmount" value="#{invoiceBean.item.amount}" required="true" />
+
+                    <p:commandButton id="btnAdd" value="Přidat" update="items msgs @parent" action="#{invoiceBean.reinit}" >
+                        <p:collector value="#{invoiceBean.item}" addTo="#{invoiceBean.items}" unique="true"/>
+                    </p:commandButton>
+
+                </h:panelGrid>
+                
+                <h:panelGrid id="inputErrors" columns="3"  cellpadding="5" >
+
+                    <p:message for="inputTitle" />
+                    <p:message for="inputPrice" />
+                    <p:message for="inputAmount" />
+
+                </h:panelGrid>
+
+            </p:panel>
+
+            <p:outputPanel id="items">
+                
+                <p:dataTable value="#{invoiceBean.items}" var="item" id="itemsTable">
+
+                    <p:column headerText="Položka">
+                        <h:outputText value="#{item.title}" />
+                    </p:column>
+
+                    <p:column headerText="Cena za kus">
+                        <h:outputText value="#{item.price}" />
+                    </p:column>
+
+                    <p:column headerText="Množství">
+                        <h:outputText value="#{item.amount}" />
+                    </p:column>
+
+                    <p:column headerText="Akce">
+                        <p:commandLink value="Odstranit" update=":form:items" process=":form:items">
+                            <p:collector value="#{item}" removeFrom="#{invoiceBean.items}" unique="true"/>
+                        </p:commandLink>
+                    </p:column>
+
+                </p:dataTable>
+                
+            </p:outputPanel>
+
+
+
+            <p:commandButton action="none" value="Uložit"  ajax="false" />
+            <p:commandButton action="none" value="Tisknout"  ajax="false" />
+            <p:commandButton action="none" value="Smazat"  ajax="false" />
+            <p:commandButton action="none" value="Odeslat"  ajax="false" />
+
+        </h:form>
+
+
     </h:body>
 </html>
 
