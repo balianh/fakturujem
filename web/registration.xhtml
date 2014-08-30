@@ -65,10 +65,10 @@
                     <h:outputLabel for="agreed" value="Souhlas:" style="font-weight:bold"/>
                     <p:selectBooleanCheckbox id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" validatorMessage="S podmínkami služby je nutné souhlasit"/>
                     <p:message for="agreed" />
+                            
+                    <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>
 
-                    <p:commandButton value="Registrovat" action="#{registrationBean.registerNewUser}" ajax="true" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>
-
-
+                    
                 </h:panelGrid>
 
             </p:panel>

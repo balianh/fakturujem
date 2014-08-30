@@ -2,23 +2,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Faktura</title>
     </h:head>
+
     <h:body>
-        <ui:include src="/lang.xhtml" />
+
+        <h:form>
+            <p:commandButton action="dashboard.xhtml" value="Zpět na přehled" />
+            <p:commandButton value="Import" />
+        </h:form>
+
         <h:form id="form">
-            <p:growl id="msgs" />
 
-            <p:commandButton action="dashboard.xhtml" value="Zpět na přehled"  ajax="false" />
-            <p:commandButton action="none" value="Import"  ajax="false" />
-
-            <p:panel header="Hlavička">
-
+            <p:panel id="invoice" header="Faktura">
+                <p:panel id="head" header="Hlavička">
                 <h:panelGrid id="options" columns="4"  cellpadding="5" >
 
                     <p:selectBooleanCheckbox id="receiverIsPurchaser" value="#{invoiceBean.receiverIsPurchaser}" label="Příjemce = Odběratel" />
@@ -48,87 +47,110 @@
                     <p:message for="method" />
 
                     <h:outputLabel for="created" value="Datum vystavení:"/>
-                    <p:calendar id="created" value="#{invoiceBean.created}" showOn="button" required="true" />
+                    <p:calendar id="created" locale="cs" value="#{invoiceBean.created}" showOn="button" required="true" label="Datum vystavení" />
                     <p:message for="created" />
 
                     <h:outputLabel for="due" value="Splatnost:"/>                   
-                    <p:calendar id="due" value="#{invoiceBean.due}" required="true" showOn="button" />
+                    <p:calendar id="due" locale="cs" value="#{invoiceBean.due}" required="true" showOn="button" label="Splatnost"/>
                     <p:message for="due" />
 
                     <h:outputLabel for="duzp" value="DUZP:"/>                   
-                    <p:calendar id="duzp" value="#{invoiceBean.duzp}" required="true" showOn="button" />
+                    <p:calendar id="duzp" locale="cs" value="#{invoiceBean.duzp}" required="true" showOn="button" label="DUZP"/>
                     <p:message for="duzp" />
 
                 </h:panelGrid>
-
-            </p:panel>   
-
-            <p:panel header="Položky">
-                <p:messages autoUpdate="true"/>
-
-                <h:panelGrid id="itemInputs" columns="7"  cellpadding="5" >
-
-                    <p:outputLabel value="Položka:" for="inputTitle" />
-                    <p:autoComplete id="inputTitle" dropdown="true" value="#{invoiceBean.item.title}" required="true" completeMethod="#{invoiceBean.completeItemTitle}" />
-
-                    <p:outputLabel value="Cena za kus:" for="inputPrice" />
-                    <p:autoComplete id="inputPrice" dropdown="true" value="#{invoiceBean.item.price}" required="true" completeMethod="#{invoiceBean.completeItemPrice}" />
-
-                    <h:outputLabel for="inputAmount" value="Množství:"/>                   
-                    <p:spinner id="inputAmount" value="#{invoiceBean.item.amount}" required="true" />
-
-                    <p:commandButton id="btnAdd" value="Přidat" update="items msgs @parent" action="#{invoiceBean.reinit}" >
-                        <p:collector value="#{invoiceBean.item}" addTo="#{invoiceBean.items}" unique="true"/>
-                    </p:commandButton>
-
-                </h:panelGrid>
+                </p:panel>
                 
-                <h:panelGrid id="inputErrors" columns="3"  cellpadding="5" >
+            <h:form id="table">
 
-                    <p:message for="inputTitle" />
-                    <p:message for="inputPrice" />
-                    <p:message for="inputAmount" />
+                <p:panel header="Položky">
 
-                </h:panelGrid>
+                    <h:panelGrid id="itemInputs" columns="3" cellpadding="5" >
+
+                        <p:outputLabel value="Položka:" for="inputTitle" />
+                        <p:autoComplete id="inputTitle" dropdown="true" value="#{invoiceBean.item.title}" required="true" completeMethod="#{invoiceBean.completeItemTitle}" />
+                        <p:message for="inputTitle" />
+
+                        <p:outputLabel value="Cena za kus:" for="inputPrice" />
+                        <p:autoComplete id="inputPrice" dropdown="true" value="#{invoiceBean.item.price}" required="true" completeMethod="#{invoiceBean.completeItemPrice}" />                 
+                        <p:message for="inputPrice" />
+
+                        <h:outputLabel for="inputAmount" value="Množství:"/>
+                        <p:spinner id="inputAmount" value="#{invoiceBean.item.amount}" required="true" />
+
+                        <p:commandButton process="itemInputs @parent items @parent" id="btnAdd" value="Přidat" update="items @parent" action="#{invoiceBean.reinit}" >
+                            <p:collector value="#{invoiceBean.item}" addTo="#{invoiceBean.items}" unique="true"/>
+                        </p:commandButton>
+
+                    </h:panelGrid>
+
+                    <p:outputPanel id="items">
+
+                        <p:dataTable value="#{invoiceBean.items}" var="item" id="itemsTable">
+
+                            <p:column headerText="Položka">
+                                <h:outputText value="#{item.title}" />
+                            </p:column>
+
+                            <p:column headerText="Cena za kus">
+                                <h:outputText value="#{item.price}" />
+                            </p:column>
+
+                            <p:column headerText="Množství">
+                                <h:outputText value="#{item.amount}" />
+                            </p:column>
+
+                            <p:column headerText="Akce">
+                                <p:commandButton value="Odstranit" update=":form:table:items" process=":form:table:items">
+                                    <p:collector value="#{item}" removeFrom="#{invoiceBean.items}" unique="true"/>
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:outputPanel>    
+
+                </p:panel>
+
+            </h:form>
+            
+            <p:commandButton action="none" value="Uložit 3" process=":form:head" update=":form:head" icon="ui-icon-check" validateClient="true" />
+            <p:commandButton action="none" value="Uložit4" update="details" icon="ui-icon-check" validateClient="true" />
 
             </p:panel>
-
-            <p:outputPanel id="items">
-                
-                <p:dataTable value="#{invoiceBean.items}" var="item" id="itemsTable">
-
-                    <p:column headerText="Položka">
-                        <h:outputText value="#{item.title}" />
-                    </p:column>
-
-                    <p:column headerText="Cena za kus">
-                        <h:outputText value="#{item.price}" />
-                    </p:column>
-
-                    <p:column headerText="Množství">
-                        <h:outputText value="#{item.amount}" />
-                    </p:column>
-
-                    <p:column headerText="Akce">
-                        <p:commandLink value="Odstranit" update=":form:items" process=":form:items">
-                            <p:collector value="#{item}" removeFrom="#{invoiceBean.items}" unique="true"/>
-                        </p:commandLink>
-                    </p:column>
-
-                </p:dataTable>
-                
-            </p:outputPanel>
-
-
-
-            <p:commandButton action="none" value="Uložit"  ajax="false" />
-            <p:commandButton action="none" value="Tisknout"  ajax="false" />
-            <p:commandButton action="none" value="Smazat"  ajax="false" />
-            <p:commandButton action="none" value="Odeslat"  ajax="false" />
-
         </h:form>
 
-
     </h:body>
+
+    <script type="text/javascript">
+        PrimeFaces.locales ['cs'] = {
+            closeText: 'Zavřít',
+            prevText: 'Předchozí',
+            nextText: 'Další',
+            monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+            monthNamesShort: ['Led', 'Ún', 'Bře', 'Dub', 'Kvě', 'Čer', 'Čerec', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro'],
+            dayNames: ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
+            dayNamesShort: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],
+            dayNamesMin: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],
+            weekHeader: 'Týden',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Pouze čas',
+            timeText: 'Čas',
+            hourText: 'Hodina',
+            minuteText: 'Minuta',
+            secondText: 'Vteřina',
+            currentText: 'Aktuální datum',
+            ampm: false,
+            month: 'Měsíc',
+            week: 'týden',
+            day: 'den',
+            allDayText: 'Celý den'
+        };
+    </script>
+
+
 </html>
 

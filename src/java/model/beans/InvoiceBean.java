@@ -40,7 +40,6 @@ public class InvoiceBean implements Serializable{
     public void init() {
         item = new Item();
         items = new ArrayList<>();
-         
     }
 
     public void createNew() {
@@ -145,6 +144,10 @@ public class InvoiceBean implements Serializable{
         private String title;
         private String price;
         private Integer amount;
+        
+        public Item(){
+            amount = 1;
+        }
 
         public String getTitle() {
             return title;
