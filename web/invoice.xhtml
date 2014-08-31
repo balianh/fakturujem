@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Faktura</title>
     </h:head>
@@ -10,7 +11,9 @@
     <h:body>
 
         <h:form>
-            <p:commandButton action="dashboard.xhtml" value="Zpět na přehled" />
+            <p:commandButton action="dashboard.xhtml" ajax="true"  value="Zpět na přehled">
+                <f:actionListener binding="#{invoiceBean.flushForm()}" />
+            </p:commandButton> 
             <p:commandButton value="Import" />
         </h:form>
 
@@ -39,9 +42,9 @@
                     <p:autoComplete id="purchaser" dropdown="true" required="true" value="#{invoiceBean.purchaser}" completeMethod="#{invoiceBean.completePurchaser}" />
                     <p:message for="purchaser" />
 
-                    <h:outputLabel for="code" value="Kód faktury:"/>                   
-                    <p:inputText id="code" value="#{invoiceBean.code}" required="false" label="Kód faktury"/>
-                    <p:message for="code" />
+                    <h:outputLabel for="invoiceNumber" value="Číslo faktury:"/>                   
+                    <p:inputText id="invoiceNumber" value="#{invoiceBean.invoiceNumber}" required="false" label="Číslo faktury"/>
+                    <p:message for="invoiceNumber" />
 
                     <p:outputLabel value="Forma platby:" for="method" />
                     <p:autoComplete id="method" dropdown="true" required="true" value="#{invoiceBean.method}" completeMethod="#{invoiceBean.completeMethod}" />

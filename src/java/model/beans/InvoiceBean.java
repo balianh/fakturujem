@@ -13,25 +13,23 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import model.Invoice;
 import model.Person;
 
-/**
- *
- * @author fiktivni
- */
-@ViewScoped
-@Named
+
+@ManagedBean(name = "invoiceBean")
+@SessionScoped
 public class InvoiceBean implements Serializable{
 
     private boolean receiverIsPurchaser;
     private boolean duzpIsEqualToCreated;
     private Person receiver;
     private String purchaser;
-    private String code;
+    private String invoiceNumber;
     private String method;
     private Date created;
     private Date due;
@@ -40,7 +38,24 @@ public class InvoiceBean implements Serializable{
     private List<Item> items;
     private List<Person> persons;
     private String logedID = "0";
-    
+    private Invoice selectedInvoice;
+
+    /**
+     * @return the selectedInvoice
+     */
+    public Invoice getSelectedInvoice() {
+        return selectedInvoice;
+    }
+
+    /**
+     * @param aSelectedInvoice the selectedInvoice to set
+     */
+    public void setSelectedInvoice(Invoice aSelectedInvoice) {
+        selectedInvoice = aSelectedInvoice;
+        created = selectedInvoice.getCreated();
+        setInvoiceNumber(Integer.toString(selectedInvoice.getInvoicenumber()));
+    }
+
 
     
     @PostConstruct
@@ -53,8 +68,16 @@ public class InvoiceBean implements Serializable{
         item = new Item();
         items = new ArrayList<>();
         getPersons();
+       
     }
     
+       public void flushForm() {
+    
+        this.setCreated(null);
+        this.setInvoiceNumber(null);
+        
+    }
+
     
     public List<Person> completeReceiver(String query) {
         
@@ -124,14 +147,6 @@ public class InvoiceBean implements Serializable{
 
     public void setPurchaser(String purchaser) {
         this.purchaser = purchaser;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getMethod() {
@@ -209,6 +224,21 @@ public class InvoiceBean implements Serializable{
         this.receiver = receiver;
     }
 
+    /**
+     * @return the invoiceNumber
+     */
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    /**
+     * @param invoiceNumber the invoiceNumber to set
+     */
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+ 
     public class Item {
 
         private String title;
