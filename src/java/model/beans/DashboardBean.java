@@ -24,21 +24,7 @@ public class DashboardBean implements Serializable {
     private static List<Invoice> invoices;
     private static List<Person> persons;
 
-    /**
-     * @return the persons
-     */
-    public static List<Person> getPersons() {
-        return persons;
-    }
-
-    /**
-     * @param aPersons the persons to set
-     */
-    public static void setPersons(List<Person> aPersons) {
-        persons = aPersons;
-    }
-
-   
+  
     private String logedID = "0";
 
     @PostConstruct
@@ -51,17 +37,27 @@ public class DashboardBean implements Serializable {
 
         invoices = Queries.getInvoices(Integer.parseInt(logedID));
 
-        
-      /*  for (Invoice invoice : invoices) {
-            InvoiceView iw = new InvoiceView(invoice.getId(),invoice.getCreated() , 1);
-            invoiceViews.add(iw);
-        }*/
-
     }
 
     public List<Invoice> getInvoices() {
         return invoices;
     }
+    
+        /**
+     * @return the persons
+     */
+    public List<Person> getPersons() {
+        persons = Queries.getPersonsAtAccountId(logedID);
+        return persons;
+    }
+
+    /**
+     * @param aPersons the persons to set
+     */
+    public void setPersons(List<Person> aPersons) {
+        persons = aPersons;
+    }
+
 
     /**
      * @return the logedID

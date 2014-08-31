@@ -14,7 +14,7 @@
             <p:tabView>
                 <p:tab title="Faktury">
 
-                    <p:commandButton action="invoice.xhtml" value="Nová"  ajax="false" />
+                    <p:commandButton action="invoice.xhtml" value="Nová faktura"  ajax="false" />
                     
                     <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
                         <p:column headerText="Číslo fa.">
@@ -48,6 +48,35 @@
 
                 </p:tab>
                 <p:tab title="Adresář">
+                    
+                    <p:commandButton action="person.xhtml" value="Nový záznam"  ajax="false" />
+                    
+                    <p:dataTable paginator="true" var="person" value="#{dashboardBean.persons}">
+                        
+                        <p:column headerText="Jméno">
+                            <h:outputText value="#{person.wholename}" />
+                        </p:column>
+
+                        <p:column headerText="Firma">
+                            <h:outputText value="#{person.company}" />
+                        </p:column>
+
+                        <p:column headerText="Email">
+                            <h:outputText value="#{person.email}" />
+                        </p:column>
+
+                        <p:column headerText="Telefon">
+                            <h:outputText value="#{person.phone}" />
+                        </p:column>
+
+
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton  icon="ui-icon-search" title="View">
+
+                            </p:commandButton>
+                        </p:column>
+                        
+                    </p:dataTable>
                     
                      
 

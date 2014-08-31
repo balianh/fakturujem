@@ -170,7 +170,7 @@ public class InvoiceBean implements Serializable{
      * @return the persons
      */
     public List<Person> getPersons() {
-        persons = Queries.getPersonAtAccountId(logedID);
+        persons = Queries.getPersonsAtAccountId(logedID);
         return persons;
     }
 

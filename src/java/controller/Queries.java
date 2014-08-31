@@ -95,7 +95,7 @@ public class Queries {
         return result;
     }
     
-    public static List<Person> getPersonAtAccountId(String idaccount){
+    public static List<Person> getPersonsAtAccountId(String idaccount){
         
        Session session = sessionFactory.openSession();
        List<Person> result = null;
