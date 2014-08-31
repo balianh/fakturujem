@@ -170,8 +170,8 @@ public class RegistrationBean {
     /**
      * @param lastName the lastname to set
      */
-    public void setLastName(String lastname) {
-        this.lastName = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
