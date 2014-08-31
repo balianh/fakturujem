@@ -20,7 +20,7 @@
                 <p:panel id="head" header="Hlavička">
                 <h:panelGrid id="options" columns="4"  cellpadding="5" >
 
-                    <p:selectBooleanCheckbox id="receiverIsPurchaser" value="#{invoiceBean.receiverIsPurchaser}" label="Příjemce = Odběratel" />
+                    <p:selectBooleanCheckbox id="receiverIsPurchaser"  value="#{invoiceBean.receiverIsPurchaser}" label="Příjemce = Odběratel" />
                     <h:outputLabel for="receiverIsPurchaser" value="Příjemce = Odběratel"/>
 
                     <p:selectBooleanCheckbox id="duzpIsEqualToCreated" value="#{invoiceBean.duzpIsEqualToCreated}" label="DUZP = Datum vystavení" />
@@ -31,7 +31,8 @@
                 <h:panelGrid id="details" columns="3"  cellpadding="5" >
 
                     <p:outputLabel value="Příjemce:" for="receiver" />
-                    <p:autoComplete id="receiver" dropdown="true" required="true" value="#{invoiceBean.receiver}" completeMethod="#{invoiceBean.completeReceiver}" />
+                    <p:autoComplete id="receiver" value="#{invoiceBean.receiver}" completeMethod="#{invoiceBean.completeReceiver}"
+                        var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true"  />
                     <p:message for="receiver" />
 
                     <p:outputLabel value="Odběratel:" for="purchaser" />

@@ -95,6 +95,25 @@ public class Queries {
         return result;
     }
     
+    public static List<Person> getPersonAtAccountId(String idaccount){
+        
+       Session session = sessionFactory.openSession();
+       List<Person> result = null;
+        
+        try {      
+            Transaction tx = session.beginTransaction();
+
+            Query q = session.createQuery("from Person where "
+                    + "account_idaccount ='" + idaccount + "' and isowner=false");
+            result= (List<Person>) q.list();     
+            return result;
+        } catch (HibernateException e) {
+        } finally {
+           session.close(); 
+        }
+        return result;
+    }
+    
     public static State getStateAtId(int id){
         
         Session session = sessionFactory.openSession();

@@ -2,6 +2,7 @@ package model;
 // Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
 
 
+import controller.Queries;
 import java.util.Date;
 
 /**
@@ -22,8 +23,11 @@ public class Invoice  implements java.io.Serializable {
      private Integer constantsymbol;
      private Integer specificsymbol;
      private Integer total;
+     private State state;
+     private String receiver; 
+     private String stateLabel;
 
-    public Invoice() {
+    public Invoice() { 
     }
 
 	
@@ -134,6 +138,51 @@ public class Invoice  implements java.io.Serializable {
     
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+ 
+    /**
+     * @return the receiver
+     */
+    public String getReceiver() {
+        receiver = Queries.getName(id);
+        return receiver;
+    }
+
+    /**
+     * @param receiver the receiver to set
+     */
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    /**
+     * @return the stateLabel
+     */
+    public String getStateLabel() {
+        stateLabel = Queries.getStateAtId(stateIdstate).getTitle();
+        return stateLabel;
+    }
+
+    /**
+     * @param stateLabel the stateLabel to set
+     */
+    public void setStateLabel(String stateLabel) {
+        this.stateLabel = stateLabel;
+    }
+
+    /**
+     * @return the state
+     */
+    public State getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(State state) {
+        this.state = state;
     }
 
 

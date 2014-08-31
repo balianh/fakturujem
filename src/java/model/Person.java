@@ -13,6 +13,7 @@ public class Person  implements java.io.Serializable {
      private int accountIdaccount;
      private String name;
      private String lastname;
+     private String wholename;
      private String company;
      private String street;
      private String city;
@@ -187,6 +188,21 @@ public class Person  implements java.io.Serializable {
     
     public void setDic(String dic) {
         this.dic = dic;
+    }
+
+    /**
+     * @return the wholename
+     */
+    public String getWholename() {
+        wholename = name + " " + lastname;
+        return wholename;
+    }
+
+    /**
+     * @param wholename the wholename to set
+     */
+    public void setWholename(String wholename) {
+        this.wholename = wholename;
     }
 
 

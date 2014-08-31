@@ -16,25 +16,25 @@
 
                     <p:commandButton action="invoice.xhtml" value="Nová"  ajax="false" />
                     
-                    <p:dataTable paginator="true" var="invoiceView" value="#{dashboardBean.invoiceViews}">
+                    <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
                         <p:column headerText="Číslo fa.">
-                            <h:outputText value="#{invoiceView.invoiceNumber}" />
+                            <h:outputText value="#{invoice.invoicenumber}" />
                         </p:column>
 
                         <p:column headerText="Příjemce">
-                            <h:outputText value="#{invoiceView.receiver}" />
+                            <h:outputText value="#{invoice.receiver}" />
                         </p:column>
 
                         <p:column headerText="Datum vystavení">
-                            <h:outputText value="#{invoiceView.created}" />
+                            <h:outputText value="#{invoice.created}" />
                         </p:column>
 
                         <p:column headerText="Částka celkem">
-                            <h:outputText value="#{invoiceView.total} Kč" />
+                            <h:outputText value="#{invoice.total} Kč" />
                         </p:column>
 
                         <p:column headerText="Stav">
-                            <h:outputText value="#{invoiceView.state}" />
+                            <h:outputText value="#{invoice.stateLabel}" />
                         </p:column>
 
 
@@ -48,11 +48,11 @@
 
                 </p:tab>
                 <p:tab title="Adresář">
+                    
+                     
 
                 </p:tab>
-                <p:tab title="Položky">
-
-                </p:tab>
+                
             </p:tabView>
 
         </h:form>

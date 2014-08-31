@@ -5,15 +5,19 @@
  */
 package model.beans;
 
+import controller.HttpSessionUtil;
+import controller.Queries;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import model.Person;
 
 /**
  *
@@ -25,7 +29,7 @@ public class InvoiceBean implements Serializable{
 
     private boolean receiverIsPurchaser;
     private boolean duzpIsEqualToCreated;
-    private String receiver;
+    private Person receiver;
     private String purchaser;
     private String code;
     private String method;
@@ -34,12 +38,42 @@ public class InvoiceBean implements Serializable{
     private Date duzp;
     private Item item;
     private List<Item> items;
+    private List<Person> persons;
+    private String logedID = "0";
+    
 
     
     @PostConstruct
     public void init() {
+        HttpSession s = HttpSessionUtil.getSession();
+
+        if (s != null) {
+            setLogedID((s.getAttribute("logedid").toString()));
+        }
         item = new Item();
         items = new ArrayList<>();
+        getPersons();
+    }
+    
+    
+    public List<Person> completeReceiver(String query) {
+        
+        List<Person> filterPersons = new ArrayList<>();
+        
+        int validResultsCount = 0;            
+       
+        for(int i = 0; i < persons.size(); i++) {
+
+            Person receiver = persons.get(i);
+            
+            if(receiver.getWholename().toLowerCase().contains(query)) {
+                validResultsCount++;           
+                if (validResultsCount <= 10)
+                filterPersons.add(receiver);
+            }
+        }
+         
+        return filterPersons;
     }
 
     public void createNew() {
@@ -83,14 +117,7 @@ public class InvoiceBean implements Serializable{
         this.duzpIsEqualToCreated = duzpIsEqualToCreated;
     }
 
-    public String getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
-
+    
     public String getPurchaser() {
         return purchaser;
     }
@@ -137,6 +164,49 @@ public class InvoiceBean implements Serializable{
 
     public void setDuzp(Date duzp) {
         this.duzp = duzp;
+    }
+
+    /**
+     * @return the persons
+     */
+    public List<Person> getPersons() {
+        persons = Queries.getPersonAtAccountId(logedID);
+        return persons;
+    }
+
+    /**
+     * @param persons the persons to set
+     */
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+
+    /**
+     * @return the logedID
+     */
+    public String getLogedID() {
+        return logedID;
+    }
+
+    /**
+     * @param logedID the logedID to set
+     */
+    public void setLogedID(String logedID) {
+        this.logedID = logedID;
+    }
+
+    /**
+     * @return the receiver
+     */
+    public Person getReceiver() {
+        return receiver;
+    }
+
+    /**
+     * @param receiver the receiver to set
+     */
+    public void setReceiver(Person receiver) {
+        this.receiver = receiver;
     }
 
     public class Item {

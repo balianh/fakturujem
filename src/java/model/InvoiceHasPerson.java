@@ -1,5 +1,5 @@
 package model;
-// Generated 27.8.2014 20:47:12 by Hibernate Tools 3.6.0
+// Generated 31.8.2014 5:02:47 by Hibernate Tools 3.6.0
 
 
 
@@ -12,12 +12,12 @@ public class InvoiceHasPerson  implements java.io.Serializable {
      private Integer id;
      private int invoiceIdinvoice;
      private int personIdperson;
-     private boolean relation;
+     private int relation;
 
     public InvoiceHasPerson() {
     }
 
-    public InvoiceHasPerson(int invoiceIdinvoice, int personIdperson, boolean relation) {
+    public InvoiceHasPerson(int invoiceIdinvoice, int personIdperson, int relation) {
        this.invoiceIdinvoice = invoiceIdinvoice;
        this.personIdperson = personIdperson;
        this.relation = relation;
@@ -44,11 +44,11 @@ public class InvoiceHasPerson  implements java.io.Serializable {
     public void setPersonIdperson(int personIdperson) {
         this.personIdperson = personIdperson;
     }
-    public boolean isRelation() {
+    public int getRelation() {
         return this.relation;
     }
     
-    public void setRelation(boolean relation) {
+    public void setRelation(int relation) {
         this.relation = relation;
     }
 

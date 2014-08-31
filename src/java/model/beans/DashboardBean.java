@@ -15,14 +15,30 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
-import model.InvoiceView;
+import model.Person;
 
 @ManagedBean(name = "dashboardBean")
 @ViewScoped
 public class DashboardBean implements Serializable {
 
     private static List<Invoice> invoices;
-    private static List<InvoiceView> invoiceViews;
+    private static List<Person> persons;
+
+    /**
+     * @return the persons
+     */
+    public static List<Person> getPersons() {
+        return persons;
+    }
+
+    /**
+     * @param aPersons the persons to set
+     */
+    public static void setPersons(List<Person> aPersons) {
+        persons = aPersons;
+    }
+
+   
     private String logedID = "0";
 
     @PostConstruct
@@ -34,12 +50,12 @@ public class DashboardBean implements Serializable {
         }
 
         invoices = Queries.getInvoices(Integer.parseInt(logedID));
-        invoiceViews = new ArrayList<>(invoices.size()); 
+
         
-        for (Invoice invoice : invoices) {
+      /*  for (Invoice invoice : invoices) {
             InvoiceView iw = new InvoiceView(invoice.getId(),invoice.getCreated() , 1);
             invoiceViews.add(iw);
-        }
+        }*/
 
     }
 
@@ -61,18 +77,7 @@ public class DashboardBean implements Serializable {
         this.logedID = logedID;
     }
 
-    /**
-     * @return the invoiceViews
-     */
-    public List<InvoiceView> getInvoiceViews() {
-        return invoiceViews;
-    }
 
-    /**
-     * @param aInvoiceViews the invoiceViews to set
-     */
-    public void setInvoiceViews(List<InvoiceView> aInvoiceViews) {
-        invoiceViews = aInvoiceViews;
-    }
+    
 
 }
