@@ -28,7 +28,7 @@ public class InvoiceBean implements Serializable{
     private boolean receiverIsPurchaser;
     private boolean duzpIsEqualToCreated;
     private Person receiver;
-    private String purchaser;
+    private Person purchaser;
     private String invoiceNumber;
     private String method;
     private Date created;
@@ -39,6 +39,8 @@ public class InvoiceBean implements Serializable{
     private List<Person> persons;
     private String logedID = "0";
     private Invoice selectedInvoice;
+    private Contact c_purchaser;
+    private Contact c_receiver;
 
     /**
      * @return the selectedInvoice
@@ -66,6 +68,8 @@ public class InvoiceBean implements Serializable{
             setLogedID((s.getAttribute("logedid").toString()));
         }
         item = new Item();
+        c_purchaser = new Contact();
+        c_receiver = new Contact();
         items = new ArrayList<>();
         getPersons();
        
@@ -79,20 +83,17 @@ public class InvoiceBean implements Serializable{
     }
 
     
-    public List<Person> completeReceiver(String query) {
+    public List<Person> completeContact(String query) {
         
         List<Person> filterPersons = new ArrayList<>();
         
         int validResultsCount = 0;            
        
-        for(int i = 0; i < persons.size(); i++) {
-
-            Person receiver = persons.get(i);
-            
-            if(receiver.getWholename().toLowerCase().contains(query)) {
+        for (Person person : persons) {
+            if(person.getWholename().toLowerCase().contains(query)) {
                 validResultsCount++;           
                 if (validResultsCount <= 10)
-                filterPersons.add(receiver);
+                    filterPersons.add(person);
             }
         }
          
@@ -122,7 +123,24 @@ public class InvoiceBean implements Serializable{
     public List<Item> getItems() {
         return items;
     }
- 
+
+    public Contact getC_purchaser() {
+        return c_purchaser;
+    }
+
+    public void setC_purchaser(Contact c_purchaser) {
+        this.c_purchaser = c_purchaser;
+    }
+
+    public Contact getC_receiver() {
+        return c_receiver;
+    }
+
+    public void setC_receiver(Contact c_receiver) {
+        this.c_receiver = c_receiver;
+    }
+    
+    
     
     public boolean isReceiverIsPurchaser() {
         return receiverIsPurchaser;
@@ -140,14 +158,6 @@ public class InvoiceBean implements Serializable{
         this.duzpIsEqualToCreated = duzpIsEqualToCreated;
     }
 
-    
-    public String getPurchaser() {
-        return purchaser;
-    }
-
-    public void setPurchaser(String purchaser) {
-        this.purchaser = purchaser;
-    }
 
     public String getMethod() {
         return method;
@@ -222,6 +232,14 @@ public class InvoiceBean implements Serializable{
      */
     public void setReceiver(Person receiver) {
         this.receiver = receiver;
+    }
+
+    public Person getPurchaser() {
+        return purchaser;
+    }
+
+    public void setPurchaser(Person purchaser) {
+        this.purchaser = purchaser;
     }
 
     /**
@@ -299,6 +317,103 @@ public class InvoiceBean implements Serializable{
 
             return hash;
         }
+    }
+    
+    public class Contact{
+        
+        private String name;
+        private String lastName;
+        private String company;
+        private Integer ico;
+        private String city;
+        private Integer pcode;
+        private String street;
+        private String house;
+        private String email;
+        private Integer phone;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getCompany() {
+            return company;
+        }
+
+        public void setCompany(String company) {
+            this.company = company;
+        }
+
+        public Integer getIco() {
+            return ico;
+        }
+
+        public void setIco(Integer ico) {
+            this.ico = ico;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public Integer getPcode() {
+            return pcode;
+        }
+
+        public void setPcode(Integer pcode) {
+            this.pcode = pcode;
+        }
+
+        public String getStreet() {
+            return street;
+        }
+
+        public void setStreet(String street) {
+            this.street = street;
+        }
+
+        public String getHouse() {
+            return house;
+        }
+
+        public void setHouse(String house) {
+            this.house = house;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public Integer getPhone() {
+            return phone;
+        }
+
+        public void setPhone(Integer phone) {
+            this.phone = phone;
+        }
+        
+        
+        
     }
 
 }

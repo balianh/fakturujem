@@ -31,7 +31,7 @@ public class Person  implements java.io.Serializable {
     public Person() {
     }
 
-	
+    
     public Person(int accountIdaccount) {
         this.accountIdaccount = accountIdaccount;
     }
@@ -69,7 +69,7 @@ public class Person  implements java.io.Serializable {
        this.email = email;
        this.ico = ico;
     }
-   
+    
     public Integer getId() {
         return this.id;
     }

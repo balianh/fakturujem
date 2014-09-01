@@ -21,6 +21,8 @@
 
             <p:panel id="invoice" header="Faktura" style="width: 1080px;">
 
+                <p:messages id="globalError" closable="true" />
+
                 <p:fieldset id="head" legend="Hlavička" toggleable="true" toggleSpeed="500" style=" width: 1005px;">
 
                     <p:messages id="detailsError" closable="true" />
@@ -55,41 +57,41 @@
                         <h:panelGrid id="purchaserGrid" columns="2" cellpadding="5">
 
                             <p:outputLabel value="Vyhledat:" for="purchaser" />
-                            <p:autoComplete id="purchaser" value="#{invoiceBean.purchaser}" completeMethod="#{invoiceBean.completePurchacer}"
-                                            var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true"  />
+                            <p:autoComplete id="purchaser" value="#{invoiceBean.purchaser}" completeMethod="#{invoiceBean.completeContact}"
+                                            var="person" itemLabel="#{invoiceBean.purchaser.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true"  />
 
                             <p:outputLabel for="purchaserName" value="Jméno:" />                   
-                            <p:inputText id="purchaserName" value="#{invoiceBean.purchaser.name}" required="false" label="Jméno" validatorMessage="Chyba" />
+                            <p:inputText id="purchaserName" value="#{invoiceBean.c_purchaser.name}" required="false" label="Jméno" validatorMessage="Chyba" />
 
                             <p:outputLabel for="purchaserLastName" value="Příjmení:" />                   
-                            <p:inputText id="purchaserLastName" value="#{invoiceBean.purchaser.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
+                            <p:inputText id="purchaserLastName" value="#{invoiceBean.c_purchaser.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
 
                             <p:outputLabel for="purchaserCompany" value="Firma:" />                   
-                            <p:inputText id="purchaserCompany" value="#{invoiceBean.purchaser.company}" required="true" label="Firma" validatorMessage="Chyba" />
+                            <p:inputText id="purchaserCompany" value="#{invoiceBean.c_purchaser.company}" required="true" label="Firma" validatorMessage="Chyba" />
 
                             <p:outputLabel for="purchaserIco" value="IČO:" />                   
-                            <p:inputText id="purchaserIco" value="#{invoiceBean.purchaser.ico}" required="false" label="IČO" validatorMessage="Chyba" />
+                            <p:inputText id="purchaserIco" value="#{invoiceBean.c_purchaser.ico}" required="false" label="IČO" validatorMessage="Chyba" />
 
                             <p:outputLabel for="purchaserCity" value="Město:" />                   
-                            <p:inputText  id="purchaserCity" value="#{invoiceBean.purchaser.city}" required="false" label="Město" validatorMessage="Chyba"/>
+                            <p:inputText  id="purchaserCity" value="#{invoiceBean.c_purchaser.city}" required="false" label="Město" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="purchaserPcode" value="PSČ:" />                   
-                            <p:inputText id="purchaserPcode" value="#{invoiceBean.purchaser.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
+                            <p:inputText id="purchaserPcode" value="#{invoiceBean.c_purchaser.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
 
                             <p:outputLabel for="purchaserStreet" value="Ulice:"/>                   
-                            <p:inputText id="purchaserStreet" value="#{invoiceBean.purchaser.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
+                            <p:inputText id="purchaserStreet" value="#{invoiceBean.c_purchaser.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="purchaserHouse" value="Číslo domu:"/>                   
-                            <p:inputText id="purchaserHouse" value="#{invoiceBean.purchaser.house}" required="false" label="Číslo domu" validatorMessage="Chyba"/>
+                            <p:inputText id="purchaserHouse" value="#{invoiceBean.c_purchaser.house}" required="false" label="Číslo domu" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="purchaserEmail" value="E-mail:"/>                   
-                            <p:inputText id="purchaserEmail" value="#{invoiceBean.purchaser.email}" required="false" label="E-mail" validatorMessage="Chyba"/>
+                            <p:inputText id="purchaserEmail" value="#{invoiceBean.c_purchaser.email}" required="false" label="E-mail" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="purchaserPhone" value="Telefon:"/>                   
-                            <p:inputText id="purchaserPhone" value="#{invoiceBean.purchaser.phone}" required="false" label="Telefon" validatorMessage="Chyba"/>
+                            <p:inputText id="purchaserPhone" value="#{invoiceBean.c_purchaser.phone}" required="false" label="Telefon" validatorMessage="Chyba"/>
 
                             <p:outputLabel />
-                            <p:commandButton value="Uložit tento kontakt" validateClient="true" icon="ui-icon-disk" />
+                            <p:commandButton value="Uložit tento kontakt" validateClient="true" process="purchaserGrid" update="purchaserGrid purchaserError @parent" icon="ui-icon-disk" />
 
                         </h:panelGrid>
 
@@ -103,41 +105,41 @@
                         <h:panelGrid id="receiverGrid" columns="2" cellpadding="5">
 
                             <p:outputLabel value="Vyhledat:" for="receiver" />
-                            <p:autoComplete id="receiver" value="#{invoiceBean.receiver}" completeMethod="#{invoiceBean.completeReceiver}"
-                                            var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true"  />
+                            <p:autoComplete id="receiver" value="#{invoiceBean.receiver}" completeMethod="#{invoiceBean.completeContact}"
+                                            var="person" itemLabel="#{invoiceBean.receiver.wholename}" itemValue="#{invoiceBean.receiver}" converter="personConverter" forceSelection="true" dropdown="true"  />
 
                             <p:outputLabel for="receiverName" value="Jméno:" />                   
-                            <p:inputText id="receiverName" value="#{invoiceBean.receiver.name}" required="false" label="Jméno" validatorMessage="Chyba" />
+                            <p:inputText id="receiverName" value="#{invoiceBean.c_receiver.name}" required="false" label="Jméno" validatorMessage="Chyba" />
 
                             <p:outputLabel for="receiverLastName" value="Příjmení:" />                   
-                            <p:inputText id="receiverLastName" value="#{invoiceBean.receiver.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
+                            <p:inputText id="receiverLastName" value="#{invoiceBean.c_receiver.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
 
                             <p:outputLabel for="receiverCompany" value="Firma:" />                   
-                            <p:inputText id="receiverCompany" value="#{invoiceBean.receiver.company}" required="true" label="Firma" validatorMessage="Chyba" />
+                            <p:inputText id="receiverCompany" value="#{invoiceBean.c_receiver.company}" required="true" label="Firma" validatorMessage="Chyba" />
 
                             <p:outputLabel for="receiverIco" value="IČO:" />                   
-                            <p:inputText id="receiverIco" value="#{invoiceBean.receiver.ico}" required="false" label="IČO" validatorMessage="Chyba" />
+                            <p:inputText id="receiverIco" value="#{invoiceBean.c_receiver.ico}" required="false" label="IČO" validatorMessage="Chyba" />
 
                             <p:outputLabel for="receiverCity" value="Město:" />                   
-                            <p:inputText  id="receiverCity" value="#{invoiceBean.receiver.city}" required="false" label="Město" validatorMessage="Chyba"/>
+                            <p:inputText  id="receiverCity" value="#{invoiceBean.c_receiver.city}" required="false" label="Město" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="receiverPcode" value="PSČ:" />                   
-                            <p:inputText id="receiverPcode" value="#{invoiceBean.receiver.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
+                            <p:inputText id="receiverPcode" value="#{invoiceBean.c_receiver.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
 
                             <p:outputLabel for="receiverStreet" value="Ulice:"/>                   
-                            <p:inputText id="receiverStreet" value="#{invoiceBean.receiver.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
+                            <p:inputText id="receiverStreet" value="#{invoiceBean.c_receiver.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="receiverHouse" value="Číslo domu:"/>                   
-                            <p:inputText id="receiverHouse" value="#{invoiceBean.receiver.house}" required="false" label="Číslo domu" validatorMessage="Chyba"/>
+                            <p:inputText id="receiverHouse" value="#{invoiceBean.c_receiver.house}" required="false" label="Číslo domu" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="receiverEmail" value="E-mail:"/>                   
-                            <p:inputText id="receiverEmail" value="#{invoiceBean.receiver.email}" required="false" label="E-mail" validatorMessage="Chyba"/>
+                            <p:inputText id="receiverEmail" value="#{invoiceBean.c_receiver.email}" required="false" label="E-mail" validatorMessage="Chyba"/>
 
                             <p:outputLabel for="receiverPhone" value="Telefon:"/>                   
-                            <p:inputText id="receiverPhone" value="#{invoiceBean.receiver.phone}" required="false" label="Telefon" validatorMessage="Chyba"/>
+                            <p:inputText id="receiverPhone" value="#{invoiceBean.c_receiver.phone}" required="false" label="Telefon" validatorMessage="Chyba"/>
 
                             <p:outputLabel />
-                            <p:commandButton value="Uložit tento kontakt" validateClient="true" icon="ui-icon-disk" />
+                            <p:commandButton value="Uložit tento kontakt" validateClient="true" process="receiverGrid" update="receiverGrid receiverError @parent" icon="ui-icon-disk" />
 
                         </h:panelGrid>
 
@@ -197,9 +199,7 @@
 
                 </h:form>
 
-                <p:commandButton action="none" value="Uložit" process=":form:head" update=":form:head" validateClient="true" icon="ui-icon-disk"/>
-
-
+                <p:commandButton action="none" value="Uložit" process="details purchaserGrid receiverGrid" update="details purchaserGrid receiverGrid globalError" validateClient="true" icon="ui-icon-disk"/>
 
             </p:panel>
         </h:form>
