@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Fakturujem.cz - Dashboard</title>
+    </h:head>
+    <h:body>
+        <h:form>       
+            <p>Vítej, #{indexBean.email} s ID: #{dashboardBean.logedID} </p>
+            <p:commandButton action="#{indexBean.logout}" value="Odhlásit se"  ajax="false"></p:commandButton>
+
+            <p:tabView>
+                <p:tab title="Faktury">
+
+                    <p:commandButton action="invoice.xhtml" value="Nová faktura"  ajax="true" />
+                    
+                    <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
+                        <p:column headerText="Číslo fa.">
+                            <h:outputText value="#{invoice.invoicenumber}" />
+                        </p:column>
+
+                        <p:column headerText="Příjemce">
+                            <h:outputText value="#{invoice.receiver}" />
+                        </p:column>
+
+                        <p:column headerText="Datum vystavení">
+                            <h:outputText value="#{invoice.created}" />
+                        </p:column>
+
+                        <p:column headerText="Částka celkem">
+                            <h:outputText value="#{invoice.total} Kč" />
+                        </p:column>
+
+                        <p:column headerText="Stav">
+                            <h:outputText value="#{invoice.stateLabel}" />
+                        </p:column>
+
+
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton action="invoice.xhtml"  icon="ui-icon-search" title="View">
+                                <f:setPropertyActionListener value="#{invoice}" target="#{invoiceBean.selectedInvoice}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:tab>
+                <p:tab title="Adresář">
+                    
+                    <p:commandButton action="person.xhtml" value="Nový záznam"  ajax="false" />
+                    
+                    <p:dataTable paginator="true" var="person" value="#{dashboardBean.persons}">
+                        
+                        <p:column headerText="Jméno">
+                            <h:outputText value="#{person.wholename}" />
+                        </p:column>
+
+                        <p:column headerText="Firma">
+                            <h:outputText value="#{person.company}" />
+                        </p:column>
+
+                        <p:column headerText="Email">
+                            <h:outputText value="#{person.email}" />
+                        </p:column>
+
+                        <p:column headerText="Telefon">
+                            <h:outputText value="#{person.phone}" />
+                        </p:column>
+
+
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton  icon="ui-icon-search" title="View">
+
+                            </p:commandButton>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                     
+
+                </p:tab>
+                
+            </p:tabView>
+
+        </h:form>
+
+    </h:body>
+</html>
+

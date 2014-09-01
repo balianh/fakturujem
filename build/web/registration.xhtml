@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registrace</title>
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <p:commandButton action="index.xhtml" value="Index" ajax="false" />
+        </h:form>
+
+        <h:form>
+            <p:panel header="Registrace">
+
+                <h:panelGrid id="grid" columns="3" cellpadding="5">
+                    
+                    <h:outputLabel for="email" value="E-mail:" style="font-weight:bold"/>                   
+                    <p:inputText id="email" value="#{registrationBean.email}" required="true" label="E-mail" validatorMessage="Chyba"/>
+                    <p:message for="email" />
+
+                    <h:outputLabel for="password1" value="Heslo:" style="font-weight:bold"/>                   
+                    <p:password id="password1" value="#{registrationBean.password1}" required="true" match="password2" label="Heslo" validatorMessage="Heslo se musí shodovat a mít 6 až 45 znaků " />
+                    <p:message for="password1"  />
+
+                    <h:outputLabel for="password2" value="Heslo znovu:" style="font-weight:bold"/>                   
+                    <p:password id="password2" value="#{registrationBean.password2}" required="false" label="Heslo znovu"/>
+                    <p:message for="password2" />
+
+                    <h:outputLabel for="name" value="Jméno:" style="font-weight:bold"/>                   
+                    <p:inputText id="name" value="#{registrationBean.name}" required="false" label="Jméno" validatorMessage="Chyba" />
+                    <p:message for="name" />
+
+                    <h:outputLabel for="lastName" value="Příjmení:" style="font-weight:bold"/>                   
+                    <p:inputText id="lastName" value="#{registrationBean.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
+                    <p:message for="lastName" />
+
+                    <h:outputLabel for="company" value="Firma:" style="font-weight:bold"/>                   
+                    <p:inputText id="company" value="#{registrationBean.company}" required="false" label="Firma" validatorMessage="Chyba" />
+                    <p:message for="company" />
+
+                    <h:outputLabel for="ico" value="IČO:" style="font-weight:bold"/>                   
+                    <p:inputText id="ico" value="#{registrationBean.ICO}" required="false" label="IČO" validatorMessage="Chyba" />
+                    <p:message for="ico" />
+
+                    <h:outputLabel for="city" value="Město:" style="font-weight:bold"/>                   
+                    <p:inputText  id="city" value="#{registrationBean.city}" required="false" label="Město" validatorMessage="Chyba"/>
+                    <p:message for="city" />
+
+                    <h:outputLabel for="pcode" value="PSČ:" style="font-weight:bold"/>                   
+                    <p:inputText id="pcode" value="#{registrationBean.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
+                    <p:message for="pcode" />
+
+                    <h:outputLabel for="street" value="Ulice:" style="font-weight:bold"/>                   
+                    <p:inputText id="street" value="#{registrationBean.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
+                    <p:message for="street" />
+
+                    <h:outputLabel for="house" value="Číslo:" style="font-weight:bold"/>                   
+                    <p:inputText id="house" value="#{registrationBean.house}" required="false" label="Číslo" validatorMessage="Chyba"/>
+                    <p:message for="house" />
+
+                    <h:outputLabel for="agreed" value="Souhlas:" style="font-weight:bold"/>
+                    <p:selectBooleanCheckbox id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" validatorMessage="S podmínkami služby je nutné souhlasit"/>
+                    <p:message for="agreed" />
+                            
+                    <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>
+
+                    
+                </h:panelGrid>
+
+            </p:panel>
+        </h:form>
+
+    </h:body>
+</html>
+
