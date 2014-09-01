@@ -23,15 +23,13 @@ import model.Invoice;
 import model.Person;
 import net.sf.jasperreports.engine.JRException;
 
-
 @ManagedBean(name = "invoiceBean")
 @SessionScoped
-public class InvoiceBean implements Serializable{
+public class InvoiceBean implements Serializable {
 
-    private boolean receiverIsPurchaser;
-    private boolean duzpIsEqualToCreated;
-    private Person receiver;
-    private Person purchaser;
+    private boolean singleContact;
+    private Person recipient;
+    private Person customer;
     private String invoiceNumber;
     private String method;
     private Date created;
@@ -39,12 +37,16 @@ public class InvoiceBean implements Serializable{
     private Date duzp;
     private Item item;
     private List<Item> items;
-    private List<model.Item> invoiceItems;
+    private List<model.Item> items2;
     private List<Person> persons;
     private String logedID = "0";
     private Invoice selectedInvoice;
-    private Contact c_purchaser;
-    private Contact c_receiver;
+    private Contact c_customer;
+    private Contact c_recipient;
+    
+    public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
+        controller.Printer.printInvoice(actionEvent,selectedInvoice, items2 , recipient, customer, recipient);
+    }
 
     /**
      * @return the selectedInvoice
@@ -62,8 +64,6 @@ public class InvoiceBean implements Serializable{
         setInvoiceNumber(Integer.toString(selectedInvoice.getInvoicenumber()));
     }
 
-
-    
     @PostConstruct
     public void init() {
         HttpSession s = HttpSessionUtil.getSession();
@@ -72,100 +72,84 @@ public class InvoiceBean implements Serializable{
             setLogedID((s.getAttribute("logedid").toString()));
         }
         item = new Item();
-        c_purchaser = new Contact();
-        c_receiver = new Contact();
+        c_customer = new Contact();
+        c_recipient = new Contact();
         items = new ArrayList<>();
         getPersons();
-       
-    }
-    
-    public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
-        controller.Printer.printInvoice(actionEvent,selectedInvoice, invoiceItems , receiver, purchaser, receiver);
-    }
-    
-       public void flushForm() {
-    
-        this.setCreated(null);
-        this.setInvoiceNumber(null);
-        
+
     }
 
-    
+    public void flushForm() {
+
+        this.setCreated(null);
+        this.setInvoiceNumber(null);
+
+    }
+
     public List<Person> completeContact(String query) {
-        
+
         List<Person> filterPersons = new ArrayList<>();
-        
-        int validResultsCount = 0;            
-       
+
+        int validResultsCount = 0;
+
         for (Person person : persons) {
-            if(person.getWholename().toLowerCase().contains(query)) {
-                validResultsCount++;           
-                if (validResultsCount <= 10)
+            if (person.getWholename().toLowerCase().contains(query)) {
+                validResultsCount++;
+                if (validResultsCount <= 10) {
                     filterPersons.add(person);
+                }
             }
         }
-         
+
         return filterPersons;
     }
 
     public void createNew() {
-        if(items.contains(item)) {
+        if (items.contains(item)) {
             FacesMessage msg = new FacesMessage("Dublicated", "This item has already been added");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        else {
+        } else {
             items.add(item);
             item = new Item();
         }
     }
-     
+
     public String reinit() {
         item = new Item();
         return null;
     }
-    
+
     public Item getItem() {
         return item;
     }
- 
+
     public List<Item> getItems() {
         return items;
     }
 
-    public Contact getC_purchaser() {
-        return c_purchaser;
+    public Contact getC_customer() {
+        return c_customer;
     }
 
-    public void setC_purchaser(Contact c_purchaser) {
-        this.c_purchaser = c_purchaser;
+    public void setC_customer(Contact c_customer) {
+        this.c_customer = c_customer;
     }
 
-    public Contact getC_receiver() {
-        return c_receiver;
+    public Contact getC_recipient() {
+        return c_recipient;
     }
 
-    public void setC_receiver(Contact c_receiver) {
-        this.c_receiver = c_receiver;
-    }
-    
-    
-    
-    public boolean isReceiverIsPurchaser() {
-        return receiverIsPurchaser;
+    public void setC_recipient(Contact c_recipient) {
+        this.c_recipient = c_recipient;
     }
 
-    public void setReceiverIsPurchaser(boolean receiverIsPurchaser) {
-        this.receiverIsPurchaser = receiverIsPurchaser;
+    public boolean isSingleContact() {
+        return singleContact;
     }
 
-    public boolean isDuzpIsEqualToCreated() {
-        return duzpIsEqualToCreated;
+    public void setSingleContact(boolean singleContact) {
+        this.singleContact = singleContact;
     }
-
-    public void setDuzpIsEqualToCreated(boolean duzpIsEqualToCreated) {
-        this.duzpIsEqualToCreated = duzpIsEqualToCreated;
-    }
-
 
     public String getMethod() {
         return method;
@@ -228,26 +212,20 @@ public class InvoiceBean implements Serializable{
         this.logedID = logedID;
     }
 
-    /**
-     * @return the receiver
-     */
-    public Person getReceiver() {
-        return receiver;
+    public Person getRecipient() {
+        return recipient;
     }
 
-    /**
-     * @param receiver the receiver to set
-     */
-    public void setReceiver(Person receiver) {
-        this.receiver = receiver;
+    public void setRecipient(Person recipient) {
+        this.recipient = recipient;
     }
 
-    public Person getPurchaser() {
-        return purchaser;
+    public Person getCustomer() {
+        return customer;
     }
 
-    public void setPurchaser(Person purchaser) {
-        this.purchaser = purchaser;
+    public void setCustomer(Person customer) {
+        this.customer = customer;
     }
 
     /**
@@ -264,14 +242,16 @@ public class InvoiceBean implements Serializable{
         this.invoiceNumber = invoiceNumber;
     }
 
- 
+    public void toggleRecipientView() {
+    }
+
     public class Item {
 
         private String title;
         private Integer price;
         private Integer amount;
-        
-        public Item(){
+
+        public Item() {
             amount = 1;
             price = 0;
         }
@@ -300,7 +280,6 @@ public class InvoiceBean implements Serializable{
             this.amount = amount;
         }
 
-        
         @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof Item)) {
@@ -309,7 +288,7 @@ public class InvoiceBean implements Serializable{
 
             Item book = (Item) obj;
 
-            return (book.getTitle() != null && book.getTitle().equals(title)) && (book.getPrice()!= null && book.getPrice().equals(price));
+            return (book.getTitle() != null && book.getTitle().equals(title)) && (book.getPrice() != null && book.getPrice().equals(price));
         }
 
         @Override
@@ -326,9 +305,9 @@ public class InvoiceBean implements Serializable{
             return hash;
         }
     }
-    
-    public class Contact{
-        
+
+    public class Contact {
+
         private String name;
         private String lastName;
         private String company;
@@ -338,7 +317,7 @@ public class InvoiceBean implements Serializable{
         private String street;
         private String house;
         private String email;
-        private Integer phone;
+        private String phone;
 
         public String getName() {
             return name;
@@ -412,16 +391,14 @@ public class InvoiceBean implements Serializable{
             this.email = email;
         }
 
-        public Integer getPhone() {
+        public String getPhone() {
             return phone;
         }
 
-        public void setPhone(Integer phone) {
+        public void setPhone(String phone) {
             this.phone = phone;
         }
-        
-        
-        
+
     }
 
 }
