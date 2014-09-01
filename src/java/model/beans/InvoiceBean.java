@@ -242,11 +242,12 @@ public class InvoiceBean implements Serializable{
     public class Item {
 
         private String title;
-        private String price;
+        private Integer price;
         private Integer amount;
         
         public Item(){
             amount = 1;
+            price = 0;
         }
 
         public String getTitle() {
@@ -257,11 +258,11 @@ public class InvoiceBean implements Serializable{
             this.title = title;
         }
 
-        public String getPrice() {
+        public Integer getPrice() {
             return price;
         }
 
-        public void setPrice(String price) {
+        public void setPrice(Integer price) {
             this.price = price;
         }
 
