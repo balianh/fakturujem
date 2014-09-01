@@ -15,7 +15,6 @@
                 <f:actionListener binding="#{invoiceBean.flushForm()}" />
             </p:commandButton> 
             <p:commandButton value="Import" />
-            <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false"  value="Tisk faktury" />
         </h:form>
 
         <h:form id="form">
@@ -57,7 +56,7 @@
 
                             <p:outputLabel value="Vyhledat:" for="recipient" />
                             <p:autoComplete id="recipient" value="#{invoiceBean.recipient}" completeMethod="#{invoiceBean.completeContact}"
-                                            var="person" itemLabel="#{invoiceBean.recipient.wholename}" itemValue="#{invoiceBean.recipient}" converter="personConverter" forceSelection="true" dropdown="true"  />
+                                            var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true"  />
 
                             <p:outputLabel for="recipientName" value="Jméno:" />                   
                             <p:inputText id="recipientName" value="#{invoiceBean.c_recipient.name}" required="false" label="Jméno" validatorMessage="Chyba" />
@@ -105,7 +104,7 @@
 
                             <p:outputLabel value="Vyhledat:" for="customer" />
                             <p:autoComplete id="customer" value="#{invoiceBean.customer}" completeMethod="#{invoiceBean.completeContact}"
-                                            var="person" itemLabel="#{invoiceBean.customer.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true"  />
+                                            var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true"  />
 
                             <p:outputLabel for="customerName" value="Jméno:" />                   
                             <p:inputText id="customerName" value="#{invoiceBean.c_customer.name}" required="false" label="Jméno" validatorMessage="Chyba" />

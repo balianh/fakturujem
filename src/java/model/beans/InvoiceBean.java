@@ -45,7 +45,7 @@ public class InvoiceBean implements Serializable {
     private Contact c_recipient;
     
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
-        controller.Printer.printInvoice(actionEvent,selectedInvoice, items2 , recipient, customer, recipient);
+        controller.Printer.printInvoice(actionEvent,selectedInvoice, items2 , getRecipient(), getCustomer(), getRecipient());
     }
 
     /**
