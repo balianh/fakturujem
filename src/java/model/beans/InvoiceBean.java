@@ -41,8 +41,7 @@ public class InvoiceBean implements Serializable {
     private List<Person> persons;
     private String logedID = "0";
     private Invoice selectedInvoice;
-    private Contact c_customer;
-    private Contact c_recipient;
+  
     
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
         controller.Printer.printInvoice(actionEvent,selectedInvoice, items2 , getRecipient(), getCustomer(), getRecipient());
@@ -72,8 +71,8 @@ public class InvoiceBean implements Serializable {
             setLogedID((s.getAttribute("logedid").toString()));
         }
         item = new Item();
-        c_customer = new Contact();
-        c_recipient = new Contact();
+       // customer = new Person();
+       // recipient = new Person();
         items = new ArrayList<>();
         getPersons();
 
@@ -127,21 +126,7 @@ public class InvoiceBean implements Serializable {
         return items;
     }
 
-    public Contact getC_customer() {
-        return c_customer;
-    }
-
-    public void setC_customer(Contact c_customer) {
-        this.c_customer = c_customer;
-    }
-
-    public Contact getC_recipient() {
-        return c_recipient;
-    }
-
-    public void setC_recipient(Contact c_recipient) {
-        this.c_recipient = c_recipient;
-    }
+    
 
     public boolean isSingleContact() {
         return singleContact;
@@ -306,99 +291,6 @@ public class InvoiceBean implements Serializable {
         }
     }
 
-    public class Contact {
-
-        private String name;
-        private String lastName;
-        private String company;
-        private Integer ico;
-        private String city;
-        private Integer pcode;
-        private String street;
-        private String house;
-        private String email;
-        private String phone;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-
-        public String getCompany() {
-            return company;
-        }
-
-        public void setCompany(String company) {
-            this.company = company;
-        }
-
-        public Integer getIco() {
-            return ico;
-        }
-
-        public void setIco(Integer ico) {
-            this.ico = ico;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public Integer getPcode() {
-            return pcode;
-        }
-
-        public void setPcode(Integer pcode) {
-            this.pcode = pcode;
-        }
-
-        public String getStreet() {
-            return street;
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
-        }
-
-        public String getHouse() {
-            return house;
-        }
-
-        public void setHouse(String house) {
-            this.house = house;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
-    }
+   
 
 }

@@ -141,7 +141,7 @@ public class RegistrationBean {
         Account newAccount = new Account(email, password1);
         newAccount.setId(Queries.createAccount(newAccount));
          Person newPerson = new Person(newAccount.getId(), name, lastName, 
-                 company, street + " " + house, city, pcode, true, email, ICO);
+                 company, street ,house, city, pcode, true, email, ICO);
         Queries.createPerson(newPerson);
          return "index";
     }

@@ -16,6 +16,7 @@ public class Person  implements java.io.Serializable {
      private String wholename;
      private String company;
      private String street;
+     private String house;
      private String city;
      private Integer pcode;
      private String state;
@@ -35,12 +36,13 @@ public class Person  implements java.io.Serializable {
     public Person(int accountIdaccount) {
         this.accountIdaccount = accountIdaccount;
     }
-    public Person(int accountIdaccount, String name, String lastname, String company, String street, String city, Integer pcode, String state, Boolean isowner, Integer phone, String email, Integer fax, String www, String bankaccount, Integer ico, String dic) {
+    public Person(int accountIdaccount, String name, String lastname, String company, String street,String house, String city, Integer pcode, String state, Boolean isowner, Integer phone, String email, Integer fax, String www, String bankaccount, Integer ico, String dic) {
        this.accountIdaccount = accountIdaccount;
        this.name = name;
        this.lastname = lastname;
        this.company = company;
        this.street = street;
+       this.house = house;
        this.city = city;
        this.pcode = pcode;
        this.state = state;
@@ -55,13 +57,14 @@ public class Person  implements java.io.Serializable {
     }
     
     public Person(int accountIdaccount, String name, String lastname, 
-            String company, String street, String city, Integer pcode,
+            String company, String street, String house, String city, Integer pcode,
             Boolean isowner, String email, Integer ico) {
        this.accountIdaccount = accountIdaccount;
        this.name = name;
        this.lastname = lastname;
        this.company = company;
        this.street = street;
+       this.house = house;
        this.city = city;
        this.pcode = pcode;
        this.state = "Česká Republika";
@@ -203,6 +206,20 @@ public class Person  implements java.io.Serializable {
      */
     public void setWholename(String wholename) {
         this.wholename = wholename;
+    }
+
+    /**
+     * @return the house
+     */
+    public String getHouse() {
+        return house;
+    }
+
+    /**
+     * @param house the house to set
+     */
+    public void setHouse(String house) {
+        this.house = house;
     }
 
 

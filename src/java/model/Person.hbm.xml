@@ -23,6 +23,9 @@
         <property name="street" type="string">
             <column name="street" length="45" />
         </property>
+        <property name="house" type="string">
+            <column name="house" length="45" />
+        </property>
         <property name="city" type="string">
             <column name="city" length="45" />
         </property>
