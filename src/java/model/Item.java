@@ -15,8 +15,10 @@ public class Item  implements java.io.Serializable {
      private String title;
      private int price;
      private String code;
+     private InvoiceHasItem invoiceHasItem;
 
     public Item() {
+        invoiceHasItem = new InvoiceHasItem(1,1,0);
     }
 
 	
@@ -77,6 +79,21 @@ public class Item  implements java.io.Serializable {
         this.code = code;
     }
 
+    /**
+     * @return the invoiceHasItem
+     */
+    public InvoiceHasItem getInvoiceHasItem() {
+        return invoiceHasItem;
+    }
+
+    /**
+     * @param invoiceHasItem the invoiceHasItem to set
+     */
+    public void setInvoiceHasItem(InvoiceHasItem invoiceHasItem) {
+        this.invoiceHasItem = invoiceHasItem;
+    }
+
+  
 
 
 

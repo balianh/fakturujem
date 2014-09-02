@@ -160,7 +160,7 @@
 
                             <p:autoComplete id="inputTitle" dropdown="true" value="#{invoiceBean.item.title}" required="true" completeMethod="#{invoiceBean.completeItemTitle}" />
                             <p:spinner id="inputPrice" value="#{invoiceBean.item.price}" required="true" suffix=" Kč" min="0" />
-                            <p:spinner id="inputAmount" value="#{invoiceBean.item.amount}" min="1" suffix=" ks" required="true" />
+                            <p:spinner id="inputAmount" value="#{invoiceBean.item.invoiceHasItem.count}" min="1" suffix=" ks" required="true" />
                             <p:commandButton process="itemGrid @parent items @parent" id="btnAdd" value="Přidat" update="items @parent itemEror @parent" action="#{invoiceBean.reinit}">
                                 <p:collector value="#{invoiceBean.item}" addTo="#{invoiceBean.items}" unique="true"/>
                             </p:commandButton>
@@ -180,7 +180,7 @@
                                 </p:column>
 
                                 <p:column headerText="Množství" width="150">
-                                    <h:outputText value="#{item.amount} ks" />
+                                    <h:outputText value="#{item.invoiceHasItem.count} ks" />
                                 </p:column>
 
                                 <p:column headerText="Akce" width="50">

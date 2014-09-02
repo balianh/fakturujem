@@ -20,6 +20,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
+import model.InvoiceHasItem;
+import model.Item;
 import model.Person;
 import net.sf.jasperreports.engine.JRException;
 
@@ -36,6 +38,7 @@ public class InvoiceBean implements Serializable {
     private Date due;
     private Date duzp;
     private Item item;
+    private InvoiceHasItem invoiceHasItem;
     private List<Item> items;
     private List<model.Item> items2;
     private List<Person> persons;
@@ -71,6 +74,8 @@ public class InvoiceBean implements Serializable {
             setLogedID((s.getAttribute("logedid").toString()));
         }
         item = new Item();
+        //to do
+
        // customer = new Person();
        // recipient = new Person();
         items = new ArrayList<>();
@@ -230,66 +235,23 @@ public class InvoiceBean implements Serializable {
     public void toggleRecipientView() {
     }
 
-    public class Item {
-
-        private String title;
-        private Integer price;
-        private Integer amount;
-
-        public Item() {
-            amount = 1;
-            price = 0;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public Integer getPrice() {
-            return price;
-        }
-
-        public void setPrice(Integer price) {
-            this.price = price;
-        }
-
-        public Integer getAmount() {
-            return amount;
-        }
-
-        public void setAmount(Integer amount) {
-            this.amount = amount;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Item)) {
-                return false;
-            }
-
-            Item book = (Item) obj;
-
-            return (book.getTitle() != null && book.getTitle().equals(title)) && (book.getPrice() != null && book.getPrice().equals(price));
-        }
-
-        @Override
-        public int hashCode() {
-            int hash = 1;
-            if (title != null) {
-                hash = hash * 31 + title.hashCode();
-            }
-
-            if (price != null) {
-                hash = hash * 29 + price.hashCode();
-            }
-
-            return hash;
-        }
+    /**
+     * @return the invoiceHasItem
+     */
+    public InvoiceHasItem getInvoiceHasItem() {
+        return invoiceHasItem;
     }
+
+    /**
+     * @param invoiceHasItem the invoiceHasItem to set
+     */
+    public void setInvoiceHasItem(InvoiceHasItem invoiceHasItem) {
+        this.invoiceHasItem = invoiceHasItem;
+    }
+
+    
+    
+
 
    
 
