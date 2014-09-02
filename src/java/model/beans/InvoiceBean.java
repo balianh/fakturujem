@@ -7,15 +7,19 @@ package model.beans;
 
 import controller.HttpSessionUtil;
 import controller.Queries;
+import java.io.Console;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
@@ -24,6 +28,7 @@ import model.InvoiceHasItem;
 import model.Item;
 import model.Person;
 import net.sf.jasperreports.engine.JRException;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "invoiceBean")
 @SessionScoped
@@ -40,14 +45,14 @@ public class InvoiceBean implements Serializable {
     private Item item;
     private InvoiceHasItem invoiceHasItem;
     private List<Item> items;
-    private List<model.Item> items2;
     private List<Person> persons;
     private String logedID = "0";
     private Invoice selectedInvoice;
+    private UIComponent recipientFields;
   
     
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
-        controller.Printer.printInvoice(actionEvent,selectedInvoice, items2 , getRecipient(), getCustomer(), getRecipient());
+        controller.Printer.printInvoice(actionEvent,selectedInvoice, items , getRecipient(), getCustomer(), getRecipient());
     }
 
     /**
@@ -74,10 +79,8 @@ public class InvoiceBean implements Serializable {
             setLogedID((s.getAttribute("logedid").toString()));
         }
         item = new Item();
-        //to do
-
-       // customer = new Person();
-       // recipient = new Person();
+        customer = new Person();
+        recipient = new Person();
         items = new ArrayList<>();
         getPersons();
 
@@ -130,8 +133,6 @@ public class InvoiceBean implements Serializable {
     public List<Item> getItems() {
         return items;
     }
-
-    
 
     public boolean isSingleContact() {
         return singleContact;
@@ -232,7 +233,8 @@ public class InvoiceBean implements Serializable {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public void toggleRecipientView() {
+    public void updateRecipientFields() {
+        RequestContext.getCurrentInstance().update("form:recipientFields");
     }
 
     /**
@@ -249,10 +251,12 @@ public class InvoiceBean implements Serializable {
         this.invoiceHasItem = invoiceHasItem;
     }
 
-    
-    
+    public UIComponent getRecipientFields() {
+        return recipientFields;
+    }
 
-
-   
+    public void setRecipientFields(UIComponent recipientFields) {
+        this.recipientFields = recipientFields;
+    }
 
 }
