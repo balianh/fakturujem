@@ -13,8 +13,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
@@ -23,6 +27,7 @@ import model.Item;
 import model.Method;
 import model.Person;
 import net.sf.jasperreports.engine.JRException;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "invoiceBean")
 @SessionScoped
@@ -42,6 +47,7 @@ public class InvoiceBean implements Serializable {
     private List<Person> persons;
     private String logedID = "0";
     private Invoice selectedInvoice;
+    private UIComponent recipientFields;
   
     
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
@@ -195,8 +201,6 @@ public class InvoiceBean implements Serializable {
         return items;
     }
 
-    
-
     public boolean isSingleContact() {
         return singleContact;
     }
@@ -296,7 +300,8 @@ public class InvoiceBean implements Serializable {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public void toggleRecipientView() {
+    public void updateRecipientFields() {
+        RequestContext.getCurrentInstance().update("form:recipientFields");
     }
 
     /**
@@ -313,10 +318,12 @@ public class InvoiceBean implements Serializable {
         this.invoiceHasItem = invoiceHasItem;
     }
 
-    
-    
+    public UIComponent getRecipientFields() {
+        return recipientFields;
+    }
 
-
-   
+    public void setRecipientFields(UIComponent recipientFields) {
+        this.recipientFields = recipientFields;
+    }
 
 }
