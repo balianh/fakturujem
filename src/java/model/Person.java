@@ -35,6 +35,22 @@ public class Person  implements java.io.Serializable {
     
     public Person(int accountIdaccount) {
         this.accountIdaccount = accountIdaccount;
+       this.name = "";
+       this.lastname = "";
+       this.company = "";
+       this.street = "";
+       this.house = "";
+       this.city = "";
+       this.pcode = 1;
+       this.state = "";
+       this.isowner = false;
+       this.phone = 1;
+       this.email = "";
+       this.fax = 1;
+       this.www = "";
+       this.bankaccount = "";
+       this.ico = 1;
+       this.dic = "";
     }
     public Person(int accountIdaccount, String name, String lastname, String company, String street,String house, String city, Integer pcode, String state, Boolean isowner, Integer phone, String email, Integer fax, String www, String bankaccount, Integer ico, String dic) {
        this.accountIdaccount = accountIdaccount;

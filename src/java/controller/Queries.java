@@ -192,21 +192,46 @@ public class Queries {
         return 0;
     }
     
-    public static void createPerson(Person newPerson){
+    public static int createPerson(Person newPerson){
         
         Session session = null;
         State result = null;
-        
+        int personId;
+            
         try {      
             
             session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
             session.save(newPerson);
-            tx.commit();
+            session.flush();
+            personId = newPerson.getId();
             session.close();
+            
+            return personId;
 
         } catch (HibernateException e) {
         } 
+        return 0;
+    }
+
+    public static int createInvoice(Invoice selectedInvoice) {
+        Session session = null;
+        State result = null;
+        int invoiceId;
+        
+        try {      
+            session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.save(selectedInvoice);
+            session.flush();
+            invoiceId = selectedInvoice.getId();
+            session.close();      
+            
+            return invoiceId;
+
+        } catch (HibernateException e) {
+        } 
+        return 0;
     }
     
         

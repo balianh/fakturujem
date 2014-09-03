@@ -23,7 +23,12 @@ public class Invoice  implements java.io.Serializable {
      private Integer constantsymbol;
      private Integer specificsymbol;
      private Integer total;
-     private State state;
+     
+     
+     /*
+      Support variables to keep view informations 
+      */
+     
      private String receiver; 
      private String stateLabel;
 
@@ -171,23 +176,7 @@ public class Invoice  implements java.io.Serializable {
         this.stateLabel = stateLabel;
     }
 
-    /**
-     * @return the state
-     */
-    public State getState() {
-        return state;
-    }
-
-    /**
-     * @param state the state to set
-     */
-    public void setState(State state) {
-        this.state = state;
-    }
-
-
-
-
+   
 }
 
 

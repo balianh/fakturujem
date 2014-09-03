@@ -13,15 +13,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
 import model.InvoiceHasItem;
 import model.Item;
+import model.Method;
 import model.Person;
 import net.sf.jasperreports.engine.JRException;
 
@@ -30,7 +29,7 @@ import net.sf.jasperreports.engine.JRException;
 public class InvoiceBean implements Serializable {
 
     private boolean singleContact;
-    private Person recipient;
+    private Person recipient = new Person(1);
     private Person customer;
     private String invoiceNumber;
     private String method;
@@ -40,14 +39,13 @@ public class InvoiceBean implements Serializable {
     private Item item;
     private InvoiceHasItem invoiceHasItem;
     private List<Item> items;
-    private List<model.Item> items2;
     private List<Person> persons;
     private String logedID = "0";
     private Invoice selectedInvoice;
   
     
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
-        controller.Printer.printInvoice(actionEvent,selectedInvoice, items2 , getRecipient(), getCustomer(), getRecipient());
+        controller.Printer.printInvoice(actionEvent,selectedInvoice, items , getRecipient(), getCustomer(), getRecipient());
     }
 
     /**
@@ -68,16 +66,37 @@ public class InvoiceBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        
+        selectedInvoice = new Invoice();
+        customer = new Person(1);
+        recipient = new Person(1);
+        
+        
         HttpSession s = HttpSessionUtil.getSession();
 
+        /*
+        Get users ID from session
+        */
         if (s != null) {
             setLogedID((s.getAttribute("logedid").toString()));
         }
+        /*
+        */
+        
+        /*
+        Fill invoice, recipient, customer with ID
+        */
+        selectedInvoice.setAccountIdaccount(Integer.parseInt(logedID)); 
+        selectedInvoice.setStateIdstate(1);
+        recipient.setAccountIdaccount(Integer.parseInt(logedID));
+        customer.setAccountIdaccount(Integer.parseInt(logedID));
+        /*
+        */
+        
         item = new Item();
         //to do
 
-       // customer = new Person();
-       // recipient = new Person();
+        
         items = new ArrayList<>();
         getPersons();
 
@@ -107,7 +126,52 @@ public class InvoiceBean implements Serializable {
 
         return filterPersons;
     }
+    
+   public List<Method> completeMethod(String query) {
 
+        List<Method> filterPersons = new ArrayList<>();
+        return filterPersons;
+    }
+   
+   
+   public List<Item> completeItemTitle(String query) {
+
+        List<Item> filterPersons = new ArrayList<>();
+        return filterPersons;
+    }
+    
+    
+    public String saveInvoice(){
+        
+        
+        /*
+        Save invoice and return her ID to variable
+        */
+        int savedInvoiceID = Queries.createInvoice(selectedInvoice);
+        
+        
+        /*
+        Save rercipient, customer and fill invoice with their ID and return her ID to variable
+        */
+        
+        int savedRecipientID = Queries.createPerson(recipient);
+        
+        int savedCustomerID;
+        if (!singleContact){
+            savedCustomerID = Queries.createPerson(customer);
+        }else{
+            savedCustomerID = savedRecipientID;     
+        } 
+        
+        
+
+        
+        
+        return "dashboard";
+    }
+    
+    
+/*
     public void createNew() {
         if (items.contains(item)) {
             FacesMessage msg = new FacesMessage("Dublicated", "This item has already been added");
@@ -116,7 +180,7 @@ public class InvoiceBean implements Serializable {
             items.add(item);
             item = new Item();
         }
-    }
+    }*/
 
     public String reinit() {
         item = new Item();

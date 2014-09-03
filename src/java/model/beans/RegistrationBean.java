@@ -142,7 +142,7 @@ public class RegistrationBean {
         newAccount.setId(Queries.createAccount(newAccount));
          Person newPerson = new Person(newAccount.getId(), name, lastName, 
                  company, street ,house, city, pcode, true, email, ICO);
-        Queries.createPerson(newPerson);
+         Queries.createPerson(newPerson);
          return "index";
     }
 
