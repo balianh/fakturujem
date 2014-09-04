@@ -106,6 +106,7 @@ public class Queries {
             Query q = session.createQuery("from Person where "
                     + "account_idaccount ='" + idaccount + "' and isowner=false");
             result= (List<Person>) q.list();     
+      
             return result;
         } catch (HibernateException e) {
         } finally {

@@ -72,12 +72,7 @@ public class InvoiceBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        
-        selectedInvoice = new Invoice();
-        customer = new Person(1);
-        recipient = new Person(1);
-        
-        
+            
         HttpSession s = HttpSessionUtil.getSession();
 
         /*
@@ -88,6 +83,20 @@ public class InvoiceBean implements Serializable {
         }
         /*
         */
+        
+        /*
+        Init variables
+        */
+        
+        persons = Queries.getPersonsAtAccountId(logedID); 
+       
+        selectedInvoice = new Invoice();
+        
+        customer = new Person("","");
+        recipient = new Person("","");     
+       
+        
+       
         
         /*
         Fill invoice, recipient, customer with ID
@@ -104,7 +113,6 @@ public class InvoiceBean implements Serializable {
 
         
         items = new ArrayList<>();
-        getPersons();
 
     }
 
@@ -129,7 +137,7 @@ public class InvoiceBean implements Serializable {
                 }
             }
         }
-
+int validRedsultsCount = 0;
         return filterPersons;
     }
     
@@ -245,7 +253,6 @@ public class InvoiceBean implements Serializable {
      * @return the persons
      */
     public List<Person> getPersons() {
-        persons = Queries.getPersonsAtAccountId(logedID);
         return persons;
     }
 

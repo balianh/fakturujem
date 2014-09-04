@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import model.Person;
+import model.beans.InvoiceBean;
  
 
  
@@ -12,8 +13,27 @@ import model.Person;
 public class PersonConverter implements Converter {
  
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-      // TO DO
-            return null;
+      
+        if(!value.contains("null")) {
+             InvoiceBean service = (InvoiceBean) fc.getExternalContext().getSessionMap().get("invoiceBean");
+           int i;
+           for (i =0; i < service.getPersons().size(); i++ ){
+                 if(service.getPersons().get(i).getId() == Integer.parseInt(value)) break;              
+            }
+           Person sP = service.getPersons().get(i);
+           
+           Person personToEdit = new Person(sP.getAccountIdaccount(), sP.getName(),
+                   sP.getLastname(), sP.getCompany(), sP.getStreet(), sP.getHouse(),
+                   sP.getCity(), sP.getPcode(), sP.getState(), Boolean.FALSE,
+                   sP.getPhone(), sP.getEmail(), sP.getFax(), sP.getWww(), 
+                   sP.getBankaccount(), sP.getIco(), sP.getDic());
+            
+           return personToEdit;
+        
+        }
+        else {
+            return new Person();
+        }
         
     }
  
