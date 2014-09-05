@@ -13,12 +13,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
@@ -34,7 +31,9 @@ import org.primefaces.context.RequestContext;
 public class InvoiceBean implements Serializable {
 
     private boolean singleContact;
-    private Person recipient = new Person(1);
+    private boolean newCustomerContact;
+    private boolean newRecipientContact;
+    private Person recipient;
     private Person customer;
     private String invoiceNumber;
     private String method;
@@ -53,8 +52,8 @@ public class InvoiceBean implements Serializable {
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
         controller.Printer.printInvoice(actionEvent,selectedInvoice, items , getRecipient(), getCustomer(), getRecipient());
     }
-
-    /**
+    
+     /**
      * @return the selectedInvoice
      */
     public Invoice getSelectedInvoice() {
@@ -92,8 +91,9 @@ public class InvoiceBean implements Serializable {
        
         selectedInvoice = new Invoice();
         
-        customer = new Person("","");
-        recipient = new Person("","");     
+        customer = new Person();
+        recipient = new Person(); 
+      
        
         
        
@@ -122,22 +122,22 @@ public class InvoiceBean implements Serializable {
         this.setInvoiceNumber(null);
 
     }
-
-    public List<Person> completeContact(String query) {
+    
+   public List<Person> completeContact(String query) {
 
         List<Person> filterPersons = new ArrayList<>();
 
         int validResultsCount = 0;
 
         for (Person person : persons) {
-            if (person.getWholename().toLowerCase().contains(query)) {
+            if (person.getWholename().contains(query)) {
                 validResultsCount++;
                 if (validResultsCount <= 10) {
                     filterPersons.add(person);
                 }
             }
         }
-int validRedsultsCount = 0;
+
         return filterPersons;
     }
     
@@ -332,5 +332,35 @@ int validRedsultsCount = 0;
     public void setRecipientFields(UIComponent recipientFields) {
         this.recipientFields = recipientFields;
     }
+
+    /**
+     * @return the newCustomerContact
+     */
+    public boolean isNewCustomerContact() {
+        return newCustomerContact;
+    }
+
+    /**
+     * @param newCustomerContact the newCustomerContact to set
+     */
+    public void setNewCustomerContact(boolean newCustomerContact) {
+        this.newCustomerContact = newCustomerContact;
+    }
+
+    /**
+     * @return the newRecipientContact
+     */
+    public boolean isNewRecipientContact() {
+        return newRecipientContact;
+    }
+
+    /**
+     * @param newRecipientContact the newRecipientContact to set
+     */
+    public void setNewRecipientContact(boolean newRecipientContact) {
+        this.newRecipientContact = newRecipientContact;
+    }
+
+    
 
 }
