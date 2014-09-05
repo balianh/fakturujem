@@ -27,7 +27,9 @@ public class Person implements java.io.Serializable {
     private String dic;
 
     public Person() {
-    }
+        this.name = "";
+        this.lastname = "";
+     }
 
     public Person(int accountIdaccount) {
         this.accountIdaccount = accountIdaccount;
@@ -215,7 +217,12 @@ public class Person implements java.io.Serializable {
      * @return the wholename
      */
     public String getWholename() {
-        wholename = name + " " + lastname;
+        
+        if (name.length() > 0 && lastname.length() > 0)
+           wholename = name + " " + lastname;
+        else
+           wholename = "";
+        
         return wholename;
     }
 

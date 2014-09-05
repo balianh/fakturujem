@@ -10,15 +10,13 @@ import controller.Queries;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
@@ -34,7 +32,9 @@ import org.primefaces.context.RequestContext;
 public class InvoiceBean implements Serializable {
 
     private boolean singleContact;
-    private Person recipient = new Person(1);
+    private boolean newCustomerContact;
+    private boolean newRecipientContact;
+    private Person recipient;
     private Person customer;
     private String invoiceNumber;
     private String method;
@@ -48,10 +48,9 @@ public class InvoiceBean implements Serializable {
     private String logedID = "0";
     private Invoice selectedInvoice;
     private UIComponent recipientFields;
-  
-    
-    public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
-        controller.Printer.printInvoice(actionEvent,selectedInvoice, items , getRecipient(), getCustomer(), getRecipient());
+
+    public void printInvoice(ActionEvent actionEvent) throws IOException, JRException {
+        controller.Printer.printInvoice(actionEvent, selectedInvoice, items, getRecipient(), getCustomer(), getRecipient());
     }
 
     /**
@@ -72,46 +71,47 @@ public class InvoiceBean implements Serializable {
 
     @PostConstruct
     public void init() {
-            
+
         HttpSession s = HttpSessionUtil.getSession();
 
         /*
-        Get users ID from session
-        */
+         Get users ID from session
+         */
         if (s != null) {
             setLogedID((s.getAttribute("logedid").toString()));
         }
         /*
-        */
-        
+         */
+
         /*
-        Init variables
-        */
-        
-        persons = Queries.getPersonsAtAccountId(logedID); 
-       
+         Init variables
+         */
+        persons = Queries.getPersonsAtAccountId(logedID);
+
         selectedInvoice = new Invoice();
-        
-        customer = new Person("","");
-        recipient = new Person("","");     
-       
-        
-       
-        
+
+        customer = new Person();
+        recipient = new Person();
+
+        Calendar cal = Calendar.getInstance();
+        created = cal.getTime();
+        duzp = cal.getTime();
+        cal.add(Calendar.DATE, 14);  
+        due = cal.getTime();
+
         /*
-        Fill invoice, recipient, customer with ID
-        */
-        selectedInvoice.setAccountIdaccount(Integer.parseInt(logedID)); 
+         Fill invoice, recipient, customer with ID
+         */
+        selectedInvoice.setAccountIdaccount(Integer.parseInt(logedID));
         selectedInvoice.setStateIdstate(1);
         recipient.setAccountIdaccount(Integer.parseInt(logedID));
         customer.setAccountIdaccount(Integer.parseInt(logedID));
         /*
-        */
-        
+         */
+
         item = new Item();
         //to do
 
-        
         items = new ArrayList<>();
 
     }
@@ -130,72 +130,61 @@ public class InvoiceBean implements Serializable {
         int validResultsCount = 0;
 
         for (Person person : persons) {
-            if (person.getWholename().toLowerCase().contains(query)) {
+            if (person.getWholename().contains(query)) {
                 validResultsCount++;
                 if (validResultsCount <= 10) {
                     filterPersons.add(person);
                 }
             }
         }
-int validRedsultsCount = 0;
+
         return filterPersons;
     }
-    
-   public List<Method> completeMethod(String query) {
+
+    public List<Method> completeMethod(String query) {
 
         List<Method> filterPersons = new ArrayList<>();
         return filterPersons;
     }
-   
-   
-   public List<Item> completeItemTitle(String query) {
+
+    public List<Item> completeItemTitle(String query) {
 
         List<Item> filterPersons = new ArrayList<>();
         return filterPersons;
     }
-    
-    
-    public String saveInvoice(){
-        
-        
-        /*
-        Save invoice and return her ID to variable
-        */
-        int savedInvoiceID = Queries.createInvoice(selectedInvoice);
-        
-        
-        /*
-        Save rercipient, customer and fill invoice with their ID and return her ID to variable
-        */
-        
-        int savedRecipientID = Queries.createPerson(recipient);
-        
-        int savedCustomerID;
-        if (!singleContact){
-            savedCustomerID = Queries.createPerson(customer);
-        }else{
-            savedCustomerID = savedRecipientID;     
-        } 
-        
-        
 
-        
-        
+    public String saveInvoice() {
+
+        /*
+         Save invoice and return her ID to variable
+         */
+        int savedInvoiceID = Queries.createInvoice(selectedInvoice);
+
+        /*
+         Save rercipient, customer and fill invoice with their ID and return her ID to variable
+         */
+        int savedRecipientID = Queries.createPerson(recipient);
+
+        int savedCustomerID;
+        if (!singleContact) {
+            savedCustomerID = Queries.createPerson(customer);
+        } else {
+            savedCustomerID = savedRecipientID;
+        }
+
         return "dashboard";
     }
-    
-    
-/*
-    public void createNew() {
-        if (items.contains(item)) {
-            FacesMessage msg = new FacesMessage("Dublicated", "This item has already been added");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        } else {
-            items.add(item);
-            item = new Item();
-        }
-    }*/
 
+    /*
+     public void createNew() {
+     if (items.contains(item)) {
+     FacesMessage msg = new FacesMessage("Dublicated", "This item has already been added");
+     FacesContext.getCurrentInstance().addMessage(null, msg);
+     } else {
+     items.add(item);
+     item = new Item();
+     }
+     }*/
     public String reinit() {
         item = new Item();
         return null;
@@ -331,6 +320,34 @@ int validRedsultsCount = 0;
 
     public void setRecipientFields(UIComponent recipientFields) {
         this.recipientFields = recipientFields;
+    }
+
+    /**
+     * @return the newCustomerContact
+     */
+    public boolean isNewCustomerContact() {
+        return newCustomerContact;
+    }
+
+    /**
+     * @param newCustomerContact the newCustomerContact to set
+     */
+    public void setNewCustomerContact(boolean newCustomerContact) {
+        this.newCustomerContact = newCustomerContact;
+    }
+
+    /**
+     * @return the newRecipientContact
+     */
+    public boolean isNewRecipientContact() {
+        return newRecipientContact;
+    }
+
+    /**
+     * @param newRecipientContact the newRecipientContact to set
+     */
+    public void setNewRecipientContact(boolean newRecipientContact) {
+        this.newRecipientContact = newRecipientContact;
     }
 
 }
