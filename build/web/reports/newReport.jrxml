@@ -2,54 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9299a2a-91a4-41cd-a138-375eeba269eb">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="479"/>
-	<style name="table">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1">
-		<box>
-			<pen lineWidth="1.0" lineColor="#676767"/>
-		</box>
-	</style>
-	<style name="table 1_TH" mode="Opaque" backcolor="#F5F5F5">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#676767"/>
-			<bottomPen lineWidth="0.5" lineColor="#676767"/>
-		</box>
-	</style>
-	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#676767"/>
-			<bottomPen lineWidth="0.5" lineColor="#676767"/>
-		</box>
-	</style>
-	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#676767"/>
-			<bottomPen lineWidth="0.5" lineColor="#676767"/>
-		</box>
-	</style>
-	<subDataset name="Table Dataset 1" uuid="de1019d1-d4ff-4ae4-b03b-77fae97c9a7b"/>
+	<property name="ireport.y" value="240"/>
 	<queryString>
 		<![CDATA[SELECT name as "P_NAME" from person]]>
 	</queryString>
@@ -330,29 +283,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="141" splitType="Stretch">
-			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="0" width="555" height="141" uuid="96af3bd4-0a9c-48cc-8bd4-a04ec4e13b5a"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="82aab050-3de5-4315-bc24-105b6a6c4ce6">
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:column width="90" uuid="9e5962c7-f52d-41f7-8417-7216bc4cb030">
-						<printWhenExpression><![CDATA[$P{REPORT_CONTEXT}]]></printWhenExpression>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="af29aabf-049d-4fbf-9a60-b573bb678358">
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="47929d6f-90d2-4e57-af10-66a9bf0ab228">
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="862dc145-9933-447d-9361-e9170954fcde">
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-		</band>
+		<band height="125" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="100" splitType="Stretch">

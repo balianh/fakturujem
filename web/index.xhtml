@@ -3,46 +3,74 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Fakturujem.cz</title>
+        <title>Seznámení | A-Faktury</title>
+        <link rel="icon" 
+              type="image/png" 
+              href="images/fav.png" />
     </h:head>
     <h:body >
-        <h:form id="loginForm" >         
-            <p:growl id="msg" showDetail="true" life="3000"  />
-            <p:panel header="Login" style="width: 360px;">
 
-                <h:panelGrid id="loginPanel" columns="2">
+        <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
+            <div id="header">
+                <img src="images/A-Faktury.png" width="270" style="padding: 50px 50px 50px 185px;"/>
+            </div>
+            <div style="float: right; margin-right: 100px; margin-top: 20px;">
+                <h:form id="loginForm" >         
+                    <p:growl id="msg" showDetail="true" life="3000"  />
+                    <p:panel header="Přihlášení" style="width: 335px;">
 
-                    <h:outputText value="Email" />
+                        <h:panelGrid id="loginPanel" columns="2">
 
-                    <p:inputText id="email" value="#{indexBean.email}" ></p:inputText>
+                            <h:outputText value="E-mail:" />
 
-                    <p:spacer></p:spacer>
+                            <p:inputText id="email" value="#{indexBean.email}" ></p:inputText>
 
-                    <p:message for="email" ></p:message>
+                            <p:spacer></p:spacer>
 
-                    <h:outputText value="Heslo" />
+                            <p:message for="email" ></p:message>
 
-                    <p:password id="password" value="#{indexBean.password}"  feedback="false"></p:password>
+                            <h:outputText value="Heslo:" />
 
-                    <p:spacer></p:spacer>
+                            <p:password id="password" value="#{indexBean.password}"  feedback="false"></p:password>
 
-                    <p:message for="password"></p:message>
+                            <p:spacer></p:spacer>
 
-                    <p:spacer></p:spacer>
+                            <p:message for="password"></p:message>
 
-                    <p:commandButton action="#{indexBean.loginProject}" value="Login" update="loginForm" ajax="true" ></p:commandButton>
+                            <p:spacer></p:spacer>
 
-                </h:panelGrid>
+                            <p:commandButton action="#{indexBean.loginProject}" value="Přihlásit se" update="loginForm" ajax="true" ></p:commandButton>
 
-            </p:panel>
+                        </h:panelGrid>
 
-        </h:form>
+                    </p:panel>
 
-        <h:form>
-            <p:commandButton action="registration.xhtml" value="Registrace" ajax="false" />
-        </h:form>
+                </h:form>
+                
+                <h:form style=" margin-left: -386px; margin-top: -53px;">
+                    <p:commandButton action="registration.xhtml" value="Registrace" ajax="false"/>
+                </h:form>
+            </div>
+
+            <div style="margin-left: 100px; margin-bottom: 200px; width: 440px; color: slategrey; text-align: center;">
+                <h2>Vaše online fakturace</h2>
+                <p>A-Faktury jsou bezplatným systémem online fakturace, jednoduchým, rychlým a spolehlivým.</p>
+                <ul style="margin-bottom: 50px;">
+                    <li>Import údajů ze serverů Aukro</li>
+                    <li>Export faktur do PDF</li>
+                </ul>
+            </div>
+
+
+            <div class="footer" style="text-align: center;">
+                <span>©2014</span>
+            </div>
+
+
+        </div>
 
     </h:body> 
 

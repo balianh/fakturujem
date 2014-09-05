@@ -4,7 +4,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Registrace</title>
+        <title>Registrace | A-Faktury</title>
+        <link rel="icon" 
+              type="image/png" 
+              href="images/fav.png" />
     </h:head>
     <h:body>
 
@@ -16,7 +19,7 @@
             <p:panel header="Registrace">
 
                 <h:panelGrid id="grid" columns="3" cellpadding="5">
-                    
+
                     <h:outputLabel for="email" value="E-mail:" style="font-weight:bold"/>                   
                     <p:inputText id="email" value="#{registrationBean.email}" required="true" label="E-mail" validatorMessage="Chyba"/>
                     <p:message for="email" />
@@ -64,10 +67,10 @@
                     <h:outputLabel for="agreed" value="Souhlas:" style="font-weight:bold"/>
                     <p:selectBooleanCheckbox id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" validatorMessage="S podmínkami služby je nutné souhlasit"/>
                     <p:message for="agreed" />
-                            
+
                     <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>
 
-                    
+
                 </h:panelGrid>
 
             </p:panel>

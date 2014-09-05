@@ -5,7 +5,10 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Fakturujem.cz - Dashboard</title>
+        <title>Přehled | A-Faktury</title>
+        <link rel="icon" 
+              type="image/png" 
+              href="images/fav.png" />
     </h:head>
     <h:body>
         <h:form>       
@@ -16,7 +19,7 @@
                 <p:tab title="Faktury">
 
                     <p:commandButton action="invoice.xhtml" value="Nová faktura"  icon="ui-icon-document" ajax="true" />
-                    
+
                     <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
                         <p:column headerText="Číslo fa.">
                             <h:outputText value="#{invoice.invoicenumber}" />
@@ -49,11 +52,11 @@
 
                 </p:tab>
                 <p:tab title="Adresář">
-                    
+
                     <p:commandButton action="person.xhtml" value="Nový záznam"  ajax="false" />
-                    
+
                     <p:dataTable paginator="true" var="person" value="#{dashboardBean.persons}">
-                        
+
                         <p:column headerText="Jméno">
                             <h:outputText value="#{person.wholename}" />
                         </p:column>
@@ -76,13 +79,13 @@
 
                             </p:commandButton>
                         </p:column>
-                        
+
                     </p:dataTable>
-                    
-                     
+
+
 
                 </p:tab>
-                
+
             </p:tabView>
 
         </h:form>
