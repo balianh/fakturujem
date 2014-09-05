@@ -3,7 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Seznámení | A-Faktury</title>
         <link rel="icon" 
@@ -13,34 +14,34 @@
     <h:body >
 
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
-            <div id="header">
-                <a href="index.xhtml" ><img src="images/A-Faktury.png" width="270" style="border: none; margin: 50px 50px 50px 185px;"/></a>
+
+            <div id="header" style="padding: 50px 50px 50px 185px;">
+                <a href="index.xhtml" ><img src="images/A-Faktury.png" width="270" style="border: none;"/></a>
             </div>
-            <div style="float: right; margin-right: 100px; margin-top: 20px;">
+
+            <div style="float: right; margin-right: 100px;">
+
                 <h:form id="loginForm" >         
+
                     <p:growl id="msg" showDetail="true" life="3000"  />
-                    <p:panel header="Přihlášení" style="width: 335px;">
 
-                        <h:panelGrid id="loginPanel" columns="2">
+                    <p:panel header="Přihlášení" style="width: 350px;">
 
-                            <h:outputText value="E-mail:" />
+                        <h:panelGrid id="loginPanel" columns="2" cellpadding="5">
 
+
+                            <p:outputLabel for="email" value="E-mail:" />
                             <p:inputText id="email" value="#{indexBean.email}" ></p:inputText>
 
-                            <p:spacer></p:spacer>
-
-                            <p:message for="email" ></p:message>
-
-                            <h:outputText value="Heslo:" />
-
+                            <p:outputLabel for="password" value="Heslo:" />
                             <p:password id="password" value="#{indexBean.password}"  feedback="false"></p:password>
 
                             <p:spacer></p:spacer>
-
-                            <p:message for="password"></p:message>
+                            <p:selectBooleanCheckbox itemLabel=" Zapamatovat"> </p:selectBooleanCheckbox>
+                            
+                            
 
                             <p:spacer></p:spacer>
-
                             <p:commandButton action="#{indexBean.loginProject}" value="Přihlásit se" update="loginForm" ajax="true" ></p:commandButton>
 
                         </h:panelGrid>
@@ -48,23 +49,23 @@
                     </p:panel>
 
                 </h:form>
-                
-                <h:form style=" margin-left: -386px; margin-top: -53px;">
+
+                <h:form style=" margin-left: -371px; margin-top: -53px;">
                     <p:commandButton action="registration.xhtml" value="Registrace" ajax="false"/>
                 </h:form>
             </div>
 
-            <div style="margin-left: 100px; margin-bottom: 200px; width: 440px; color: slategrey; text-align: center;">
-                <h2>Vaše online fakturace</h2>
-                <p>Bezplatný systémem online fakturace;<br />rychlý, jednoduchý, spolehlivý.</p>
+            <div style="margin-left: 100px; margin-bottom: 100px; width: 440px; color: slategrey; text-align: center; padding-bottom: 100px;">
+                <h2 style="margin: 0; padding: 0;">Vaše online fakturace</h2>
+                <p>Bezplatný online fakturační systémem;<br />rychlý, jednoduchý, spolehlivý.</p>
                 <ul style="margin-bottom: 50px;">
-                    <li>Import údajů ze serverů Aukro</li>
-                    <li>Export faktur do PDF</li>
+                    <li>Tvorba, PDF export a archivace faktur</li>
+                    <li>Import údajů ze serverů Aukro!</li>
                 </ul>
             </div>
 
 
-            <div class="footer" style="text-align: center; color: slategrey;">
+            <div class="footer" style="text-align: center; color: slategrey; margin: 100px 0 100px 0;">
                 <span>©2014</span>
             </div>
 

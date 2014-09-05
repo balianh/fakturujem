@@ -45,6 +45,8 @@ public class RegistrationBean {
     @Digits(integer=8,fraction=0) @Min(0) @Max(99999999)
     private Integer ICO;
     
+    private String DIC;
+    
     @Size(max=45)
     private String city;
     
@@ -60,8 +62,13 @@ public class RegistrationBean {
     @AssertTrue
     private boolean agreed;
 
-    
-    
+    public String getDIC() {
+        return DIC;
+    }
+
+    public void setDIC(String DIC) {
+        this.DIC = DIC;
+    }
     
     public String getHouse() {
         return house;
