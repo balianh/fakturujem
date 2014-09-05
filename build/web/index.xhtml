@@ -17,54 +17,54 @@
             <div id="header">
                 <img src="images/A-Faktury.png" width="270" style="padding: 50px 50px 50px 185px;"/>
             </div>
-            
-            <h:form id="loginForm" style="float: right; margin-right: 100px; margin-top: 40px;">         
-                <p:growl id="msg" showDetail="true" life="3000"  />
-                <p:panel header="Přihlášení" style="width: 335px;">
+            <div style="float: right; margin-right: 100px; margin-top: 40px;">
+                <h:form id="loginForm" >         
+                    <p:growl id="msg" showDetail="true" life="3000"  />
+                    <p:panel header="Přihlášení" style="width: 335px;">
 
-                    <h:panelGrid id="loginPanel" columns="2">
+                        <h:panelGrid id="loginPanel" columns="2">
 
-                        <h:outputText value="E-mail:" />
+                            <h:outputText value="E-mail:" />
 
-                        <p:inputText id="email" value="#{indexBean.email}" ></p:inputText>
+                            <p:inputText id="email" value="#{indexBean.email}" ></p:inputText>
 
-                        <p:spacer></p:spacer>
+                            <p:spacer></p:spacer>
 
-                        <p:message for="email" ></p:message>
+                            <p:message for="email" ></p:message>
 
-                        <h:outputText value="Heslo:" />
+                            <h:outputText value="Heslo:" />
 
-                        <p:password id="password" value="#{indexBean.password}"  feedback="false"></p:password>
+                            <p:password id="password" value="#{indexBean.password}"  feedback="false"></p:password>
 
-                        <p:spacer></p:spacer>
+                            <p:spacer></p:spacer>
 
-                        <p:message for="password"></p:message>
+                            <p:message for="password"></p:message>
 
-                        <p:spacer></p:spacer>
+                            <p:spacer></p:spacer>
 
-                        <p:commandButton action="#{indexBean.loginProject}" value="Přihlásit se" update="loginForm" ajax="true" ></p:commandButton>
+                            <p:commandButton action="#{indexBean.loginProject}" value="Přihlásit se" update="loginForm" ajax="true" ></p:commandButton>
 
-                    </h:panelGrid>
+                        </h:panelGrid>
 
-                </p:panel>
+                    </p:panel>
 
-            </h:form>
-            
-            <div style="margin-left: 100px; margin-bottom: 100px; width: 440px; color: slategrey; text-align: center;">
+                </h:form>
+                
+                <h:form style=" margin-left: -386px; margin-top: -53px;">
+                    <p:commandButton action="registration.xhtml" value="Registrace" ajax="false"/>
+                </h:form>
+            </div>
+
+            <div style="margin-left: 100px; margin-bottom: 200px; width: 440px; color: slategrey; text-align: center;">
                 <h2>Vaše online fakturace</h2>
                 <p>A-Faktury jsou bezplatným systémem online fakturace, jednoduchým, rychlým a spolehlivým.</p>
                 <ul style="margin-bottom: 50px;">
                     <li>Import údajů ze serverů Aukro</li>
                     <li>Export faktur do PDF</li>
                 </ul>
-                
-                <h:form>
-                    <p:commandButton action="registration.xhtml" value="Registrace" ajax="false"/>
-                </h:form>
-
             </div>
 
-            
+
             <div class="footer" style="text-align: center;">
                 <span>©2014</span>
             </div>
