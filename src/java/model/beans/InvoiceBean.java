@@ -10,6 +10,7 @@ import controller.Queries;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -47,13 +48,12 @@ public class InvoiceBean implements Serializable {
     private String logedID = "0";
     private Invoice selectedInvoice;
     private UIComponent recipientFields;
-  
-    
-    public void printInvoice(ActionEvent actionEvent) throws IOException, JRException{
-        controller.Printer.printInvoice(actionEvent,selectedInvoice, items , getRecipient(), getCustomer(), getRecipient());
+
+    public void printInvoice(ActionEvent actionEvent) throws IOException, JRException {
+        controller.Printer.printInvoice(actionEvent, selectedInvoice, items, getRecipient(), getCustomer(), getRecipient());
     }
-    
-     /**
+
+    /**
      * @return the selectedInvoice
      */
     public Invoice getSelectedInvoice() {
@@ -71,47 +71,47 @@ public class InvoiceBean implements Serializable {
 
     @PostConstruct
     public void init() {
-            
+
         HttpSession s = HttpSessionUtil.getSession();
 
         /*
-        Get users ID from session
-        */
+         Get users ID from session
+         */
         if (s != null) {
             setLogedID((s.getAttribute("logedid").toString()));
         }
         /*
-        */
-        
+         */
+
         /*
-        Init variables
-        */
-        
-        persons = Queries.getPersonsAtAccountId(logedID); 
-       
+         Init variables
+         */
+        persons = Queries.getPersonsAtAccountId(logedID);
+
         selectedInvoice = new Invoice();
-        
+
         customer = new Person();
-        recipient = new Person(); 
-      
-       
-        
-       
-        
+        recipient = new Person();
+
+        Calendar cal = Calendar.getInstance();
+        created = cal.getTime();
+        duzp = cal.getTime();
+        cal.add(Calendar.DATE, 14);  
+        due = cal.getTime();
+
         /*
-        Fill invoice, recipient, customer with ID
-        */
-        selectedInvoice.setAccountIdaccount(Integer.parseInt(logedID)); 
+         Fill invoice, recipient, customer with ID
+         */
+        selectedInvoice.setAccountIdaccount(Integer.parseInt(logedID));
         selectedInvoice.setStateIdstate(1);
         recipient.setAccountIdaccount(Integer.parseInt(logedID));
         customer.setAccountIdaccount(Integer.parseInt(logedID));
         /*
-        */
-        
+         */
+
         item = new Item();
         //to do
 
-        
         items = new ArrayList<>();
 
     }
@@ -122,8 +122,8 @@ public class InvoiceBean implements Serializable {
         this.setInvoiceNumber(null);
 
     }
-    
-   public List<Person> completeContact(String query) {
+
+    public List<Person> completeContact(String query) {
 
         List<Person> filterPersons = new ArrayList<>();
 
@@ -140,62 +140,51 @@ public class InvoiceBean implements Serializable {
 
         return filterPersons;
     }
-    
-   public List<Method> completeMethod(String query) {
+
+    public List<Method> completeMethod(String query) {
 
         List<Method> filterPersons = new ArrayList<>();
         return filterPersons;
     }
-   
-   
-   public List<Item> completeItemTitle(String query) {
+
+    public List<Item> completeItemTitle(String query) {
 
         List<Item> filterPersons = new ArrayList<>();
         return filterPersons;
     }
-    
-    
-    public String saveInvoice(){
-        
-        
-        /*
-        Save invoice and return her ID to variable
-        */
-        int savedInvoiceID = Queries.createInvoice(selectedInvoice);
-        
-        
-        /*
-        Save rercipient, customer and fill invoice with their ID and return her ID to variable
-        */
-        
-        int savedRecipientID = Queries.createPerson(recipient);
-        
-        int savedCustomerID;
-        if (!singleContact){
-            savedCustomerID = Queries.createPerson(customer);
-        }else{
-            savedCustomerID = savedRecipientID;     
-        } 
-        
-        
 
-        
-        
+    public String saveInvoice() {
+
+        /*
+         Save invoice and return her ID to variable
+         */
+        int savedInvoiceID = Queries.createInvoice(selectedInvoice);
+
+        /*
+         Save rercipient, customer and fill invoice with their ID and return her ID to variable
+         */
+        int savedRecipientID = Queries.createPerson(recipient);
+
+        int savedCustomerID;
+        if (!singleContact) {
+            savedCustomerID = Queries.createPerson(customer);
+        } else {
+            savedCustomerID = savedRecipientID;
+        }
+
         return "dashboard";
     }
-    
-    
-/*
-    public void createNew() {
-        if (items.contains(item)) {
-            FacesMessage msg = new FacesMessage("Dublicated", "This item has already been added");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        } else {
-            items.add(item);
-            item = new Item();
-        }
-    }*/
 
+    /*
+     public void createNew() {
+     if (items.contains(item)) {
+     FacesMessage msg = new FacesMessage("Dublicated", "This item has already been added");
+     FacesContext.getCurrentInstance().addMessage(null, msg);
+     } else {
+     items.add(item);
+     item = new Item();
+     }
+     }*/
     public String reinit() {
         item = new Item();
         return null;
@@ -360,7 +349,5 @@ public class InvoiceBean implements Serializable {
     public void setNewRecipientContact(boolean newRecipientContact) {
         this.newRecipientContact = newRecipientContact;
     }
-
-    
 
 }
