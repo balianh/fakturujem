@@ -15,6 +15,13 @@
 
             <h:form>
                 <p:panel header="Faktury" >
+
+                    <div style="padding-bottom: 6px;">
+                        <p:commandButton action="#" title="Hledat"  icon="ui-icon-search" style="height: 32px; width: 32px; float: right;"/>
+                        <p:inputText  placeholder="Hledat" style="float: right; min-height: 22px;"/>
+                        <p:commandButton title="Nová" action="invoice" icon="ui-icon-document" style="height: 32px; width: 32px;"/>
+                    </div>
+
                     <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
                         <p:column headerText="Číslo fa.">
                             <h:outputText value="#{invoice.invoicenumber}" />
@@ -44,7 +51,9 @@
                         </p:column>
 
                     </p:dataTable>
+
                 </p:panel>
+
             </h:form>
             <ui:include src="/compositions/footer.xhtml" />
         </div>

@@ -9,11 +9,18 @@
     </h:head>
     <h:body>
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
-            
+
             <ui:include src="/compositions/navigation.xhtml" />
 
             <h:form>
                 <p:panel header="Kontakty" >
+
+                    <div style="padding-bottom: 6px;">
+                        <p:commandButton action="#" title="Hledat"  icon="ui-icon-search" style="height: 32px; width: 32px; float: right;"/>
+                        <p:inputText placeholder="Hledat" style="float: right; min-height: 22px;"/>
+                        <p:commandButton title="Nový" action="contact" icon="ui-icon-document" style="height: 32px; width: 32px;"/>
+                    </div>
+
                     <p:dataTable paginator="true" var="person" value="#{dashboardBean.persons}">
 
                         <p:column headerText="Jméno">
@@ -33,7 +40,7 @@
                         </p:column>
 
                         <p:column style="width:32px;text-align: center">
-                            <p:commandButton  icon="ui-icon-pencil" title="View" style="height: 32px; width: 32px;"/>
+                            <p:commandButton  icon="ui-icon-pencil" title="Otevřít" style="height: 32px; width: 32px;"/>
                         </p:column>
 
                     </p:dataTable>

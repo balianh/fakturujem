@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
+import model.Item;
 import model.Person;
 
 @ManagedBean(name = "dashboardBean")
@@ -22,8 +23,8 @@ public class DashboardBean implements Serializable {
 
     private static List<Invoice> invoices;
     private static List<Person> persons;
+    private static List<Item> items;
 
-  
     private String logedID = "0";
 
     @PostConstruct
@@ -38,11 +39,20 @@ public class DashboardBean implements Serializable {
 
     }
 
+    public List<Item> getItems() {
+        items = Queries.getItemsAtAccountId(logedID);
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        DashboardBean.items = items;
+    }
+
     public List<Invoice> getInvoices() {
         return invoices;
     }
-    
-        /**
+
+    /**
      * @return the persons
      */
     public List<Person> getPersons() {
@@ -57,7 +67,6 @@ public class DashboardBean implements Serializable {
         persons = aPersons;
     }
 
-
     /**
      * @return the logedID
      */
@@ -71,8 +80,5 @@ public class DashboardBean implements Serializable {
     public void setLogedID(String logedID) {
         this.logedID = logedID;
     }
-
-
-    
 
 }

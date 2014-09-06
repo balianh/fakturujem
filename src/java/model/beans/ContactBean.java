@@ -15,7 +15,7 @@ import javax.enterprise.context.Dependent;
  */
 @Named(value = "contactBean")
 @Dependent
-public class contactBean {
+public class ContactBean {
     
     private String name;
     private String lastName;
@@ -32,7 +32,7 @@ public class contactBean {
     /**
      * Creates a new instance of contactBean
      */
-    public contactBean() {
+    public ContactBean() {
     }
     
     public String addNewContact(){

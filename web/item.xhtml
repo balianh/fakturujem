@@ -9,10 +9,14 @@
     </h:head>
     <h:body>
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
-            
+
             <ui:include src="/compositions/navigation.xhtml" />
 
             <p:panel header="Položka">
+
+                <h:form>
+                    <p:commandButton style="float: right; width: 32px; height: 32px; margin: -42px -14px 0 0;" title="Zrušit" action="items" icon="ui-icon-cancel" />
+                </h:form>
 
             </p:panel>
 

@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Přehled | A-Faktury</title>
-        <link rel="icon" s
+        <link rel="icon"
               type="image/png" 
               href="images/fav.png" />
     </h:head>
@@ -14,15 +14,17 @@
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
 
             <ui:include src="/compositions/navigation.xhtml" />
-            
+
             <h:form>
-                <p:panel header="Přehled" style="text-align: center;">
-                    <img src="images/NCC-1701.png" alt="Welcome!"/>
+                <p:panel header="Přehled">
+                    <div style="text-align: center;">
+                        <img src="images/NCC-1701.png" alt="NCC-1701" title="Welcome!"/>
+                    </div>
                 </p:panel>
             </h:form>
 
             <ui:include src="/compositions/footer.xhtml" />
-            
+
         </div>
     </h:body>
 </html>

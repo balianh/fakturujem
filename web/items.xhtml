@@ -9,12 +9,40 @@
     </h:head>
     <h:body>
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
-            
+
             <ui:include src="/compositions/navigation.xhtml" />
 
-            <p:panel header="Položky">
+            <h:form>
+                <p:panel header="Položky">
 
-            </p:panel>
+                    <div style="padding-bottom: 6px;">
+                        <p:commandButton action="#" title="Hledat"  icon="ui-icon-search" style="height: 32px; width: 32px; float: right;"/>
+                        <p:inputText placeholder="Hledat" style="float: right; min-height: 22px;"/>
+                        <p:commandButton title="Nový" action="item" icon="ui-icon-document" style="height: 32px; width: 32px;"/>
+                    </div>
+
+                    <p:dataTable paginator="true" var="item" value="#{dashboardBean.items}">
+
+                        <p:column headerText="Název">
+                            <h:outputText value="#{item.title}" />
+                        </p:column>
+
+                        <p:column headerText="Kód">
+                            <h:outputText value="#{item.code}" />
+                        </p:column>
+
+                        <p:column headerText="Cena">
+                            <h:outputText value="#{item.price}" />
+                        </p:column>
+
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton  icon="ui-icon-pencil" title="Otevřít" style="height: 32px; width: 32px;"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
 
             <ui:include src="/compositions/footer.xhtml" />
         </div>

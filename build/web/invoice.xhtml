@@ -23,6 +23,10 @@
 
                     <p:messages id="globalError" closable="true" />
 
+
+                    <p:commandButton style="float: right; width: 32px; height: 32px; margin: -42px -14px 0 0;" title="Zrušit" action="invoices" icon="ui-icon-cancel" />
+
+
                     <p:fieldset id="head" legend="Hlavička" style=" width: 1000px;">
 
                         <p:messages id="detailsError" closable="true" />
@@ -209,10 +213,10 @@
 
                         </p:fieldset>
 
-                        </h:form>
+                    </h:form>
 
-                        <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
-                        <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
+                    <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
+                    <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
 
                 </p:panel>
             </h:form>

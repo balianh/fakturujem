@@ -9,6 +9,7 @@ import model.Account;
 import model.HibernateUtil;
 import model.Invoice;
 import model.InvoiceHasPerson;
+import model.Item;
 import model.Person;
 import model.State;
 import org.hibernate.HibernateException;
@@ -39,15 +40,16 @@ public class Queries {
             Query q = session.createQuery("from Account where password ='" + password + "' and email ='" + email + "'");
             logedAccount = (Account) q.uniqueResult();
 
-            if (logedAccount != null){
-                
+            if (logedAccount != null) {
+
                 //Get HTML Session and put there user's id as attribute "logedid"
                 HttpSession s = HttpSessionUtil.getSession();
                 s.setAttribute("logedid", logedAccount.getId());
                 //
                 return true;
-            } else
-            return false;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
         } finally {
             session.close();
@@ -75,73 +77,73 @@ public class Queries {
 
         return invoices;
     }
-    
-    public static Invoice getInvoiceAtId(int id){
-        
+
+    public static Invoice getInvoiceAtId(int id) {
+
         Session session = sessionFactory.openSession();
         Invoice result = null;
-        
-        try {      
+
+        try {
             Transaction tx = session.beginTransaction();
 
             Query q = session.createQuery("from Invoice where "
                     + "id ='" + id + "'");
-            result= (Invoice) q.uniqueResult();     
+            result = (Invoice) q.uniqueResult();
             return result;
         } catch (HibernateException e) {
         } finally {
-           session.close(); 
+            session.close();
         }
         return result;
     }
-    
-    public static List<Person> getPersonsAtAccountId(String idaccount){
-        
-       Session session = sessionFactory.openSession();
-       List<Person> result = null;
-        
-        try {      
+
+    public static List<Person> getPersonsAtAccountId(String idaccount) {
+
+        Session session = sessionFactory.openSession();
+        List<Person> result = null;
+
+        try {
             Transaction tx = session.beginTransaction();
 
             Query q = session.createQuery("from Person where "
                     + "account_idaccount ='" + idaccount + "' and isowner=false");
-            result= (List<Person>) q.list();     
-      
+            result = (List<Person>) q.list();
+
             return result;
         } catch (HibernateException e) {
         } finally {
-           session.close(); 
+            session.close();
         }
         return result;
     }
-    
-    public static State getStateAtId(int id){
-        
+
+    public static State getStateAtId(int id) {
+
         Session session = sessionFactory.openSession();
         State result = null;
-        
-        try {      
+
+        try {
             Transaction tx = session.beginTransaction();
 
             Query q = session.createQuery("from State where "
                     + "id ='" + id + "'");
-            result= (State) q.uniqueResult();     
+            result = (State) q.uniqueResult();
             return result;
         } catch (HibernateException e) {
         } finally {
-           session.close(); 
+            session.close();
         }
         return result;
     }
-    
-    public static String getName(int idInvoice){
-        
+
+    public static String getName(int idInvoice) {
+
         InvoiceHasPerson personId;
         Person person;
-        
+
         String name = null;
         int userId;
-        
+
         try {
             Session session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
@@ -149,69 +151,69 @@ public class Queries {
             Query q = session.createQuery("from InvoiceHasPerson where "
                     + "invoice_idinvoice ='" + idInvoice + "' "
                     + "and relation ='" + 1 + "'");
-            personId = (InvoiceHasPerson)q.uniqueResult();
+            personId = (InvoiceHasPerson) q.uniqueResult();
             userId = personId.getId();
             session.close();
-            
+
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
             q = session.createQuery("from Person where id ='" + userId + "'");
             person = (Person) q.uniqueResult();
             session.close();
-            
+
             name = person.getName() + " " + person.getLastname();
 
             return name;
         } catch (HibernateException e) {
-        } 
+        }
         return name;
     }
-    
-    public static int createAccount(Account newAccount){
-        
+
+    public static int createAccount(Account newAccount) {
+
         Session session = null;
         State result = null;
-        
-        try {      
+
+        try {
             session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
             session.save(newAccount);
             tx.commit();
             session.close();
-            
+
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("from Account where password ='" + 
-                    newAccount.getPassword() + "' and email ='" + newAccount.getEmail() + "'");
+            Query q = session.createQuery("from Account where password ='"
+                    + newAccount.getPassword() + "' and email ='" + newAccount.getEmail() + "'");
             newAccount = (Account) q.uniqueResult();
             session.close();
-            
+
             return newAccount.getId();
 
         } catch (HibernateException e) {
-        } 
+        }
         return 0;
     }
-    
-    public static int createPerson(Person newPerson){
-        
+
+    public static int createPerson(Person newPerson) {
+
         Session session = null;
         State result = null;
         int personId;
-            
-        try {      
-            
+
+        try {
+
             session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
             session.save(newPerson);
             session.flush();
             personId = newPerson.getId();
             session.close();
-            
+
             return personId;
 
         } catch (HibernateException e) {
-        } 
+        }
         return 0;
     }
 
@@ -219,25 +221,39 @@ public class Queries {
         Session session = null;
         State result = null;
         int invoiceId;
-        
-        try {      
+
+        try {
             session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
             session.save(selectedInvoice);
             session.flush();
             invoiceId = selectedInvoice.getId();
-            session.close();      
-            
+            session.close();
+
             return invoiceId;
 
         } catch (HibernateException e) {
-        } 
+        }
         return 0;
     }
-    
-        
-        
-    
-    
+
+    public static List<Item> getItemsAtAccountId(String logedID) {
+        Session session = sessionFactory.openSession();
+        List<Item> result = null;
+
+        try {
+            Transaction tx = session.beginTransaction();
+
+            Query q = session.createQuery("from Item where "
+                    + "account_idaccount ='" + logedID);
+            result = (List<Item>) q.list();
+
+            return result;
+        } catch (HibernateException e) {
+        } finally {
+            session.close();
+        }
+        return result;
+    }
 
 }
