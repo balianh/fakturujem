@@ -9,15 +9,66 @@
     </h:head>
     <h:body>
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
-            
+
             <ui:include src="/compositions/navigation.xhtml" />
 
-            <p:panel header="Kontakt">
+            <h:form>
 
-            </p:panel>
+                <p:panel header="Kontakt">
+
+                    <p:messages id="msg" closable="true"/>
+
+                    <h:panelGrid id="grid" columns="4" cellpadding="5" style="margin: auto; width: 600px;">
+
+                        <p:outputLabel for="name" value="Jméno:"/>                   
+                        <p:inputText id="name" value="#{contactBean.name}" required="false" label="Jméno" validatorMessage="Chyba" />
+                        <p:outputLabel for="lastName" value="Příjmení:"/>                   
+                        <p:inputText id="lastName" value="#{contactBean.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
+
+                        <p:outputLabel for="company" value="Firma:"/>                   
+                        <p:inputText id="company" value="#{contactBean.company}" required="false" label="Firma" validatorMessage="Chyba" />
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+
+                        <p:outputLabel for="ico" value="IČO:"/>                   
+                        <p:inputText id="ico" value="#{contactBean.ICO}" required="false" label="IČO" validatorMessage="Chyba" />
+                        <p:outputLabel for="dic" value="DIČ:"/>                   
+                        <p:inputText id="dic" value="#{contactBean.DIC}" required="false" label="DIČ" validatorMessage="Chyba" />
+
+                        <p:outputLabel for="pcode" value="PSČ:"/>                   
+                        <p:inputText id="pcode" value="#{contactBean.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
+                        <p:outputLabel for="city" value="Město:"/>                   
+                        <p:inputText  id="city" value="#{contactBean.city}" required="false" label="Město" validatorMessage="Chyba"/>
+
+                        <p:outputLabel for="street" value="Ulice:"/>                   
+                        <p:inputText id="street" value="#{contactBean.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
+                        <p:outputLabel for="house" value="Číslo:"/>                   
+                        <p:inputText id="house" value="#{contactBean.house}" required="false" label="Číslo" validatorMessage="Chyba"/>
+
+                        <p:outputLabel for="email" value="E-mail:"/>                   
+                        <p:inputText id="email" value="#{contactBean.email}" required="false" label="E-mail" validatorMessage="Chyba"/>
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+                        
+                        <p:outputLabel for="phone" value="Telefon:"/>                   
+                        <p:inputText id="phone" value="#{contactBean.phone}" required="false" label="Telefon" validatorMessage="Chyba"/>
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+                        
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+                        <p:commandButton style="float: right;" action="#{contactBean.addNewContact}" value="Uložit" update="grid msg" ajax="false" icon="ui-icon-check" validateClient="true"/>
+
+
+                    </h:panelGrid>
+
+                </p:panel>
+
+            </h:form>
 
             <ui:include src="/compositions/footer.xhtml" />
-            
+
         </div>
     </h:body>
 </html>

@@ -61,7 +61,7 @@
                         <p:spacer></p:spacer>
                         <p:selectBooleanCheckbox itemLabel="Souhlasím s podmínkami služby." id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" validatorMessage="S podmínkami služby je nutné souhlasit"/>
                         <p:spacer></p:spacer>
-                        <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" icon="ui-icon-check" validateClient="true"/>
+                        <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" ajax="false" icon="ui-icon-check" validateClient="true"/>
 
 
                     </h:panelGrid>
