@@ -14,17 +14,17 @@
                 </p:commandButton>
             </p:menuitem>
             <p:submenu label="Faktury" icon="ui-icon-clipboard">
+                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="invoices" />
                 <p:menuitem value="Nová" action="invoice" icon="ui-icon-document" />
                 <p:menuitem value="Import" icon="ui-icon-arrowthickstop-1-n" action="importInvoice" />
-                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="invoices" />
             </p:submenu>
             <p:submenu label="Kontakty" icon="ui-icon-person">
-                <p:menuitem value="Nový" action="contact" icon="ui-icon-document" />
                 <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="contacts" />
+                <p:menuitem value="Nový" action="contact" icon="ui-icon-document" />
             </p:submenu>
             <p:submenu label="Položky" icon="ui-icon-cart">
-                <p:menuitem value="Nová" action="item" icon="ui-icon-document" />
                 <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="items" />
+                <p:menuitem value="Nová" action="item" icon="ui-icon-document" />
             </p:submenu>
             <f:facet name="options">
                 <p:commandButton action="setting" title="Nastavení" icon="ui-icon-gear" style="height: 32px; width: 32px;"/>
