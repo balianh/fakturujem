@@ -161,7 +161,7 @@
 
                     <h:form id="table">
 
-                        <p:fieldset id="itemFields" legend="Položky" style=" width: 1005px;">
+                        <p:fieldset id="itemFields" legend="Položky" style="width: 990px;">
 
                             <p:messages id="itemEror" closable="true"/>
 
@@ -209,16 +209,16 @@
 
                         </p:fieldset>
 
-                    </h:form>
+                        </h:form>
 
-                    <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
-                    <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
+                        <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
+                        <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
 
                 </p:panel>
             </h:form>
-            
+
             <ui:include src="/compositions/footer.xhtml" />
-        
+
         </div>
 
     </h:body>
