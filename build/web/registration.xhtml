@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Registrace | A-Faktury</title>
         <link rel="icon" 
@@ -13,22 +14,20 @@
 
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
 
-            <div id="header" style="padding: 50px 50px 50px 185px;">
-                <a href="index.xhtml" ><img src="images/A-Faktury.png" width="270" style="border: none;"/></a>
-            </div>
+            <ui:include src="/compositions/header.xhtml" />
 
             <h:form>
                 <p:panel header="Registrace" style="margin: 0 100px 0 100px;">
 
                     <p:messages id="msg" closable="true"/>
 
-                    <h:panelGrid id="grid" columns="4" cellpadding="5">
+                    <h:panelGrid id="grid" columns="4" cellpadding="5" style="margin-left: 40px;">
 
                         <p:outputLabel for="email" value="E-mail:"/>                   
                         <p:inputText id="email" value="#{registrationBean.email}" required="true" label="E-mail" validatorMessage="Chyba"/>
                         <p:spacer></p:spacer>
                         <p:spacer></p:spacer>
-                        
+
                         <p:outputLabel for="password1" value="Heslo:"/>                   
                         <p:password id="password1" value="#{registrationBean.password1}" required="true" match="password2" label="Heslo" validatorMessage="Heslo se musí shodovat a mít 6 až 45 znaků " />
                         <p:outputLabel for="password2" value="Heslo znovu:"/>                   
@@ -43,7 +42,7 @@
                         <p:inputText id="company" value="#{registrationBean.company}" required="false" label="Firma" validatorMessage="Chyba" />
                         <p:spacer></p:spacer>
                         <p:spacer></p:spacer>
-                        
+
                         <p:outputLabel for="ico" value="IČO:"/>                   
                         <p:inputText id="ico" value="#{registrationBean.ICO}" required="false" label="IČO" validatorMessage="Chyba" />
                         <p:outputLabel for="dic" value="DIČ:"/>                   
@@ -63,7 +62,7 @@
                         <p:selectBooleanCheckbox itemLabel="Souhlasím s podmínkami služby." id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" validatorMessage="S podmínkami služby je nutné souhlasit"/>
                         <p:spacer></p:spacer>
                         <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" icon="ui-icon-check" validateClient="true"/>
-                        
+
 
                     </h:panelGrid>
 
@@ -71,13 +70,9 @@
 
             </h:form>
 
-            <div class="footer" style="text-align: center; color: slategrey; margin: 100px 0 100px 0;">
-                <span>©2014</span>
-            </div>
+            <ui:include src="/compositions/footer.xhtml" />
 
         </div>
-
-
 
     </h:body>
 </html>

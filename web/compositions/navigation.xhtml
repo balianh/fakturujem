@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:form style="margin-bottom: 100px;">
+        <p:menubar style="padding: 6px;">
+            <p:menuitem>
+                <p:commandButton action="dashboard" title="Přehled" icon="ui-icon-home" style="height: 32px; width: 32px; margin-right: 6px;">
+                    <f:actionListener binding="#{invoiceBean.flushForm()}" />
+                </p:commandButton>
+            </p:menuitem>
+            <p:submenu label="Faktury" icon="ui-icon-clipboard">
+                <p:menuitem value="Nová" action="invoice" icon="ui-icon-document" />
+                <p:menuitem value="Import" icon="ui-icon-folder-open" action="import" />
+                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="invoices" />
+            </p:submenu>
+            <p:submenu label="Kontakty" icon="ui-icon-person">
+                <p:menuitem value="Nový" action="contact" icon="ui-icon-document" />
+                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="contacts" />
+            </p:submenu>
+            <p:submenu label="Položky" icon="ui-icon-cart">
+                <p:menuitem value="Nová" action="item" icon="ui-icon-document" />
+                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="items" />
+            </p:submenu>
+            <f:facet name="options">
+                <p:commandButton action="setting" title="Nastavení" icon="ui-icon-gear" style="height: 32px; width: 32px;"/>
+                <p:commandButton action="#{indexBean.logout}" title="Odhlásit se"  icon="ui-icon-extlink" style="height: 32px; width: 32px;"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+</ui:composition>
+
