@@ -20,6 +20,7 @@
                         <p:commandButton action="#" title="Hledat"  icon="ui-icon-search" style="height: 32px; width: 32px; float: right;"/>
                         <p:inputText  placeholder="Hledat" style="float: right; min-height: 22px;"/>
                         <p:commandButton title="Nová" action="invoice" icon="ui-icon-document" style="height: 32px; width: 32px;"/>
+                        <p:commandButton title="Import" action="importInvoice" icon="ui-icon-arrowthickstop-1-n" style="height: 32px; width: 32px;"/>
                     </div>
 
                     <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
