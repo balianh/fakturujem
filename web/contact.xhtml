@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Kontakt | A-Faktury</title>
     </h:head>
@@ -18,51 +19,51 @@
 
                     <p:messages id="msg" closable="true"/>
 
-                    <p:commandButton style="float: right; width: 32px; height: 32px; margin: -42px -14px 0 0;" title="Zrušit" action="contacts" icon="ui-icon-cancel" />
+                    <h:panelGrid id="grid" columns="4" cellpadding="5" style="margin: auto;">
 
-                        <h:panelGrid id="grid" columns="4" cellpadding="5" style="width: 600px; margin: auto;">
+                        <p:outputLabel for="name" value="Jméno:"/>                   
+                        <p:inputText id="name" value="#{contactBean.name}" required="false" label="Jméno" validatorMessage="Chyba" />
+                        <p:outputLabel for="lastName" value="Příjmení:"/>                   
+                        <p:inputText id="lastName" value="#{contactBean.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
 
-                            <p:outputLabel for="name" value="Jméno:"/>                   
-                            <p:inputText id="name" value="#{contactBean.name}" required="false" label="Jméno" validatorMessage="Chyba" />
-                            <p:outputLabel for="lastName" value="Příjmení:"/>                   
-                            <p:inputText id="lastName" value="#{contactBean.lastName}" required="false" label="Příjmení" validatorMessage="Chyba" />
+                        <p:outputLabel for="company" value="Firma:"/>                   
+                        <p:inputText id="company" value="#{contactBean.company}" required="false" label="Firma" validatorMessage="Chyba" />
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
 
-                            <p:outputLabel for="company" value="Firma:"/>                   
-                            <p:inputText id="company" value="#{contactBean.company}" required="false" label="Firma" validatorMessage="Chyba" />
-                            <p:spacer></p:spacer>
-                            <p:spacer></p:spacer>
+                        <p:outputLabel for="ico" value="IČO:"/>                   
+                        <p:inputText id="ico" value="#{contactBean.ICO}" required="false" label="IČO" validatorMessage="Chyba" />
+                        <p:outputLabel for="dic" value="DIČ:"/>                   
+                        <p:inputText id="dic" value="#{contactBean.DIC}" required="false" label="DIČ" validatorMessage="Chyba" />
 
-                            <p:outputLabel for="ico" value="IČO:"/>                   
-                            <p:inputText id="ico" value="#{contactBean.ICO}" required="false" label="IČO" validatorMessage="Chyba" />
-                            <p:outputLabel for="dic" value="DIČ:"/>                   
-                            <p:inputText id="dic" value="#{contactBean.DIC}" required="false" label="DIČ" validatorMessage="Chyba" />
+                        <p:outputLabel for="pcode" value="PSČ:"/>                   
+                        <p:inputText id="pcode" value="#{contactBean.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
+                        <p:outputLabel for="city" value="Město:"/>                   
+                        <p:inputText  id="city" value="#{contactBean.city}" required="false" label="Město" validatorMessage="Chyba"/>
 
-                            <p:outputLabel for="pcode" value="PSČ:"/>                   
-                            <p:inputText id="pcode" value="#{contactBean.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
-                            <p:outputLabel for="city" value="Město:"/>                   
-                            <p:inputText  id="city" value="#{contactBean.city}" required="false" label="Město" validatorMessage="Chyba"/>
+                        <p:outputLabel for="street" value="Ulice:"/>                   
+                        <p:inputText id="street" value="#{contactBean.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
+                        <p:outputLabel for="house" value="Číslo:"/>                   
+                        <p:inputText id="house" value="#{contactBean.house}" required="false" label="Číslo" validatorMessage="Chyba"/>
 
-                            <p:outputLabel for="street" value="Ulice:"/>                   
-                            <p:inputText id="street" value="#{contactBean.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
-                            <p:outputLabel for="house" value="Číslo:"/>                   
-                            <p:inputText id="house" value="#{contactBean.house}" required="false" label="Číslo" validatorMessage="Chyba"/>
+                        <p:outputLabel for="email" value="E-mail:"/>                   
+                        <p:inputText id="email" value="#{contactBean.email}" required="false" label="E-mail" validatorMessage="Chyba"/>
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
 
-                            <p:outputLabel for="email" value="E-mail:"/>                   
-                            <p:inputText id="email" value="#{contactBean.email}" required="false" label="E-mail" validatorMessage="Chyba"/>
-                            <p:spacer></p:spacer>
-                            <p:spacer></p:spacer>
+                        <p:outputLabel for="phone" value="Telefon:"/>                   
+                        <p:inputText id="phone" value="#{contactBean.phone}" required="false" label="Telefon" validatorMessage="Chyba"/>
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
 
-                            <p:outputLabel for="phone" value="Telefon:"/>                   
-                            <p:inputText id="phone" value="#{contactBean.phone}" required="false" label="Telefon" validatorMessage="Chyba"/>
-                            <p:spacer></p:spacer>
-                            <p:spacer></p:spacer>
+                    </h:panelGrid>
 
-                            <p:spacer></p:spacer>
-                            <p:spacer></p:spacer>
-                            <p:spacer></p:spacer>
-                            <p:commandButton style="float: right;" action="#{contactBean.addNewContact}" value="Uložit" update="grid msg" ajax="false" icon="ui-icon-disk" validateClient="true"/>
-
-                        </h:panelGrid>
+                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
+                        <f:facet name="options">
+                            <p:commandButton action="#{contactBean.addNewContact}" value="Uložit" update="grid msg" icon="ui-icon-disk" validateClient="true"/>
+                            <p:commandButton process="@this" title="Zrušit" validateClient="false" action="contacts" icon="ui-icon-cancel" />
+                        </f:facet>
+                    </p:menubar>
 
 
                 </p:panel>

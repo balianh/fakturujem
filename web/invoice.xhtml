@@ -22,153 +22,150 @@
 
         <h:body>
 
-            <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
+        <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
 
-                <ui:include src="/compositions/navigation.xhtml" />
+            <ui:include src="/compositions/navigation.xhtml" />
 
-                <h:form id="form">
-
-                    <p:panel id="invoice" header="Faktura">
-
-                        <p:messages id="globalError" closable="true" />
+            <h:form id="form">
 
 
-                        <p:commandButton style="float: right; width: 32px; height: 32px; margin: -42px -14px 0 0;" title="Zrušit" action="invoices" icon="ui-icon-cancel" />
+                <p:panel id="invoice" header="Faktura">
+
+                    <p:messages id="globalError" closable="true" />
+
+                    <p:fieldset id="head" legend="Hlavička" style=" width: 1000px;">
+
+                        <p:messages id="detailsError" closable="true" />
+
+                        <h:panelGrid id="details" columns="3"  cellpadding="5" >
+
+                            <p:outputLabel for="created" value="Datum vystavení:"/>
+                            <p:outputLabel for="duzp" value="DUZP:"/>
+                            <p:outputLabel for="due" value="Splatnost:"/>    
+                            <p:calendar id="created" pattern="dd.MM.yyyy" locale="cs" value="#{invoiceBean.created}" showOn="button" required="true" label="Datum vystavení" />                  
+                            <p:calendar id="duzp" pattern="dd.MM.yyyy" locale="cs" value="#{invoiceBean.duzp}" required="true" showOn="button" label="DUZP"/>
+                            <p:calendar id="due" pattern="dd.MM.yyyy" locale="cs" value="#{invoiceBean.due}" required="true" showOn="button" label="Splatnost"/>                
 
 
-                        <p:fieldset id="head" legend="Hlavička" style=" width: 1000px;">
+                            <p:outputLabel value="Forma platby:" for="method" />
+                            <p:outputLabel for="invoiceNumber" value="Číslo faktury:"/>
+                            <p:outputLabel />
+                            <p:autoComplete id="method" dropdown="true" required="true" value="#{invoiceBean.method}" completeMethod="#{invoiceBean.completeMethod}" />                 
+                            <p:inputText id="invoiceNumber" value="#{invoiceBean.invoiceNumber}" required="false" label="Číslo faktury"/>
 
-                            <p:messages id="detailsError" closable="true" />
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                <p:selectBooleanCheckbox value="#{invoiceBean.singleContact}"> 
+                                    <p:ajax listener="#{invoiceBean.updateRecipientFields()}" />
+                                </p:selectBooleanCheckbox>          
+                                <h:outputText value="Odběratel není příjemcem"/>
+                            </h:panelGrid>
 
-                            <h:panelGrid id="details" columns="3"  cellpadding="5" >
+                        </h:panelGrid>
 
-                                <p:outputLabel for="created" value="Datum vystavení:"/>
-                                <p:outputLabel for="duzp" value="DUZP:"/>
-                                <p:outputLabel for="due" value="Splatnost:"/>    
-                                <p:calendar id="created" pattern="dd.MM.yyyy" locale="cs" value="#{invoiceBean.created}" showOn="button" required="true" label="Datum vystavení" />                  
-                                <p:calendar id="duzp" pattern="dd.MM.yyyy" locale="cs" value="#{invoiceBean.duzp}" required="true" showOn="button" label="DUZP"/>
-                                <p:calendar id="due" pattern="dd.MM.yyyy" locale="cs" value="#{invoiceBean.due}" required="true" showOn="button" label="Splatnost"/>                
+                        <p:fieldset id="recipientFields" legend="Příjemce" style="float: right; width: 450px;">
 
+                            <p:messages id="recipientError" closable="true" />
 
-                                <p:outputLabel value="Forma platby:" for="method" />
-                                <p:outputLabel for="invoiceNumber" value="Číslo faktury:"/>
-                                <p:outputLabel />
-                                <p:autoComplete id="method" dropdown="true" required="true" value="#{invoiceBean.method}" completeMethod="#{invoiceBean.completeMethod}" />                 
-                                <p:inputText id="invoiceNumber" value="#{invoiceBean.invoiceNumber}" required="false" label="Číslo faktury"/>
+                            <h:panelGrid rendered="#{invoiceBean.singleContact}" id="recipientGrid" columns="2" cellpadding="5">
 
-                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                        <p:selectBooleanCheckbox value="#{invoiceBean.singleContact}"> 
-                                            <p:ajax listener="#{invoiceBean.updateRecipientFields()}" />
-                                        </p:selectBooleanCheckbox>          
-                                        <h:outputText value="Odběratel není příjemcem"/>
-                                    </h:panelGrid>
+                                <p:outputLabel value="Vyhledat:" for="recipient" />
+                                <p:autoComplete id="recipient" value="#{invoiceBean.recipient}" completeMethod="#{invoiceBean.completeContact}"
+                                                var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true" disabled="#{invoiceBean.newRecipientContact}" >
+                                    <p:ajax event="itemSelect" update="recipientGrid" resetValues="true" />
+                                </p:autoComplete>
 
-                                </h:panelGrid>
+                                <p:outputLabel value="" />
+                                <p:selectBooleanButton  id="newRecipientContact" value="#{invoiceBean.newRecipientContact}" onLabel="Vybrat z adresáře" offLabel="Nový kontakt" onIcon="ui-icon-minus" offIcon="ui-icon-plus" style="width: 250px" >
+                                    <p:ajax update="recipientGrid" resetValues="true" />
+                                </p:selectBooleanButton>
 
-                                <p:fieldset id="recipientFields" legend="Příjemce" style="float: right; width: 450px;">
+                                <p:outputLabel for="recipientName" value="Jméno:" />                   
+                                <p:inputText id="recipientName" value="#{invoiceBean.recipient.name}" required="false" label="Jméno" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                <p:messages id="recipientError" closable="true" />
+                                <p:outputLabel for="recipientLastName" value="Příjmení:" />                   
+                                <p:inputText id="recipientLastName" value="#{invoiceBean.recipient.lastname}" required="false" label="Příjmení" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                <h:panelGrid rendered="#{invoiceBean.singleContact}" id="recipientGrid" columns="2" cellpadding="5">
+                                <p:outputLabel for="recipientCompany" value="Firma:" />                   
+                                <p:inputText id="recipientCompany" value="#{invoiceBean.recipient.company}" required="false" label="Firma" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                    <p:outputLabel value="Vyhledat:" for="recipient" />
-                                    <p:autoComplete id="recipient" value="#{invoiceBean.recipient}" completeMethod="#{invoiceBean.completeContact}"
-                                                    var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true" disabled="#{invoiceBean.newRecipientContact}" >
-                                        <p:ajax event="itemSelect" update="recipientGrid" resetValues="true" />
-                                    </p:autoComplete>
+                                <p:outputLabel for="recipientIco" value="IČO:" />                   
+                                <p:inputMask mask="99999999" id="recipientIco" value="#{invoiceBean.recipient.ico}" required="false" label="IČO" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                    <p:outputLabel value="" />
-                                    <p:selectBooleanButton  id="newRecipientContact" value="#{invoiceBean.newRecipientContact}" onLabel="Vybrat z adresáře" offLabel="Nový kontakt" onIcon="ui-icon-minus" offIcon="ui-icon-plus" style="width: 250px" >
-                                            <p:ajax update="recipientGrid" resetValues="true" />
-                                        </p:selectBooleanButton>
+                                <p:outputLabel for="recipientCity" value="Město:" />                   
+                                <p:inputText id="recipientCity" value="#{invoiceBean.recipient.city}" required="false" label="Město" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                        <p:outputLabel for="recipientName" value="Jméno:" />                   
-                                        <p:inputText id="recipientName" value="#{invoiceBean.recipient.name}" required="false" label="Jméno" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
+                                <p:outputLabel for="recipientPcode" value="PSČ:" />                   
+                                <p:inputMask mask="99999" id="recipientPcode" value="#{invoiceBean.recipient.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                        <p:outputLabel for="recipientLastName" value="Příjmení:" />                   
-                                        <p:inputText id="recipientLastName" value="#{invoiceBean.recipient.lastname}" required="false" label="Příjmení" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
+                                <p:outputLabel for="recipientStreet" value="Ulice:"/>                   
+                                <p:inputText id="recipientStreet" value="#{invoiceBean.recipient.street}" required="false" label="Ulice" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                        <p:outputLabel for="recipientCompany" value="Firma:" />                   
-                                        <p:inputText id="recipientCompany" value="#{invoiceBean.recipient.company}" required="false" label="Firma" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
+                                <p:outputLabel for="recipientHouse" value="Číslo domu:"/>                   
+                                <p:inputText id="recipientHouse" value="#{invoiceBean.recipient.house}" required="false" label="Číslo domu" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                        <p:outputLabel for="recipientIco" value="IČO:" />                   
-                                        <p:inputMask mask="99999999" id="recipientIco" value="#{invoiceBean.recipient.ico}" required="false" label="IČO" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
+                                <p:outputLabel for="recipientEmail" value="E-mail:"/>                   
+                                <p:inputText id="recipientEmail" value="#{invoiceBean.recipient.email}" required="false" label="E-mail" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                        <p:outputLabel for="recipientCity" value="Město:" />                   
-                                        <p:inputText id="recipientCity" value="#{invoiceBean.recipient.city}" required="false" label="Město" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
+                                <p:outputLabel for="recipientPhone" value="Telefon:"/>                   
+                                <p:inputMask mask="999999999" id="recipientPhone" value="#{invoiceBean.recipient.phone}" required="false" label="Telefon" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
 
-                                        <p:outputLabel for="recipientPcode" value="PSČ:" />                   
-                                        <p:inputMask mask="99999" id="recipientPcode" value="#{invoiceBean.recipient.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001" disabled="#{!invoiceBean.newRecipientContact}"/>
+                            </h:panelGrid>
 
-                                        <p:outputLabel for="recipientStreet" value="Ulice:"/>                   
-                                        <p:inputText id="recipientStreet" value="#{invoiceBean.recipient.street}" required="false" label="Ulice" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
-
-                                        <p:outputLabel for="recipientHouse" value="Číslo domu:"/>                   
-                                        <p:inputText id="recipientHouse" value="#{invoiceBean.recipient.house}" required="false" label="Číslo domu" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
-
-                                        <p:outputLabel for="recipientEmail" value="E-mail:"/>                   
-                                        <p:inputText id="recipientEmail" value="#{invoiceBean.recipient.email}" required="false" label="E-mail" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
-
-                                        <p:outputLabel for="recipientPhone" value="Telefon:"/>                   
-                                        <p:inputMask mask="999999999" id="recipientPhone" value="#{invoiceBean.recipient.phone}" required="false" label="Telefon" validatorMessage="Chyba" disabled="#{!invoiceBean.newRecipientContact}"/>
-
-                                    </h:panelGrid>
-
-                                </p:fieldset>
+                        </p:fieldset>
 
 
-                                <p:fieldset id="customerFields" legend="Odběratel" style="width: 450px;">
+                        <p:fieldset id="customerFields" legend="Odběratel" style="width: 450px;">
 
-                                <p:messages id="customerError" closable="true" />
+                            <p:messages id="customerError" closable="true" />
 
-                                <h:panelGrid  id="customerGrid" columns="2" cellpadding="5">
+                            <h:panelGrid  id="customerGrid" columns="2" cellpadding="5">
 
-                                    <p:outputLabel value="Vyhledat:" for="customer" />
-                                    <p:autoComplete id="customer" value="#{invoiceBean.customer}" completeMethod="#{invoiceBean.completeContact}"
-                                                    var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true" disabled="#{invoiceBean.newCustomerContact}"  >
-                                        <p:ajax event="itemSelect" update="customerGrid"  resetValues="true" />
-                                    </p:autoComplete>
+                                <p:outputLabel value="Vyhledat:" for="customer" />
+                                <p:autoComplete id="customer" value="#{invoiceBean.customer}" completeMethod="#{invoiceBean.completeContact}"
+                                                var="person" itemLabel="#{person.wholename}" itemValue="#{person}" converter="personConverter" forceSelection="true" dropdown="true" disabled="#{invoiceBean.newCustomerContact}"  >
+                                    <p:ajax event="itemSelect" update="customerGrid"  resetValues="true" />
+                                </p:autoComplete>
 
-                                    <p:outputLabel value="" />
-                                    <p:selectBooleanButton  id="newCustomerContact" value="#{invoiceBean.newCustomerContact}" onLabel="Vybrat z adresáře" offLabel="Nový kontakt" onIcon="ui-icon-minus" offIcon="ui-icon-plus" style="width: 250px">
-                                            <p:ajax update="customerGrid" resetValues="true" />
-                                        </p:selectBooleanButton>
+                                <p:outputLabel value="" />
+                                <p:selectBooleanButton  id="newCustomerContact" value="#{invoiceBean.newCustomerContact}" onLabel="Vybrat z adresáře" offLabel="Nový kontakt" onIcon="ui-icon-minus" offIcon="ui-icon-plus" style="width: 250px">
+                                    <p:ajax update="customerGrid" resetValues="true" />
+                                </p:selectBooleanButton>
 
-                                        <p:outputLabel for="customerName" value="Jméno:" />                   
-                                        <p:inputText id="customerName" value="#{invoiceBean.customer.name}" 
-                                                     required="false" label="Jméno" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
+                                <p:outputLabel for="customerName" value="Jméno:" />                   
+                                <p:inputText id="customerName" value="#{invoiceBean.customer.name}" 
+                                             required="false" label="Jméno" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
 
-                                        <p:outputLabel for="customerLastName" value="Příjmení:" />                   
-                                        <p:inputText id="customerLastName" value="#{invoiceBean.customer.lastname}" required="false" label="Příjmení" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
+                                <p:outputLabel for="customerLastName" value="Příjmení:" />                   
+                                <p:inputText id="customerLastName" value="#{invoiceBean.customer.lastname}" required="false" label="Příjmení" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
 
-                                        <p:outputLabel for="customerCompany" value="Firma:" />                   
-                                        <p:inputText id="customerCompany" value="#{invoiceBean.customer.company}" required="false" label="Firma" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
+                                <p:outputLabel for="customerCompany" value="Firma:" />                   
+                                <p:inputText id="customerCompany" value="#{invoiceBean.customer.company}" required="false" label="Firma" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
 
-                                        <p:outputLabel for="customerIco" value="IČO:" />                   
-                                        <p:inputMask mask="99999999" id="customerIco" value="#{invoiceBean.customer.ico}" required="false" label="IČO" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
+                                <p:outputLabel for="customerIco" value="IČO:" />                   
+                                <p:inputMask mask="99999999" id="customerIco" value="#{invoiceBean.customer.ico}" required="false" label="IČO" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
 
-                                        <p:outputLabel for="customerCity" value="Město:" />                   
-                                        <p:inputText  id="customerCity" value="#{invoiceBean.customer.city}" required="false" label="Město" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
+                                <p:outputLabel for="customerCity" value="Město:" />                   
+                                <p:inputText  id="customerCity" value="#{invoiceBean.customer.city}" required="false" label="Město" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}"  />
 
-                                        <p:outputLabel for="customerPcode" value="PSČ:" />                   
-                                        <p:inputMask mask="99999" id="customerPcode" value="#{invoiceBean.customer.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001" disabled="#{!invoiceBean.newCustomerContact}" />
+                                <p:outputLabel for="customerPcode" value="PSČ:" />                   
+                                <p:inputMask mask="99999" id="customerPcode" value="#{invoiceBean.customer.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001" disabled="#{!invoiceBean.newCustomerContact}" />
 
-                                        <p:outputLabel for="customerStreet" value="Ulice:"/>                   
-                                        <p:inputText id="customerStreet" value="#{invoiceBean.customer.street}" required="false" label="Ulice" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
+                                <p:outputLabel for="customerStreet" value="Ulice:"/>                   
+                                <p:inputText id="customerStreet" value="#{invoiceBean.customer.street}" required="false" label="Ulice" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
 
-                                        <p:outputLabel for="customerHouse" value="Číslo domu:"/>                   
-                                        <p:inputText id="customerHouse" value="#{invoiceBean.customer.house}" required="false" label="Číslo domu" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
+                                <p:outputLabel for="customerHouse" value="Číslo domu:"/>                   
+                                <p:inputText id="customerHouse" value="#{invoiceBean.customer.house}" required="false" label="Číslo domu" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
 
-                                        <p:outputLabel for="customerEmail" value="E-mail:"/>                   
-                                        <p:inputText id="customerEmail" value="#{invoiceBean.customer.email}" required="false" label="E-mail" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
+                                <p:outputLabel for="customerEmail" value="E-mail:"/>                   
+                                <p:inputText id="customerEmail" value="#{invoiceBean.customer.email}" required="false" label="E-mail" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
 
-                                        <p:outputLabel for="customerPhone" value="Telefon:"/>                   
-                                        <p:inputMask mask="999999999" id="customerPhone" value="#{invoiceBean.customer.phone}" required="false" label="Telefon" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
+                                <p:outputLabel for="customerPhone" value="Telefon:"/>                   
+                                <p:inputMask mask="999999999" id="customerPhone" value="#{invoiceBean.customer.phone}" required="false" label="Telefon" validatorMessage="Chyba" disabled="#{!invoiceBean.newCustomerContact}" />
 
 
-                                    </h:panelGrid>
+                            </h:panelGrid>
 
-                                </p:fieldset>
+                        </p:fieldset>
 
                             </p:fieldset>
 
@@ -265,40 +262,53 @@
                         </p:panel>
                     </h:form>
 
-                    <ui:include src="/compositions/footer.xhtml" />
+                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
+                        <p:menuitem>
+                            <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
+                        </p:menuitem>
+                        <f:facet name="options">
+                            <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
+                            <p:commandButton process="@this" title="Zrušit" validateClient="false" action="invoices" icon="ui-icon-cancel" />
+                        </f:facet>
+                    </p:menubar>
 
-                </div>
+                </p:panel>
+            </h:form>
 
-            </h:body>
+            <ui:include src="/compositions/footer.xhtml" />
 
-            <script type="text/javascript">
-                PrimeFaces.locales ['cs'] = {
-                    closeText: 'Zavřít',
-                    prevText: 'Předchozí',
-                    nextText: 'Další', monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
-                    monthNamesShort: ['Led', 'Ún', 'Bře', 'Dub', 'Kvě', 'Čer', 'Čerec', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro'],
-                    dayNames: ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
-                    dayNamesShort: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],
-                    dayNamesMin: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],
-                    weekHeader: 'Týden',
-                    firstDay: 1,
-                    isRTL: false,
-                    showMonthAfterYear: false,
-                    yearSuffix: '',
-                    timeOnlyTitle: 'Pouze čas',
-                    timeText: 'Čas',
-                    hourText: 'Hodina',
-                    minuteText: 'Minuta',
-                    secondText: 'Vteřina',
-                    currentText: 'Aktuální datum',
-                    ampm: false,
-                    month: 'Měsíc',
-                    week: 'týden',
-                    day: 'den',
-                    allDayText: 'Celý den'
-                };
-            </script>
+        </div>
+
+    </h:body>
+
+    <script type="text/javascript">
+        PrimeFaces.locales ['cs'] = {
+            closeText: 'Zavřít',
+            prevText: 'Předchozí',
+            nextText: 'Další', monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', '�?íjen', 'Listopad', 'Prosinec'],
+            monthNamesShort: ['Led', 'Ún', 'Bře', 'Dub', 'Kvě', 'Čer', 'Čerec', 'Srp', 'Zář', '�?íj', 'Lis', 'Pro'],
+            dayNames: ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
+            dayNamesShort: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],
+            dayNamesMin: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],
+            weekHeader: 'Týden',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Pouze čas',
+            timeText: 'Čas',
+            hourText: 'Hodina',
+            minuteText: 'Minuta',
+            secondText: 'Vteřina',
+            currentText: 'Aktuální datum',
+            ampm: false,
+            month: 'Měsíc',
+            week: 'týden',
+            day: 'den',
+            allDayText: 'Celý den'
+        };
+    </script>
 
 
-        </html>
+</html>
 

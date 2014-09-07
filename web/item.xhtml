@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Položka | A-Faktury</title>
     </h:head>
@@ -11,14 +12,32 @@
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
 
             <ui:include src="/compositions/navigation.xhtml" />
+            <h:form>
+                <p:panel header="Položka">
 
-            <p:panel header="Položka">
+                    <p:messages id="msg" closable="true"/>
 
-                <h:form>
-                    <p:commandButton style="float: right; width: 32px; height: 32px; margin: -42px -14px 0 0;" title="Zrušit" action="items" icon="ui-icon-cancel" />
-                </h:form>
+                    <h:panelGrid id="grid" columns="2" cellpadding="5" style="margin: auto;">
+                        <p:outputLabel for="title" value="Název:"/>                   
+                        <p:inputText style="width: 500px;" id="title" value="#{itemsBean.item.title}" required="true" label="Název"/>
 
-            </p:panel>
+                        <p:outputLabel for="price" value="Cena:"/>
+                        <p:spinner id="price" value="#{itemsBean.item.price}" required="true" suffix=" Kč" min="0" />
+                        
+                        <p:outputLabel for="code" value="Kód:"/>
+                        <p:inputText id="code" value="#{itemsBean.item.code}" required="false" label="Kód"/>
+
+                    </h:panelGrid>
+
+                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
+                        <f:facet name="options">
+                            <p:commandButton value="Uložit" icon="ui-icon-disk" update="msg grid" validateClient="true" action="items" />
+                            <p:commandButton process="@this" style="" title="Zrušit" action="items" validateClient="false" icon="ui-icon-cancel" />
+                        </f:facet>
+                    </p:menubar>
+
+                </p:panel>
+            </h:form>
 
             <ui:include src="/compositions/footer.xhtml" />
         </div>

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Registrace | A-Faktury</title>
         <link rel="icon" 
@@ -21,12 +22,13 @@
 
                     <p:messages id="msg" closable="true"/>
 
-                    <h:panelGrid id="grid" columns="4" cellpadding="5" style="margin-left: 40px;">
+                    <h:panelGrid id="grid" columns="4" cellpadding="5" style="width: 700px; margin: auto;">
 
                         <p:outputLabel for="email" value="E-mail:"/>                   
                         <p:inputText id="email" value="#{registrationBean.email}" required="true" label="E-mail" validatorMessage="Chyba"/>
                         <p:spacer></p:spacer>
                         <p:spacer></p:spacer>
+
 
                         <p:outputLabel for="password1" value="Heslo:"/>                   
                         <p:password id="password1" value="#{registrationBean.password1}" required="true" match="password2" label="Heslo" validatorMessage="Heslo se musí shodovat a mít 6 až 45 znaků " />
@@ -58,13 +60,18 @@
                         <p:outputLabel for="house" value="Číslo:"/>                   
                         <p:inputText id="house" value="#{registrationBean.house}" required="false" label="Číslo" validatorMessage="Chyba"/>
 
-                        <p:spacer></p:spacer>
-                        <p:selectBooleanCheckbox  itemLabel="Souhlasím s podmínkami služby." id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" validatorMessage="S podmínkami služby je nutné souhlasit"/>
-                        <p:spacer></p:spacer>
-                        <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" ajax="false" icon="ui-icon-check" validateClient="true"/>
-
+                        <f:facet name="footer">
+                            <p:selectBooleanCheckbox itemLabel="Souhlasím s podmínkami služby." id="agreed" value="#{registrationBean.agreed}" label="Souhlas:" validatorMessage="S podmínkami služby je nutné souhlasit"/>
+                        </f:facet>
 
                     </h:panelGrid>
+
+                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
+                        <f:facet name="options">
+                            <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" ajax="false" icon="ui-icon-check" validateClient="true"/>
+                            <p:commandButton process="@this" title="Zrušit" validateClient="false" action="index" icon="ui-icon-cancel" />
+                        </f:facet>
+                    </p:menubar>
 
                 </p:panel>
 
