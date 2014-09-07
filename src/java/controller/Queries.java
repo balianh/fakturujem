@@ -11,6 +11,7 @@ import model.Invoice;
 import model.InvoiceHasPerson;
 import model.Item;
 import model.Person;
+import model.Rate;
 import model.State;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -76,6 +77,25 @@ public class Queries {
         }
 
         return invoices;
+    }
+    
+    public static List<Rate> getRates() {
+        List<Rate> rates = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+        try {
+            tx = session.beginTransaction();
+
+            Query q = session.createQuery("from Rate ");
+            rates = (List<Rate>) q.list();
+
+            return rates;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+
+        return rates;
     }
 
     public static Invoice getInvoiceAtId(int id) {

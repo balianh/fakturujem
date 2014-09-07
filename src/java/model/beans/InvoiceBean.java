@@ -24,6 +24,7 @@ import model.InvoiceHasItem;
 import model.Item;
 import model.Method;
 import model.Person;
+import model.Rate;
 import net.sf.jasperreports.engine.JRException;
 import org.primefaces.context.RequestContext;
 
@@ -48,6 +49,8 @@ public class InvoiceBean implements Serializable {
     private String logedID = "0";
     private Invoice selectedInvoice;
     private UIComponent recipientFields;
+    private List<Rate> rates;
+ 
 
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException {
         controller.Printer.printInvoice(actionEvent, selectedInvoice, items, getRecipient(), getCustomer(), getRecipient());
@@ -87,11 +90,14 @@ public class InvoiceBean implements Serializable {
          Init variables
          */
         persons = Queries.getPersonsAtAccountId(logedID);
+        rates = Queries.getRates();
 
         selectedInvoice = new Invoice();
 
         customer = new Person();
         recipient = new Person();
+        setItem(new Item());
+        getItem().setRate(rates.get(0));
 
         Calendar cal = Calendar.getInstance();
         created = cal.getTime();
@@ -109,7 +115,6 @@ public class InvoiceBean implements Serializable {
         /*
          */
 
-        item = new Item();
         //to do
 
         items = new ArrayList<>();
@@ -122,7 +127,7 @@ public class InvoiceBean implements Serializable {
         this.setInvoiceNumber(null);
 
     }
-
+ 
     public List<Person> completeContact(String query) {
 
         List<Person> filterPersons = new ArrayList<>();
@@ -130,7 +135,7 @@ public class InvoiceBean implements Serializable {
         int validResultsCount = 0;
 
         for (Person person : persons) {
-            if (person.getWholename().contains(query)) {
+            if (person.getWholename().toLowerCase().contains(query)) {
                 validResultsCount++;
                 if (validResultsCount <= 10) {
                     filterPersons.add(person);
@@ -186,14 +191,11 @@ public class InvoiceBean implements Serializable {
      }
      }*/
     public String reinit() {
-        item = new Item();
+        setItem(new Item());
         return null;
     }
 
-    public Item getItem() {
-        return item;
-    }
-
+  
     public List<Item> getItems() {
         return items;
     }
@@ -350,4 +352,33 @@ public class InvoiceBean implements Serializable {
         this.newRecipientContact = newRecipientContact;
     }
 
+    /**
+     * @return the rates
+     */
+    public List<Rate> getRates() {
+        return rates;
+    }
+
+    /**
+     * @param rates the rates to set
+     */
+    public void setRates(List<Rate> rates) {
+        this.rates = rates;
+    }
+
+    /**
+     * @return the item
+     */
+    public Item getItem() {
+        return item;
+    }
+
+    /**
+     * @param item the item to set
+     */
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+ 
 }

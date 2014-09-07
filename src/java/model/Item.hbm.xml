@@ -17,7 +17,7 @@
         <property name="title" type="string">
             <column name="title" length="45" not-null="true" />
         </property>
-        <property name="price" type="int">
+        <property name="price" type="double">
             <column name="price" not-null="true" />
         </property>
         <property name="code" type="string">

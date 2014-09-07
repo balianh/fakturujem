@@ -15,6 +15,7 @@ public class InvoiceHasItem  implements java.io.Serializable {
      private int count;
 
     public InvoiceHasItem() {
+        this.count = 1;
     }
 
     public InvoiceHasItem(int invoiceIdinvoice, int itemIditem, int count) {

@@ -14,7 +14,7 @@ public class Rate  implements java.io.Serializable {
      private int value;
 
     public Rate() {
-    }
+      }
 
     public Rate(String title, int value) {
        this.title = title;
