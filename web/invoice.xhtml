@@ -4,8 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Faktura | A-Faktury</title>
         <link rel="icon" 
@@ -259,10 +258,7 @@
                             <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
                             <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
 
-                        </p:panel>
-                    </h:form>
-
-                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
+                        <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
                         <p:menuitem>
                             <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
                         </p:menuitem>
@@ -285,8 +281,8 @@
         PrimeFaces.locales ['cs'] = {
             closeText: 'Zavřít',
             prevText: 'Předchozí',
-            nextText: 'Další', monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', '�?íjen', 'Listopad', 'Prosinec'],
-            monthNamesShort: ['Led', 'Ún', 'Bře', 'Dub', 'Kvě', 'Čer', 'Čerec', 'Srp', 'Zář', '�?íj', 'Lis', 'Pro'],
+            nextText: 'Další', monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', '�?íjen', 'Listopad', 'Prosinec'],
+            monthNamesShort: ['Led', 'Ún', 'Bře', 'Dub', 'Kvě', 'Čer', 'Čerec', 'Srp', 'Zář', '�?íj', 'Lis', 'Pro'],
             dayNames: ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
             dayNamesShort: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],
             dayNamesMin: ['Ne', 'Po', 'Út', 'Stř', 'Čt', 'Pá', 'So'],

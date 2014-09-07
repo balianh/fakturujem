@@ -6,6 +6,7 @@
 
 package model.beans;
 
+import controller.Queries;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import model.Item;
@@ -25,9 +26,11 @@ public class ItemsBean {
      */
     public ItemsBean() {
         item = new Item();
+        item.setRate(Queries.getRates().get(0));
         item.setTitle("");
         item.setCode("");
         item.setPrice(0);
+        
     }
 
     public Item getItem() {
