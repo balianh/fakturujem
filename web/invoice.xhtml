@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Faktura | A-Faktury</title>
         <link rel="icon" 
@@ -21,8 +22,6 @@
 
 
                 <p:panel id="invoice" header="Faktura">
-
-                    <p:commandButton style="float: right; width: 32px; height: 32px; margin: -42px -14px 0 0;" title="Zrušit" validateClient="false" action="invoices" icon="ui-icon-cancel" />
 
                     <p:messages id="globalError" closable="true" />
 
@@ -214,8 +213,15 @@
 
                     </h:form>
 
-                    <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
-                    <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
+                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
+                        <p:menuitem>
+                            <p:commandButton actionListener="#{invoiceBean.printInvoice}" ajax="false" value="Vytisknout" icon="ui-icon-print" />
+                        </p:menuitem>
+                        <f:facet name="options">
+                            <p:commandButton ajax="true" action="none" value="Uložit" process="details customerGrid recipientGrid globalError" update="details customerGrid recipientGrid globalError" validateClient="true" icon="ui-icon-disk" />
+                            <p:commandButton process="@this" title="Zrušit" validateClient="false" action="invoices" icon="ui-icon-cancel" />
+                        </f:facet>
+                    </p:menubar>
 
                 </p:panel>
             </h:form>

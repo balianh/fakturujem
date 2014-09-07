@@ -14,14 +14,21 @@
             <ui:include src="/compositions/navigation.xhtml" />
 
             <h:form>
-                <p:panel header="Faktury" >
 
-                    <div style="padding-bottom: 6px;">
-                        <p:commandButton action="#" title="Hledat"  icon="ui-icon-search" style="height: 32px; width: 32px; float: right;"/>
-                        <p:inputText  placeholder="Hledat" style="float: right; min-height: 22px;"/>
-                        <p:commandButton title="Nová" action="invoice" icon="ui-icon-document" style="height: 32px; width: 32px;"/>
-                        <p:commandButton title="Import" action="importInvoice" icon="ui-icon-arrowthickstop-1-n" style="height: 32px; width: 32px;"/>
-                    </div>
+                <p:panel header="Faktury">
+
+                    <p:menubar style="border: none; background: none; padding: 0 0 8px 0;">
+                        <p:menuitem>
+                            <p:commandButton title="Nová faktura" action="invoice" icon="ui-icon-document" />
+                        </p:menuitem>
+                        <p:menuitem>
+                            <p:commandButton title="Import" action="importInvoice" icon="ui-icon-arrowthickstop-1-n" />
+                        </p:menuitem>
+                        <f:facet name="options">
+                            <p:inputText  placeholder="Hledat"/>
+                            <p:commandButton action="#" title="Hledat"  icon="ui-icon-search" />
+                        </f:facet>
+                    </p:menubar>
 
                     <p:dataTable paginator="true" var="invoice" value="#{dashboardBean.invoices}">
                         <p:column headerText="Číslo fa.">
@@ -46,7 +53,7 @@
 
 
                         <p:column style="width:32px;text-align: center">
-                            <p:commandButton action="invoice"  icon="ui-icon-pencil" title="Otevřít" style="height: 32px; width: 32px;">
+                            <p:commandButton action="invoice"  icon="ui-icon-pencil" title="Otevřít" >
                                 <f:setPropertyActionListener value="#{invoice}" target="#{invoiceBean.selectedInvoice}" />
                             </p:commandButton>
                         </p:column>
