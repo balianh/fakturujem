@@ -23,15 +23,17 @@
 
                         <p:outputLabel for="price" value="Cena:"/>
                         <p:spinner id="price" value="#{itemsBean.item.price}" required="true" suffix=" Kč" min="0" />
-                        
+
                         <p:outputLabel for="code" value="Kód:"/>
                         <p:inputText id="code" value="#{itemsBean.item.code}" required="false" label="Kód"/>
 
                     </h:panelGrid>
 
                     <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
-                        <f:facet name="options">
+                        <p:menuitem>
                             <p:commandButton value="Uložit" icon="ui-icon-disk" update="msg grid" validateClient="true" action="items" />
+                        </p:menuitem>
+                        <f:facet name="options">
                             <p:commandButton process="@this" style="" title="Zrušit" action="items" validateClient="false" icon="ui-icon-cancel" />
                         </f:facet>
                     </p:menubar>

@@ -67,8 +67,10 @@
                     </h:panelGrid>
 
                     <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
-                        <f:facet name="options">
+                        <p:menuitem>
                             <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" ajax="false" icon="ui-icon-check" validateClient="true"/>
+                        </p:menuitem>
+                        <f:facet name="options">
                             <p:commandButton process="@this" title="Zrušit" validateClient="false" action="index" icon="ui-icon-cancel" />
                         </f:facet>
                     </p:menubar>
