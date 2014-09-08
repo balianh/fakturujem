@@ -21,29 +21,37 @@ public class Item  implements java.io.Serializable {
      private int rateIdrate;
      private String title;
      private double price;
+      private double priceWithoutVat;
      private double priceWithVat;
      private String code;
      private InvoiceHasItem invoiceHasItem;
      private Rate rate;
 
     public Item() {
-        invoiceHasItem = new InvoiceHasItem();
-        
+        this.invoiceHasItem = new InvoiceHasItem();
+    
        }
 
 	
-    public Item(int accountIdaccount, int rateIdrate, String title, int price) {
+    public Item(int accountIdaccount, int rateIdrate, String title, double price) {
+        this.invoiceHasItem = new InvoiceHasItem();
         this.accountIdaccount = accountIdaccount;
         this.rateIdrate = rateIdrate;
         this.title = title;
         this.price = price;
     }
-    public Item(int accountIdaccount, int rateIdrate, String title, int price, String code) {
+    public Item(int accountIdaccount, int rateIdrate, String title, double price, String code) {
+       this.invoiceHasItem = new InvoiceHasItem();
        this.accountIdaccount = accountIdaccount;
        this.rateIdrate = rateIdrate;
        this.title = title;
        this.price = price;
        this.code = code;
+       
+       //Count VAT variables
+       this.priceWithoutVat= price;
+       this.priceWithVat = priceWithoutVat *(25.0/100.0) + priceWithoutVat;
+       
     }
    
     public Integer getId() {
@@ -79,10 +87,26 @@ public class Item  implements java.io.Serializable {
     }
     
     public void setPrice(double price) {
-        this.price = price;
-        this.priceWithVat = price *((double)rate.getValue()/(double)100) + price;
+        this.price = price;     
     }
   
+    /**
+     * @return the priceWithoutVat
+     */
+    public double getPriceWithoutVat() {
+        return priceWithoutVat;
+    }
+
+    /**
+     * @param priceWithoutVat the priceWithoutVat to set
+     */
+    public void setPriceWithoutVat(double priceWithoutVat) {
+        this.priceWithoutVat = priceWithoutVat;
+        this.priceWithVat = priceWithoutVat *((double)rate.getValue()/(double)100) + priceWithoutVat;
+        this.price = priceWithoutVat;
+    }
+
+    
     
     public String getCode() {
         return this.code;
@@ -117,7 +141,7 @@ public class Item  implements java.io.Serializable {
      * @param priceWithVat the priceWithVat to set
      */
     public void setPriceWithVat(double priceWithVat) {
-        this.price = (priceWithVat / (100 + rate.getValue())) * 100;
+        this.priceWithoutVat = (priceWithVat / (100 + rate.getValue())) * 100;
         this.priceWithVat = priceWithVat;
     }
 
@@ -135,6 +159,7 @@ public class Item  implements java.io.Serializable {
         this.rate = rate;
     }
 
+    
   
 
 

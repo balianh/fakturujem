@@ -1,0 +1,45 @@
+package controller;
+ 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import model.Item;
+import model.Person;
+import model.beans.InvoiceBean;
+ 
+
+ 
+@FacesConverter("itemConverter")
+public class ItemConverter implements Converter {
+ 
+    public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
+      
+        if(!value.contains("null")) {
+             InvoiceBean service = (InvoiceBean) fc.getExternalContext().getSessionMap().get("invoiceBean");
+           int i;
+           for (i =0; i < service.getItems().size(); i++ ){
+                 if(service.getItems().get(i).getId() == Integer.parseInt(value)) break;              
+            }
+           Item sI = service.getItems().get(i);
+           sI.setRate(Queries.getRateAtId(sI.getRateIdrate()));
+           sI.setPriceWithoutVat(sI.getPrice());
+                       
+           return sI;
+        
+        }
+        else {
+            return new Item();
+        }
+        
+    }
+ 
+    public String getAsString(FacesContext fc, UIComponent uic, Object object) {
+        if(object != null) {
+            return String.valueOf(((Item) object).getId());
+        }
+        else {
+            return null;
+        }
+    }   
+}   

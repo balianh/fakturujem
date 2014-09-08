@@ -27,7 +27,7 @@ public class RateConverter implements Converter {
             }
             Rate sP = service.getRates().get(i);
             service.getItem().setRate(sP);
-            double price = service.getItem().getPrice();
+            double price = service.getItem().getPriceWithoutVat();
             service.getItem().setPriceWithVat(price  * ((double)sP.getValue()/(double)100) + price); 
             return sP;
         } else {

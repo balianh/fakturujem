@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 import model.Invoice;
 import model.InvoiceHasItem;
@@ -48,12 +49,13 @@ public class InvoiceBean implements Serializable {
     private List<Person> persons;
     private String logedID = "0";
     private Invoice selectedInvoice;
+   
     private UIComponent recipientFields;
     private List<Rate> rates;
- 
+    
 
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException {
-        controller.Printer.printInvoice(actionEvent, selectedInvoice, items, getRecipient(), getCustomer(), getRecipient());
+        controller.Printer.printInvoice(actionEvent, selectedInvoice, getItems(), getRecipient(), getCustomer(), getRecipient());
     }
 
     /**
@@ -91,6 +93,7 @@ public class InvoiceBean implements Serializable {
          */
         persons = Queries.getPersonsAtAccountId(logedID);
         rates = Queries.getRates();
+        items = Queries.getItemsAtAccountId(logedID);
 
         selectedInvoice = new Invoice();
 
@@ -98,7 +101,7 @@ public class InvoiceBean implements Serializable {
         recipient = new Person();
         setItem(new Item());
         getItem().setRate(rates.get(0));
-
+        
         Calendar cal = Calendar.getInstance();
         created = cal.getTime();
         duzp = cal.getTime();
@@ -115,9 +118,7 @@ public class InvoiceBean implements Serializable {
         /*
          */
 
-        //to do
-
-        items = new ArrayList<>();
+             
 
     }
 
@@ -145,17 +146,41 @@ public class InvoiceBean implements Serializable {
 
         return filterPersons;
     }
+    
+    public List<Item> completeItemCode(String query) {
 
-    public List<Method> completeMethod(String query) {
+        List<Item> filterItems = new ArrayList<>();
 
-        List<Method> filterPersons = new ArrayList<>();
-        return filterPersons;
+        int validResultsCount = 0;
+
+        for (Item item : items) {
+            if (item.getCode().toLowerCase().contains(query)) {
+                validResultsCount++;
+                if (validResultsCount <= 10) {
+                    filterItems.add(item);
+                }
+            }
+        }
+
+        return filterItems;
     }
 
     public List<Item> completeItemTitle(String query) {
 
-        List<Item> filterPersons = new ArrayList<>();
-        return filterPersons;
+        List<Item> filterItems = new ArrayList<>();
+
+        int validResultsCount = 0;
+
+        for (Item item : items) {
+            if (item.getTitle().toLowerCase().contains(query)) {
+                validResultsCount++;
+                if (validResultsCount <= 10) {
+                    filterItems.add(item);
+                }
+            }
+        }
+
+        return filterItems;
     }
 
     public String saveInvoice() {
@@ -195,10 +220,7 @@ public class InvoiceBean implements Serializable {
         return null;
     }
 
-  
-    public List<Item> getItems() {
-        return items;
-    }
+
 
     public boolean isSingleContact() {
         return singleContact;
@@ -379,6 +401,22 @@ public class InvoiceBean implements Serializable {
     public void setItem(Item item) {
         this.item = item;
     }
+
+    /**
+     * @return the items
+     */
+    public List<Item> getItems() {
+        return items;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+   
 
  
 }

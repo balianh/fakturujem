@@ -155,6 +155,25 @@ public class Queries {
         }
         return result;
     }
+    
+    public static Rate getRateAtId(int id) {
+
+        Session session = sessionFactory.openSession();
+        Rate result = null;
+
+        try {
+            Transaction tx = session.beginTransaction();
+
+            Query q = session.createQuery("from Rate where "
+                    + "id ='" + id + "'");
+            result = (Rate) q.uniqueResult();
+            return result;
+        } catch (HibernateException e) {
+        } finally {
+            session.close();
+        }
+        return result;
+    }
 
     public static String getName(int idInvoice) {
 
@@ -265,7 +284,7 @@ public class Queries {
             Transaction tx = session.beginTransaction();
 
             Query q = session.createQuery("from Item where "
-                    + "account_idaccount ='" + logedID);
+                    + "account_idaccount ='" + logedID + "'");
             result = (List<Item>) q.list();
 
             return result;
