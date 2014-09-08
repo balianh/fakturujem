@@ -9,23 +9,26 @@
     <h:form style="margin-bottom: 8px;">
         <p:menubar>
             <p:menuitem>
-                <p:commandButton action="dashboard" title="Přehled" icon="ui-icon-home" style="margin-right: 4px;">
+                <p:commandButton action="dashboard" title="Přehled" icon="ui-icon-home" style="margin-right: 6px;">
                     <f:actionListener binding="#{invoiceBean.flushForm()}" />
                 </p:commandButton>
             </p:menuitem>
-            <p:submenu label="Faktury" icon="ui-icon-clipboard" style="margin-top: 4px;">
-                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="invoices" />
-                <p:menuitem value="Nová" action="invoice" icon="ui-icon-document" />
-                <p:menuitem value="Import" icon="ui-icon-arrowthickstop-1-n" action="importInvoice" />
-            </p:submenu>
-            <p:submenu label="Kontakty" icon="ui-icon-person" style="margin-top: 4px;">
-                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="contacts" />
-                <p:menuitem value="Nový" action="contact" icon="ui-icon-document" />
-            </p:submenu>
-            <p:submenu label="Položky" icon="ui-icon-cart" style="margin-top: 4px;">
-                <p:menuitem value="Seznam" icon="ui-icon-triangle-2-e-w" action="items" />
-                <p:menuitem value="Nová" action="item" icon="ui-icon-document" />
-            </p:submenu>
+            <p:menuitem>
+                <p:splitButton value="Faktury" icon="ui-icon-clipboard" action="invoices">
+                    <p:menuitem value="Nová" icon="ui-icon-document" action="invoice"/>
+                    <p:menuitem value="Import" icon="ui-icon-arrowthickstop-1-n" action="importInvoice"/>
+                </p:splitButton>
+            </p:menuitem>
+            <p:menuitem>
+                <p:splitButton value="Kontakty" icon="ui-icon-person" action="contacts">
+                    <p:menuitem value="Nový" icon="ui-icon-document" action="contact"/>
+                </p:splitButton>
+            </p:menuitem>
+            <p:menuitem>
+                <p:splitButton value="Položky" icon="ui-icon-cart" action="items">
+                    <p:menuitem value="Nová" icon="ui-icon-document" action="item"/>
+                </p:splitButton>
+            </p:menuitem>
             <f:facet name="options">
                 <p:commandButton action="setting" title="Nastavení" icon="ui-icon-gear"/>
                 <p:commandButton action="#{indexBean.logout}" title="Odhlásit se"  icon="ui-icon-extlink"/>
