@@ -1,9 +1,8 @@
-/* 
+/*
 SQLyog Community v9.62 
 MySQL - 5.6.20 : Database - fakturujem
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -95,12 +94,14 @@ CREATE TABLE `item` (
   `account_idaccount` int(11) NOT NULL,
   `rate_idrate` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
-  `price` int(11) NOT NULL,
+  `price` double NOT NULL,
   `code` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `item` */
+
+insert  into `item`(`id`,`account_idaccount`,`rate_idrate`,`title`,`price`,`code`) values (1,1,1,'Raspberry Pi',651,'RPI B+'),(2,1,2,'Instalace služby',500,'SPI_01');
 
 /*Table structure for table `method` */
 
