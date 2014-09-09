@@ -5,7 +5,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import model.Item;
-import model.Person;
 import model.beans.InvoiceBean;
  
 

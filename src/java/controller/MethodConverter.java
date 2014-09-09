@@ -9,35 +9,31 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import model.Rate;
+import model.Method;
 import model.beans.InvoiceBean;
 
-@FacesConverter("rateConverter")
-public class RateConverter implements Converter {
+@FacesConverter("methodConverter")
+public class MethodConverter implements Converter {
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         
         if (value != null && value.trim().length() > 0) {
             InvoiceBean service = (InvoiceBean) fc.getExternalContext().getSessionMap().get("invoiceBean");
             int i = 0;
-            for (i = 0; i < service.getRates().size(); i++) {
-                if (service.getRates().get(i).getId() == Integer.parseInt(value)) {
+            for (i = 0; i < service.getMethods().size(); i++) {
+                if (service.getMethods().get(i).getId() == Integer.parseInt(value)) {
                     break;
                 }
             }
-            Rate sP = service.getRates().get(i);
-            service.getItem().setRate(sP);
-            double price = service.getItem().getPriceWithoutVat();
-            service.getItem().setPriceWithVat(price  * ((double)sP.getValue()/(double)100) + price); 
-            return sP;
+            return service.getMethods().get(i);
         } else {
-            return new Rate();
+            return new Method();
         }
     }
 
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if (object != null) {
-            return String.valueOf(((Rate) object).getId());
+            return String.valueOf(((Method) object).getId());
         } else {
             return null;
         }

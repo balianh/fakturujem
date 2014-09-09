@@ -47,6 +47,7 @@ public class InvoiceBean implements Serializable {
     private InvoiceHasItem invoiceHasItem;
     private List<Item> items;
     private List<Person> persons;
+    private List<Method> methods;
     private String logedID = "0";
     private Invoice selectedInvoice;
    
@@ -94,7 +95,8 @@ public class InvoiceBean implements Serializable {
         persons = Queries.getPersonsAtAccountId(logedID);
         rates = Queries.getRates();
         items = Queries.getItemsAtAccountId(logedID);
-
+        methods = Queries.getMethods();
+        
         selectedInvoice = new Invoice();
 
         customer = new Person();
@@ -181,6 +183,25 @@ public class InvoiceBean implements Serializable {
         }
 
         return filterItems;
+    }
+    
+    public List<Method> completeMethod(String query) {
+        
+         List<Method> filterMethods = new ArrayList<>();
+
+        int validResultsCount = 0;
+
+        for (Method method : getMethods()) {
+            if (method.getTitle().toLowerCase().contains(query)) {
+                validResultsCount++;
+                if (validResultsCount <= 10) {
+                    filterMethods.add(method);
+                }
+            }
+        }
+
+        return filterMethods;
+        
     }
 
     public String saveInvoice() {
@@ -414,6 +435,20 @@ public class InvoiceBean implements Serializable {
      */
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    /**
+     * @return the methods
+     */
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    /**
+     * @param methods the methods to set
+     */
+    public void setMethods(List<Method> methods) {
+        this.methods = methods;
     }
 
    

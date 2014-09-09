@@ -10,6 +10,7 @@ import model.HibernateUtil;
 import model.Invoice;
 import model.InvoiceHasPerson;
 import model.Item;
+import model.Method;
 import model.Person;
 import model.Rate;
 import model.State;
@@ -78,7 +79,7 @@ public class Queries {
 
         return invoices;
     }
-    
+
     public static List<Rate> getRates() {
         List<Rate> rates = null;
         Session session = sessionFactory.openSession();
@@ -155,7 +156,7 @@ public class Queries {
         }
         return result;
     }
-    
+
     public static Rate getRateAtId(int id) {
 
         Session session = sessionFactory.openSession();
@@ -293,6 +294,22 @@ public class Queries {
             session.close();
         }
         return result;
+    }
+
+    public static List<Method> getMethods() {
+        List<Method> methods = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+        try {
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Method ");
+            methods = (List<Method>) q.list();
+            return methods;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return methods;
     }
 
 }
