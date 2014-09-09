@@ -12,9 +12,15 @@
         <div id="automarginator" style="width: 1085px; margin: auto; font-family: sans-serif;">
 
             <ui:include src="/compositions/navigation.xhtml" />
-            <h:form>
-                <p:panel header="Položka">
+            <h:form id="form" onkeypress="if (event.keyCode === 13) { document.getElementById('form:save_button').click(); return false; }">
+                <p:panel header="Položka">   
 
+                    <p:menubar style="border: none; background: none; padding: 0 0 8px 0;">
+                        <f:facet name="options">
+                            <p:commandButton process="@this" title="Zavřít" validateClient="false" action="items" icon="ui-icon-close" />
+                        </f:facet>
+                    </p:menubar>
+                    
                     <p:messages id="msg" closable="true"/>
 
                     <h:panelGrid id="grid" columns="2" cellpadding="5" style="margin: auto;">
@@ -31,10 +37,10 @@
 
                     <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
                         <p:menuitem>
-                            <p:commandButton value="Uložit" icon="ui-icon-disk" update="msg grid" validateClient="true" action="items" />
+                            <p:commandButton title="Smazat" process="@this" icon="ui-icon-trash" action="#" />
                         </p:menuitem>
                         <f:facet name="options">
-                            <p:commandButton process="@this" style="" title="Zrušit" action="items" validateClient="false" icon="ui-icon-cancel" />
+                            <p:commandButton id="save_button" ajax="true" action="#" value="Uložit" update="msg grid" />
                         </f:facet>
                     </p:menubar>
 

@@ -17,8 +17,14 @@
 
             <ui:include src="/compositions/header.xhtml" />
 
-            <h:form>
+            <h:form id="form" onkeypress="if (event.keyCode === 13) { document.getElementById('form:register_button').click(); return false; }" >
                 <p:panel header="Registrace" style="margin: 0 100px 0 100px;">
+                    
+                    <p:menubar style="border: none; background: none; padding: 0 0 8px 0;">
+                        <f:facet name="options">
+                            <p:commandButton process="@this" title="Zavřít" validateClient="false" action="index" icon="ui-icon-close" />
+                        </f:facet>
+                    </p:menubar>
 
                     <p:messages id="msg" closable="true"/>
 
@@ -67,11 +73,8 @@
                     </h:panelGrid>
 
                     <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
-                        <p:menuitem>
-                            <p:commandButton action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" ajax="false" icon="ui-icon-check" validateClient="true"/>
-                        </p:menuitem>
                         <f:facet name="options">
-                            <p:commandButton process="@this" title="Zrušit" validateClient="false" action="index" icon="ui-icon-cancel" />
+                            <p:commandButton id="register_button" action="#{registrationBean.registerNewUser}" value="Registrovat" update="grid msg" ajax="false" validateClient="true"/>
                         </f:facet>
                     </p:menubar>
 

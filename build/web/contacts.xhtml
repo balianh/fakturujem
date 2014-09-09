@@ -13,7 +13,7 @@
 
             <ui:include src="/compositions/navigation.xhtml" />
 
-            <h:form>
+            <h:form id="form">
                 <p:panel header="Kontakty">
 
                     <p:menubar style="border: none; background: none; padding: 0 0 8px 0;">
@@ -21,7 +21,8 @@
                             <p:commandButton title="Nový kontakt" action="contact" icon="ui-icon-document" />
                         </p:menuitem>
                         <f:facet name="options">
-
+                            <p:inputText onkeypress="if (event.keyCode === 13) { document.getElementById('form:search_button').click(); return false; }" placeholder="Hledat" />
+                            <p:commandButton id="search_button" icon="ui-icon-search" action="#" process="@this" />
                         </f:facet>
                     </p:menubar>
 

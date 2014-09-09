@@ -17,12 +17,17 @@
                 <p:panel header="Import faktury">
 
 
-                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
-                        <p:menuitem>
-                            <p:commandButton action="invoices" value="Import" icon="ui-icon-disk" validateClient="true"/>
-                        </p:menuitem>
+                    <p:menubar style="border: none; background: none; padding: 0 0 8px 0;">
                         <f:facet name="options">
-                            <p:commandButton process="@this" title="Zrušit" validateClient="false" action="invoices" icon="ui-icon-cancel" />
+                            <p:commandButton process="@this" title="Zavřít" validateClient="false" action="invoices" icon="ui-icon-close" />
+                        </f:facet>
+                    </p:menubar>
+
+                    Put the content here!
+                    
+                    <p:menubar style="border: none; background: none; padding: 8px 0 0 0;">
+                        <f:facet name="options">
+                            <p:commandButton action="invoices" value="Import" validateClient="true"/>
                         </f:facet>
                     </p:menubar>
                 </p:panel>
