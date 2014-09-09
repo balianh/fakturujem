@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9299a2a-91a4-41cd-a138-375eeba269eb">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="479"/>
+	<property name="ireport.y" value="191"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -85,6 +85,13 @@
 	<field name="SUMMARY_BASE_PRICE" class="java.lang.String"/>
 	<field name="SUMMARY_DPH" class="java.lang.String"/>
 	<field name="SUMMARY_PRICE" class="java.lang.String"/>
+	<field name="ITEM_CODE" class="java.lang.String"/>
+	<field name="ITEM_TITLE" class="java.lang.String"/>
+	<field name="ITEM_QUANTITY" class="java.lang.String"/>
+	<field name="ITEM_UNIT_PRICE" class="java.lang.String"/>
+	<field name="ITEM_DPH_PERCENTAGE" class="java.lang.String"/>
+	<field name="ITEM_BASE_PRICE" class="java.lang.String"/>
+	<field name="ITEM_FINAL_PRICE" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -304,10 +311,6 @@
 				<reportElement x="0" y="31" width="555" height="1" uuid="1c6630c5-7fd6-4d4c-ba57-69539aff5d62"/>
 			</line>
 			<staticText>
-				<reportElement x="10" y="12" width="100" height="20" uuid="59e66350-f17c-40b1-b1df-b3c15db8302a"/>
-				<text><![CDATA[Položka]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="500" y="12" width="55" height="20" uuid="0bb4110a-9ec5-4d6e-960d-52862b9febb7"/>
 				<text><![CDATA[Celkem]]></text>
 			</staticText>
@@ -327,31 +330,46 @@
 				<reportElement x="445" y="12" width="55" height="20" uuid="bd61a548-76aa-49ab-a8a4-aee2debc75f4"/>
 				<text><![CDATA[Základ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="54" y="12" width="228" height="20" uuid="7f015239-5780-44e3-b062-ec4d25addb86"/>
+				<text><![CDATA[Název produktu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="11" width="54" height="20" uuid="59e66350-f17c-40b1-b1df-b3c15db8302a"/>
+				<text><![CDATA[Kód]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="141" splitType="Stretch">
-			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="0" width="555" height="141" uuid="96af3bd4-0a9c-48cc-8bd4-a04ec4e13b5a"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="82aab050-3de5-4315-bc24-105b6a6c4ce6">
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:column width="90" uuid="9e5962c7-f52d-41f7-8417-7216bc4cb030">
-						<printWhenExpression><![CDATA[$P{REPORT_CONTEXT}]]></printWhenExpression>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="af29aabf-049d-4fbf-9a60-b573bb678358">
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="47929d6f-90d2-4e57-af10-66a9bf0ab228">
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="862dc145-9933-447d-9361-e9170954fcde">
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1"/>
-					</jr:column>
-				</jr:table>
-			</componentElement>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="500" y="0" width="55" height="20" uuid="95adfa25-c790-4322-a973-e852d812ce0b"/>
+				<textFieldExpression><![CDATA[$F{ITEM_FINAL_PRICE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="0" width="55" height="20" uuid="6aba0fba-0e80-441a-9cb9-356539164e07"/>
+				<textFieldExpression><![CDATA[$F{ITEM_BASE_PRICE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="0" width="55" height="20" uuid="0b958f2a-37ac-44dd-9fee-ed08cd5def32"/>
+				<textFieldExpression><![CDATA[$F{ITEM_DPH_PERCENTAGE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="336" y="0" width="55" height="20" uuid="845eb97b-90c1-4057-bf56-6de53085813c"/>
+				<textFieldExpression><![CDATA[$F{ITEM_UNIT_PRICE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="0" width="54" height="20" uuid="4e7dbb1e-797e-40d2-9ab2-efbe938daa62"/>
+				<textFieldExpression><![CDATA[$F{ITEM_QUANTITY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="0" width="228" height="20" uuid="f050b72a-982f-498c-b162-1a2e9fc08d93"/>
+				<textFieldExpression><![CDATA[$F{ITEM_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="3" width="54" height="20" uuid="ffe74dd5-e1be-4a3a-a3db-5adcb274829a"/>
+				<textFieldExpression><![CDATA[$F{ITEM_CODE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
