@@ -9,9 +9,7 @@
     <h:form style="margin-bottom: 8px;">
         <p:menubar>
             <p:menuitem>
-                <p:commandButton action="dashboard" title="Přehled" icon="ui-icon-home" style="margin-right: 6px;">
-                    <f:actionListener binding="#{invoiceBean.flushForm()}" />
-                </p:commandButton>
+                <p:commandButton action="dashboard" title="Přehled" icon="ui-icon-home" style="margin-right: 6px;" />
             </p:menuitem>
             <p:menuitem>
                 <p:splitButton value="Faktury" action="invoices">
@@ -30,7 +28,7 @@
                 </p:splitButton>
             </p:menuitem>
             <f:facet name="options">
-                <p:commandButton action="setting" title="Nastavení" icon="ui-icon-gear"/>
+                <p:commandButton action="settings" title="Nastavení" icon="ui-icon-gear"/>
                 <p:commandButton action="#{indexBean.logout}" title="Odhlásit se"  icon="ui-icon-extlink"/>
             </f:facet>
         </p:menubar>
