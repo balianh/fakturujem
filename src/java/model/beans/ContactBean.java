@@ -3,128 +3,80 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.beans;
 
+import controller.HttpSessionUtil;
+import controller.Queries;
+import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.servlet.http.HttpSession;
+import javax.websocket.OnClose;
+import model.Person;
+import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author fiktivni
  */
-@Named(value = "contactBean")
-@Dependent
-public class ContactBean {
-    
-    private String name;
-    private String lastName;
-    private String company;
-    private String ICO;
-    private String DIC;
-    private String pcode;
-    private String city;
-    private String street;
-    private String house;
-    private String email;
-    private String phone;
+@Named("contactBean")
+@SessionScoped
+public class ContactBean implements Serializable {
 
-    /**
-     * Creates a new instance of contactBean
-     */
-    public ContactBean() {
+    private Person contact;
+
+    @PostConstruct
+    public void init() {
+        int userID = getUserID();
+        contact = new Person();
+        contact.setAccountIdaccount(userID);
+        contact.setIsowner(false);
     }
     
-    public String addNewContact(){
+    public String clear(){
+        init();
+        RequestContext.getCurrentInstance().update("form:grid");
+        return "contact";
+    }
+
+    public void saveContact() {
+        if (contact.getId() == null) {
+            Queries.createPerson(contact);
+        } else {
+            Queries.updatePerson(contact);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uloženo"));
+    }
+    
+    public void newUser() {
+        contact = new Person();
+        contact.setAccountIdaccount(getUserID());
+        contact.setIsowner(false);
+    }
+
+    public String deleteContact() {
+        Queries.deletePerson(contact);
         return "contacts";
     }
 
-    public String getName() {
-        return name;
+    public Person getContact() {
+        return contact;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setContact(Person contact) {
+        this.contact = contact;
     }
 
-    public String getLastName() {
-        return lastName;
+    private int getUserID() {
+        HttpSession s = HttpSessionUtil.getSession();
+        int userID = -1;
+        if (s != null) {
+            userID = Integer.parseInt((s.getAttribute("logedid").toString()));
+        }
+        return userID;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getICO() {
-        return ICO;
-    }
-
-    public void setICO(String ICO) {
-        this.ICO = ICO;
-    }
-
-    public String getDIC() {
-        return DIC;
-    }
-
-    public void setDIC(String DIC) {
-        this.DIC = DIC;
-    }
-
-    public String getPcode() {
-        return pcode;
-    }
-
-    public void setPcode(String pcode) {
-        this.pcode = pcode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getHouse() {
-        return house;
-    }
-
-    public void setHouse(String house) {
-        this.house = house;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    
 }
