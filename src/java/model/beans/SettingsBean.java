@@ -8,8 +8,9 @@ package model.beans;
 import controller.HttpSessionUtil;
 import controller.Queries;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -21,37 +22,35 @@ import model.Person;
  * @author fiktivni
  */
 @Named(value = "settingsBean")
-@Dependent
+@SessionScoped
+@ManagedBean
 public class SettingsBean {
 
     private Person user;
     private Account account;
-
-    /**
-     * Creates a new instance of SettingsBean
-     */
-    public SettingsBean() {
-    }
+    private Person originalUser;
 
     @PostConstruct
     public void init() {
         String sessionId = getUserID();
-        this.user = Queries.getPerson(sessionId, true);
-        this.account = Queries.getAccount(sessionId);
+        setUser(Queries.getPerson(sessionId, true));
+        setAccount(Queries.getAccount(sessionId));
+        setOriginalUser(getUser());
     }
 
     public void updateUser() {
-        Queries.updatePerson(user);
+        Queries.updatePerson(getUser());
+        setOriginalUser(getUser());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uloženo"));
     }
 
     public String deleteUser() {
-        Queries.deleteAccount(account);
-        Queries.deletePerson(user);
+        Queries.deleteAccount(getAccount());
+        Queries.deletePerson(getOriginalUser());
         return "index";
     }
 
-    public String getUserID() {
+    private String getUserID() {
         HttpSession s = HttpSessionUtil.getSession();
         String userID = "";
         if (s != null) {
@@ -66,6 +65,22 @@ public class SettingsBean {
 
     public void setUser(Person user) {
         this.user = user;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Person getOriginalUser() {
+        return originalUser;
+    }
+
+    public void setOriginalUser(Person originalUser) {
+        this.originalUser = originalUser;
     }
 
 }
