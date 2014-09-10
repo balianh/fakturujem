@@ -7,10 +7,10 @@ package model.beans;
 
 import controller.HttpSessionUtil;
 import controller.Queries;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -23,8 +23,7 @@ import model.Person;
  */
 @Named(value = "settingsBean")
 @SessionScoped
-@ManagedBean
-public class SettingsBean {
+public class SettingsBean implements Serializable {
 
     private Person user;
     private Account account;

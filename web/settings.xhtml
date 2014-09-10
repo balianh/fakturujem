@@ -31,8 +31,7 @@
 
                     <p:messages id="msg" closable="true"/>
 
-
-                    <h:panelGrid id="grid" columns="4" cellpadding="5" style="width: 700px; margin: auto;">
+                    <h:panelGrid id="grid" columns="4" cellpadding="5" style="margin: auto;">
 
                         <p:outputLabel for="name" value="Jméno:"/>                   
                         <p:inputText id="name" value="#{settingsBean.user.name}" required="false" label="Jméno" validatorMessage="Chyba" />
@@ -45,19 +44,39 @@
                         <p:spacer></p:spacer>
 
                         <p:outputLabel for="ico" value="IČO:"/>                   
-                        <p:inputText id="ico" value="#{settingsBean.user.ico}" required="false" label="IČO" validatorMessage="Chyba" />
+                        <p:inputText id="ico" value="#{settingsBean.user.ico}" required="false" label="IČO" />
                         <p:outputLabel for="dic" value="DIČ:"/>                   
-                        <p:inputText id="dic" value="#{settingsBean.user.dic}" required="false" label="DIČ" validatorMessage="Chyba" />
+                        <p:inputText id="dic" value="#{settingsBean.user.dic}" required="false" label="DIČ" />
 
-                        <p:outputLabel for="pcode" value="PSČ:"/>                   
-                        <p:inputText id="pcode" value="#{settingsBean.user.pcode}" required="false" label="PSČ" validatorMessage="Chyba: PSČ musí být pětimístné číslo např. 37001"/>
-                        <p:outputLabel for="city" value="Město:"/>                   
-                        <p:inputText  id="city" value="#{settingsBean.user.city}" required="false" label="Město" validatorMessage="Chyba"/>
-
+                        <p:outputLabel for="bankaccount" value="Číslo účtu:"/>                   
+                        <p:inputText id="bankaccount" value="#{settingsBean.user.bankaccount}" required="false" label="Číslo účtu" />
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+                        
                         <p:outputLabel for="street" value="Ulice:"/>                   
-                        <p:inputText id="street" value="#{settingsBean.user.street}" required="false" label="Ulice" validatorMessage="Chyba"/>
+                        <p:inputText id="street" value="#{settingsBean.user.street}" required="false" label="Ulice" />
                         <p:outputLabel for="house" value="Číslo:"/>                   
-                        <p:inputText id="house" value="#{settingsBean.user.house}" required="false" label="Číslo" validatorMessage="Chyba"/>
+                        <p:inputText id="house" value="#{settingsBean.user.house}" required="false" label="Číslo" />
+                        
+                        <p:outputLabel for="pcode" value="PSČ:"/>                   
+                        <p:inputText id="pcode" value="#{settingsBean.user.pcode}" required="false" label="PSČ" />
+                        <p:outputLabel for="city" value="Město:"/>                   
+                        <p:inputText  id="city" value="#{settingsBean.user.city}" required="false" label="Město" />
+
+                        <p:outputLabel for="state" value="Stát:"/>                   
+                        <p:inputText id="state" value="#{settingsBean.user.state}" required="false" label="Stát" />
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+                        
+                        <p:outputLabel for="email" value="E-mail:"/>                   
+                        <p:inputText id="email" value="#{settingsBean.user.email}" required="false" label="E-mail" />
+                        <p:spacer></p:spacer>
+                        <p:spacer></p:spacer>
+
+                        <p:outputLabel for="phone" value="Telefon:"/>                   
+                        <p:inputText id="phone" value="#{settingsBean.user.phone}" required="false" label="Telefon" />
+                        <p:outputLabel for="fax" value="Fax:"/>                   
+                        <p:inputText id="fax" value="#{settingsBean.user.fax}" required="false" label="Fax" />
 
                     </h:panelGrid>
 
@@ -73,8 +92,8 @@
                     </p:menubar>
 
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                        <p:commandButton value="Ano" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="Ne" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        <p:commandButton value="Ano" type="button" styleClass="ui-confirmdialog-yes" />
+                        <p:commandButton value="Ne" type="button" styleClass="ui-confirmdialog-no" />
                     </p:confirmDialog>
 
                 </p:panel>
