@@ -3,6 +3,7 @@
  */
 package controller;
 
+import com.sun.xml.ws.tx.at.internal.WSATGatewayRM;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.Account;
@@ -139,30 +140,101 @@ public class Queries {
         return result;
     }
     
-     /**
-    * Returns personal informations.
-    * @param accountId
-    * @param isOwner
-    * @return user
-    */
-   public static Person getPerson(String accountId, boolean isOwner) {
+    /**
+     * Returns personal informations.
+     * @param accountId
+     * @param isOwner
+     * @return user
+     */
+    public static Person getPerson(String accountId, boolean isOwner) {
 
-       Session s = sessionFactory.openSession();
-       Person user = new Person();
+        Session s = sessionFactory.openSession();
+        Person user = new Person();
 
-       try {
-           Query q = s.createQuery("from Person where "
-                   + "account_idaccount ='" + accountId + "' and isowner = " + isOwner);
-           user = (Person) q.uniqueResult();
-           return user;
-       } catch (HibernateException e) {
-       } finally {
-           s.close();
-       }
-       return user;
-   }
+        try {
+            Query q = s.createQuery("from Person where "
+                    + "account_idaccount ='" + accountId + "' and isowner = " + isOwner);
+            user = (Person) q.uniqueResult();
+            return user;
+        } catch (HibernateException e) {
+        } finally {
+            s.close();
+        }
+        return user;
+    }
     
+    /**
+     * Returns account with the id.
+     * @param id
+     * @return account 
+     */
+    public static Account getAccount(String id){
+        Account account = new Account();
+        Session s = sessionFactory.openSession();
+        
+        try {
+            Query q = s.createQuery("from Account where id = '" + id + "'");
+            account = (Account) q.uniqueResult();
+            return account;
+        }catch(HibernateException e){
+        } finally {
+            s.close();
+        }
+        return account;
+    }
     
+    /**
+     * End of line for the person.
+     * @param person 
+     */
+    public static void deletePerson(Person person) {
+
+        Session s = sessionFactory.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            s.delete(person);
+            tx.commit();
+        } catch (HibernateException e) {
+        } finally {
+            s.close();
+        }
+    }
+    
+    /**
+     * End of line for the account.
+     * @param account 
+     */
+    public static void deleteAccount(Account account) {
+
+        Session s = sessionFactory.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            s.delete(account);
+            tx.commit();
+        } catch (HibernateException e) {
+        } finally {
+            s.close();
+        }
+    }
+    
+    /**
+     * Updates the person.
+     * @param person 
+     */
+    public static void updatePerson(Person person) {
+        
+        Session s = sessionFactory.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            s.update(person);
+            tx.commit();
+        } catch (HibernateException e) {
+        } finally {
+            s.close();
+        }
+        
+    }
+
     public static State getStateAtId(int id) {
 
         Session session = sessionFactory.openSession();
