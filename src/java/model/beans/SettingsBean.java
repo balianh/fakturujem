@@ -21,32 +21,31 @@ import model.Person;
  *
  * @author fiktivni
  */
-@Named(value = "settingsBean")
+@Named("settingsBean")
 @SessionScoped
 public class SettingsBean implements Serializable {
 
-    private Person user;
+    private Person user, originalUser;
     private Account account;
-    private Person originalUser;
 
     @PostConstruct
     public void init() {
         String sessionId = getUserID();
-        setUser(Queries.getPerson(sessionId, true));
-        setAccount(Queries.getAccount(sessionId));
-        setOriginalUser(getUser());
+        user = Queries.getUser(sessionId);
+        account = Queries.getAccount(sessionId);
+        originalUser = user;
     }
 
     public void updateUser() {
-        Queries.updatePerson(getUser());
-        setOriginalUser(getUser());
+        Queries.updatePerson(user);
+        originalUser = user;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uloženo"));
     }
 
     public String deleteUser() {
-        Queries.deleteAccount(getAccount());
-        Queries.deletePerson(getOriginalUser());
-        return "index";
+        Queries.deleteAccount(account);
+        Queries.deletePerson(originalUser);
+        return logout();
     }
 
     private String getUserID() {
@@ -56,6 +55,11 @@ public class SettingsBean implements Serializable {
             userID = (s.getAttribute("logedid").toString());
         }
         return userID;
+    }
+    
+    private String logout(){
+        HttpSessionUtil.getSession().invalidate();
+        return "index";
     }
 
     public Person getUser() {
