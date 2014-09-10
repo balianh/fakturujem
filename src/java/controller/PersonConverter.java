@@ -17,7 +17,7 @@ public class PersonConverter implements Converter {
         if(!value.contains("null")) {
              InvoiceBean service = (InvoiceBean) fc.getExternalContext().getSessionMap().get("invoiceBean");
            int i;
-           for (i =0; i < service.getPersons().size(); i++ ){
+           for (i =0; i < service.getPersons().size()-1; i++ ){
                  if(service.getPersons().get(i).getId() == Integer.parseInt(value)) break;              
             }
            Person sP = service.getPersons().get(i);
@@ -28,7 +28,7 @@ public class PersonConverter implements Converter {
                    sP.getPhone(), sP.getEmail(), sP.getFax(), sP.getWww(), 
                    sP.getBankaccount(), sP.getIco(), sP.getDic());
             
-           return personToEdit;
+           return sP;
         
         }
         else {

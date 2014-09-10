@@ -17,7 +17,7 @@ public class ItemConverter implements Converter {
         if(!value.contains("null")) {
              InvoiceBean service = (InvoiceBean) fc.getExternalContext().getSessionMap().get("invoiceBean");
            int i;
-           for (i =0; i < service.getItems().size(); i++ ){
+           for (i =0; i < service.getItems().size()-1; i++ ){
                  if(service.getItems().get(i).getId() == Integer.parseInt(value)) break;              
             }
            Item sI = service.getItems().get(i);

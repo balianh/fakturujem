@@ -17,7 +17,7 @@ public class RateConverter implements Converter {
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         
-        if (value != null && value.trim().length() > 0) {
+        if (!value.contains("null")) {
             InvoiceBean service = (InvoiceBean) fc.getExternalContext().getSessionMap().get("invoiceBean");
             int i = 0;
             for (i = 0; i < service.getRates().size(); i++) {

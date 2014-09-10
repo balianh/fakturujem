@@ -29,7 +29,7 @@ public class Invoice  implements java.io.Serializable {
       Support variables to keep view informations 
       */
      
-     private String receiver; 
+     private String recipient; 
      private String stateLabel;
 
     public Invoice() { 
@@ -146,20 +146,7 @@ public class Invoice  implements java.io.Serializable {
     }
 
  
-    /**
-     * @return the receiver
-     */
-    public String getReceiver() {
-        receiver = Queries.getName(id);
-        return receiver;
-    }
 
-    /**
-     * @param receiver the receiver to set
-     */
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
 
     /**
      * @return the stateLabel
@@ -174,6 +161,21 @@ public class Invoice  implements java.io.Serializable {
      */
     public void setStateLabel(String stateLabel) {
         this.stateLabel = stateLabel;
+    }
+
+    /**
+     * @return the recipient
+     */
+    public String getRecipient() {
+        recipient = Queries.getName(id);
+        return recipient;
+    }
+
+    /**
+     * @param recipient the recipient to set
+     */
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
    

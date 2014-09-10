@@ -17,10 +17,10 @@ public class MethodConverter implements Converter {
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         
-        if (value != null && value.trim().length() > 0) {
+        if (!value.contains("null")) {
             InvoiceBean service = (InvoiceBean) fc.getExternalContext().getSessionMap().get("invoiceBean");
             int i = 0;
-            for (i = 0; i < service.getMethods().size(); i++) {
+            for (i = 0; i < service.getMethods().size()-1; i++) {
                 if (service.getMethods().get(i).getId() == Integer.parseInt(value)) {
                     break;
                 }

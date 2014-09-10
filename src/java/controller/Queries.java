@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.HibernateUtil;
 import model.Invoice;
+import model.InvoiceHasItem;
 import model.InvoiceHasPerson;
 import model.Item;
 import model.Method;
@@ -137,7 +138,31 @@ public class Queries {
         }
         return result;
     }
+    
+     /**
+    * Returns personal informations.
+    * @param accountId
+    * @param isOwner
+    * @return user
+    */
+   public static Person getPerson(String accountId, boolean isOwner) {
 
+       Session s = sessionFactory.openSession();
+       Person user = new Person();
+
+       try {
+           Query q = s.createQuery("from Person where "
+                   + "account_idaccount ='" + accountId + "' and isowner = " + isOwner);
+           user = (Person) q.uniqueResult();
+           return user;
+       } catch (HibernateException e) {
+       } finally {
+           s.close();
+       }
+       return user;
+   }
+    
+    
     public static State getStateAtId(int id) {
 
         Session session = sessionFactory.openSession();
@@ -190,9 +215,9 @@ public class Queries {
 
             Query q = session.createQuery("from InvoiceHasPerson where "
                     + "invoice_idinvoice ='" + idInvoice + "' "
-                    + "and relation ='" + 1 + "'");
+                    + "and relation ='" + 2 + "'");
             personId = (InvoiceHasPerson) q.uniqueResult();
-            userId = personId.getId();
+            userId = personId.getPersonIdperson();
             session.close();
 
             session = sessionFactory.openSession();
@@ -248,6 +273,7 @@ public class Queries {
             session.save(newPerson);
             session.flush();
             personId = newPerson.getId();
+            tx.commit();
             session.close();
 
             return personId;
@@ -255,6 +281,57 @@ public class Queries {
         } catch (HibernateException e) {
         }
         return 0;
+    }
+    
+    public static void createInvoiceHasPerson(InvoiceHasPerson invoiceHasPerson) {
+
+        Session session = null;
+        State result = null;   
+
+        try {
+            session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.save(invoiceHasPerson);
+            session.flush();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+        }
+       
+    }
+    
+    public static void createInvoiceHasItem(InvoiceHasItem invoiceHasItem) {
+
+        Session session = null;
+        State result = null;   
+
+        try {
+            session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.save(invoiceHasItem);
+            session.flush();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+        }
+       
+    }
+    
+    public static void createItem(Item item) {
+
+        Session session = null;
+        State result = null;   
+
+        try {
+            session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.save(item);
+            session.flush();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+        }
+       
     }
 
     public static int createInvoice(Invoice selectedInvoice) {
@@ -268,6 +345,7 @@ public class Queries {
             session.save(selectedInvoice);
             session.flush();
             invoiceId = selectedInvoice.getId();
+            tx.commit();
             session.close();
 
             return invoiceId;
