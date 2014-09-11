@@ -58,7 +58,7 @@ public class InvoiceBean implements Serializable {
          
          selectedInvoice.setMethodIdmethod(method.getId());
          controller.Printer.printInvoice(actionEvent, getSelectedInvoice(), 
-                 getInvoiceItems(), Queries.getPerson(logedID,true), getCustomer(), getRecipient());
+                 getInvoiceItems(), Queries.getUser(logedID), getCustomer(), getRecipient());
        
          if (!singleContact) {
              recipient = new Person();
