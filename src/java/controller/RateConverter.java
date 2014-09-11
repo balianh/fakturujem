@@ -25,11 +25,10 @@ public class RateConverter implements Converter {
                     break;
                 }
             }
-            Rate sP = service.getRates().get(i);
-            service.getItem().setRate(sP);
+            service.getItem().setRate(service.getRates().get(i));
             double price = service.getItem().getPriceWithoutVat();
-            service.getItem().setPriceWithVat(price  * ((double)sP.getValue()/(double)100) + price); 
-            return sP;
+            service.getItem().setPriceWithVat(price  * ((double)service.getRates().get(i).getValue()/(double)100) + price); 
+            return service.getRates().get(i);
         } else {
             return new Rate();
         }

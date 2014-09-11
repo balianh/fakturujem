@@ -20,15 +20,7 @@ public class PersonConverter implements Converter {
            for (i =0; i < service.getPersons().size()-1; i++ ){
                  if(service.getPersons().get(i).getId() == Integer.parseInt(value)) break;              
             }
-           Person sP = service.getPersons().get(i);
-           
-           Person personToEdit = new Person(sP.getAccountIdaccount(), sP.getName(),
-                   sP.getLastname(), sP.getCompany(), sP.getStreet(), sP.getHouse(),
-                   sP.getCity(), sP.getPcode(), sP.getState(), Boolean.FALSE,
-                   sP.getPhone(), sP.getEmail(), sP.getFax(), sP.getWww(), 
-                   sP.getBankaccount(), sP.getIco(), sP.getDic());
-            
-           return sP;
+           return service.getPersons().get(i);
         
         }
         else {

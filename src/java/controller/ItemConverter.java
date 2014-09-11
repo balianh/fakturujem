@@ -20,11 +20,11 @@ public class ItemConverter implements Converter {
            for (i =0; i < service.getItems().size()-1; i++ ){
                  if(service.getItems().get(i).getId() == Integer.parseInt(value)) break;              
             }
-           Item sI = service.getItems().get(i);
-           sI.setRate(Queries.getRateAtId(sI.getRateIdrate()));
-           sI.setPriceWithoutVat(sI.getPrice());
+           service.getItems().get(i).setRate(Queries.getRateAtId(
+                                    service.getItems().get(i).getRateIdrate()));
+           service.getItems().get(i).setPriceWithoutVat(service.getItems().get(i).getPrice());
                        
-           return sI;
+           return service.getItems().get(i);
         
         }
         else {
