@@ -35,7 +35,7 @@
 
                         <p:menubar style="border: none; background: none; padding: 0 0 8px 0;">
                             <p:menuitem>
-                                <p:commandButton actionListener="#{invoiceBean.printInvoice}" process="@this" title="Vytisknout" icon="ui-icon-print" validateClient="false"/>
+                                <p:commandButton ajax="false" actionListener="#{invoiceBean.printInvoice}"  title="Vytisknout" icon="ui-icon-print" />
                             </p:menuitem>
                             <f:facet name="options">
                                 <p:commandButton process="@this" title="Zavřít" validateClient="false" action="invoices" icon="ui-icon-close" />

@@ -19,7 +19,7 @@ public class Invoice  implements java.io.Serializable {
      private Date created;
      private Date due;
      private Date duzp;
-     private int variablesymbol;
+     private Integer variablesymbol;
      private Integer constantsymbol;
      private Integer specificsymbol;
      private Integer total;
@@ -116,11 +116,11 @@ public class Invoice  implements java.io.Serializable {
     public void setDuzp(Date duzp) {
         this.duzp = duzp;
     }
-    public int getVariablesymbol() {
+    public Integer getVariablesymbol() {
         return this.variablesymbol;
     }
     
-    public void setVariablesymbol(int variablesymbol) {
+    public void setVariablesymbol(Integer variablesymbol) {
         this.variablesymbol = variablesymbol;
     }
     public Integer getConstantsymbol() {

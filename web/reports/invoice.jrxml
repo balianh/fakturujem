@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9299a2a-91a4-41cd-a138-375eeba269eb">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="191"/>
+	<property name="ireport.x" value="233"/>
+	<property name="ireport.y" value="475"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -50,41 +50,37 @@
 		</box>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="de1019d1-d4ff-4ae4-b03b-77fae97c9a7b"/>
+	<parameter name="INVOICE_NUMBER" class="java.lang.String"/>
+	<parameter name="INVOICE_CREATED" class="java.lang.String"/>
+	<parameter name="INVOICE_DUZP" class="java.lang.String"/>
+	<parameter name="INVOICE_DUE" class="java.lang.String"/>
+	<parameter name="INVOICE_METHOD" class="java.lang.String"/>
+	<parameter name="INVOICE_BANK" class="java.lang.String"/>
+	<parameter name="INVOICE_VARIABLE" class="java.lang.String"/>
+	<parameter name="INVOICE_CONSTANT" class="java.lang.String"/>
+	<parameter name="INVOICE_CREATOR" class="java.lang.String"/>
+	<parameter name="CONTRACTOR_NAME" class="java.lang.String"/>
+	<parameter name="CONTRACTOR_STREET" class="java.lang.String"/>
+	<parameter name="CONTRACTOR_CITY" class="java.lang.String"/>
+	<parameter name="CONTRACTOR_PCODE" class="java.lang.String"/>
+	<parameter name="CONTRACTOR_ICO" class="java.lang.String"/>
+	<parameter name="CONTRACTOR_DIC" class="java.lang.String"/>
+	<parameter name="CUSTOMER_NAME" class="java.lang.String"/>
+	<parameter name="CUSTOMER_STREET" class="java.lang.String"/>
+	<parameter name="CUSTOMER_CITY" class="java.lang.String"/>
+	<parameter name="CUSTOMER_PCODE" class="java.lang.String"/>
+	<parameter name="CUSTOMER_ICO" class="java.lang.String"/>
+	<parameter name="CUSTOMER_DIC" class="java.lang.String"/>
+	<parameter name="RECIPIENT_NAME" class="java.lang.String"/>
+	<parameter name="RECIPIENT_STREET" class="java.lang.String"/>
+	<parameter name="RECIPIENT_CITY" class="java.lang.String"/>
+	<parameter name="RECIPIENT_PCODE" class="java.lang.String"/>
+	<parameter name="SUMMARY_BASE_PRICE" class="java.lang.String"/>
+	<parameter name="SUMMARY_DPH" class="java.lang.String"/>
+	<parameter name="SUMMARY_PRICE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT name as "P_NAME" from person]]>
 	</queryString>
-	<field name="CUSTOMER_NAME" class="java.lang.String"/>
-	<field name="CUSTOMER_STREET" class="java.lang.String"/>
-	<field name="CUSTOMER_PCODE" class="java.lang.String"/>
-	<field name="CUSTOMER_CITY" class="java.lang.String"/>
-	<field name="CUSTOMER_ICO" class="java.lang.String"/>
-	<field name="CUSTOMER_DIC" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="INVOICE_NUMBER" class="java.lang.String"/>
-	<field name="RECIPIENT_NAME" class="java.lang.String"/>
-	<field name="RECIPIENT_STREET" class="java.lang.String"/>
-	<field name="RECIPIENT_PCODE" class="java.lang.String"/>
-	<field name="RECIPIENT_CITY" class="java.lang.String"/>
-	<field name="CONTRACTOR_NAME" class="java.lang.String"/>
-	<field name="CONTRACTOR_STREET" class="java.lang.String"/>
-	<field name="CONTRACTOR_PCODE" class="java.lang.String"/>
-	<field name="CONTRACTOR_CITY" class="java.lang.String"/>
-	<field name="CONTRACTOR_ICO" class="java.lang.String"/>
-	<field name="CONTRACTOR_DIC" class="java.lang.String"/>
-	<field name="CONTRACTOR_BANK" class="java.lang.String"/>
-	<field name="INVOICE_CREATED" class="java.lang.String"/>
-	<field name="INVOICE_DUZP" class="java.lang.String"/>
-	<field name="INVOICE_DUE" class="java.lang.String"/>
-	<field name="INVOICE_METHOD" class="java.lang.String"/>
-	<field name="INVOICE_BANK" class="java.lang.String"/>
-	<field name="INVOICE_VARIABLE" class="java.lang.String"/>
-	<field name="INVOICE_CONSTANT" class="java.lang.String"/>
-	<field name="INVOICE_CREATOR" class="java.lang.String"/>
-	<field name="SUMMARY_DPH_PERCENTAGE" class="java.lang.String"/>
-	<field name="SUMMARY_BASE_PRICE" class="java.lang.String"/>
-	<field name="SUMMARY_DPH" class="java.lang.String"/>
-	<field name="SUMMARY_PRICE" class="java.lang.String"/>
 	<field name="ITEM_CODE" class="java.lang.String"/>
 	<field name="ITEM_TITLE" class="java.lang.String"/>
 	<field name="ITEM_QUANTITY" class="java.lang.String"/>
@@ -100,16 +96,16 @@
 			<staticText>
 				<reportElement x="162" y="30" width="229" height="20" uuid="30cdb82e-2948-45d0-a6dd-bde8d84223c4"/>
 				<textElement textAlignment="Right">
-					<font size="14" isBold="false"/>
+					<font size="14" isBold="false" pdfEncoding="Cp1250"/>
 				</textElement>
 				<text><![CDATA[FAKTURA - DAŇOVÝ DOKLAD č. ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="391" y="30" width="164" height="20" uuid="9f6dde66-7809-4d41-9a5c-682ef79881da"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INVOICE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INVOICE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -123,10 +119,16 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="11" width="100" height="20" uuid="c2da7049-52d9-4aef-a7a5-6eaeb913d7dd"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[Odběratel:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="282" y="11" width="100" height="20" uuid="ac211331-48d4-4d0e-b523-a27ad9763148"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[Poštovní adresa:]]></text>
 			</staticText>
 			<staticText>
@@ -139,6 +141,9 @@
 			</staticText>
 			<staticText>
 				<reportElement x="282" y="154" width="133" height="20" uuid="b36fde0e-ab37-45b4-8774-0a9b88b8a113"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[Datum uskut. zdan. plnění]]></text>
 			</staticText>
 			<staticText>
@@ -155,7 +160,7 @@
 			<staticText>
 				<reportElement x="282" y="214" width="100" height="20" uuid="d7921073-12ac-40d8-975e-ab5426ca78e5"/>
 				<textElement>
-					<font isBold="true"/>
+					<font isBold="true" pdfEncoding="Cp1250"/>
 				</textElement>
 				<text><![CDATA[Číslo účtu]]></text>
 			</staticText>
@@ -176,131 +181,168 @@
 			</staticText>
 			<textField pattern="dd.MM.yyyy">
 				<reportElement x="415" y="134" width="129" height="20" uuid="0fa59f98-fe9a-43f4-aaf0-79a175ed59f5"/>
-				<textFieldExpression><![CDATA[$F{INVOICE_CREATED}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INVOICE_CREATED}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="31" width="262" height="20" uuid="19a4b2d6-4ef7-4124-b20d-93aff1e4a3ba"/>
-				<textFieldExpression><![CDATA[$F{CUSTOMER_NAME}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="51" width="262" height="20" uuid="05bb1c3a-01df-43f1-aa38-11577d126c10"/>
-				<textFieldExpression><![CDATA[$F{CUSTOMER_STREET}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_STREET}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="71" width="58" height="20" uuid="ba3921b8-9259-4fb7-b157-4372ae52c336"/>
-				<textFieldExpression><![CDATA[$F{CUSTOMER_PCODE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_PCODE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="68" y="71" width="204" height="20" uuid="b742c0ca-0616-4ecb-888f-e68be76418b4"/>
-				<textFieldExpression><![CDATA[$F{CUSTOMER_CITY}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_CITY}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="35" y="91" width="75" height="20" uuid="afd9fee9-9bb6-4587-9601-04e6abc53f40"/>
-				<textFieldExpression><![CDATA[$F{CUSTOMER_ICO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_ICO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="135" y="91" width="137" height="20" uuid="92056b59-36f0-4f09-a231-fbd1bfdabd2e"/>
-				<textFieldExpression><![CDATA[$F{CUSTOMER_DIC}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_DIC}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="282" y="31" width="262" height="20" uuid="bc78bd70-2960-4865-979e-a9c2cba39c33"/>
-				<textFieldExpression><![CDATA[$F{RECIPIENT_NAME}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RECIPIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="282" y="51" width="262" height="20" uuid="75b4071d-ef79-4a67-9086-d825ca28ff14"/>
-				<textFieldExpression><![CDATA[$F{RECIPIENT_STREET}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RECIPIENT_STREET}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="282" y="71" width="58" height="20" uuid="d314c5d4-e200-4786-ae83-32fbfb52d7c4"/>
-				<textFieldExpression><![CDATA[$F{RECIPIENT_PCODE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{RECIPIENT_PCODE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="71" width="204" height="20" uuid="55eda5bd-2964-42e0-be7d-50a3358bf826"/>
-				<textFieldExpression><![CDATA[$F{RECIPIENT_CITY}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RECIPIENT_CITY}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="154" width="129" height="20" uuid="dc47e08a-4a0e-4ddd-9dd7-b946f45592d8"/>
-				<textFieldExpression><![CDATA[$F{INVOICE_DUZP}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INVOICE_DUZP}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="174" width="129" height="20" uuid="fe76724f-9553-4a25-b516-92ef774d02ab"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INVOICE_DUE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INVOICE_DUE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="194" width="129" height="20" uuid="8c63309a-c357-4d8e-a384-17dc20db6baf"/>
-				<textFieldExpression><![CDATA[$F{INVOICE_METHOD}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{INVOICE_METHOD}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="214" width="129" height="20" uuid="00aede6f-db11-42be-8cbf-1c45199ad0b0"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INVOICE_BANK}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INVOICE_BANK}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="234" width="129" height="20" uuid="874d599f-87f0-4cd3-be4c-c0e1f4179adf"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INVOICE_VARIABLE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INVOICE_VARIABLE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="254" width="129" height="20" uuid="ef8282dc-825c-496f-a7b2-2da31c4220f0"/>
-				<textFieldExpression><![CDATA[$F{INVOICE_CONSTANT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INVOICE_CONSTANT}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="275" width="129" height="20" uuid="f56b7e99-27bd-4b23-85a6-c930e19fe484"/>
-				<textFieldExpression><![CDATA[$F{INVOICE_CREATOR}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{INVOICE_CREATOR}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="10" y="91" width="25" height="20" uuid="af6a3cc8-58bd-4c7d-8d2f-ce9ff36c03fd"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[IČO:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="110" y="91" width="25" height="20" uuid="60f06c66-fdd0-4f22-9d5b-dfda8d73d25e"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[DIČ:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="10" y="154" width="262" height="20" uuid="db4175eb-8f74-46b3-a616-476427cc20e3"/>
-				<textFieldExpression><![CDATA[$F{CONTRACTOR_NAME}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CONTRACTOR_NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="174" width="262" height="20" uuid="f8c6cb07-8eda-4933-8442-f2d3420da8db"/>
-				<textFieldExpression><![CDATA[$F{CONTRACTOR_STREET}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CONTRACTOR_STREET}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="194" width="58" height="20" uuid="f6b2ee12-7701-4e1b-b307-376621cbb47b"/>
-				<textFieldExpression><![CDATA[$F{CONTRACTOR_PCODE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CONTRACTOR_PCODE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="68" y="194" width="204" height="20" uuid="5a01c060-03e4-47e5-8cf2-0fe8564258b9"/>
-				<textFieldExpression><![CDATA[$F{CONTRACTOR_CITY}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CONTRACTOR_CITY}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="35" y="214" width="75" height="20" uuid="6d07293d-f626-4b96-9fca-3f419149bf8c"/>
-				<textFieldExpression><![CDATA[$F{CONTRACTOR_ICO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CONTRACTOR_ICO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="135" y="214" width="137" height="20" uuid="49bf3a66-3d53-4db9-b61e-bfd6846e8aca"/>
-				<textFieldExpression><![CDATA[$F{CONTRACTOR_DIC}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CONTRACTOR_DIC}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="68" y="234" width="204" height="20" uuid="1aaa26b6-058c-4531-974a-5bf55ff17946"/>
-				<textFieldExpression><![CDATA[$F{CONTRACTOR_BANK}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="10" y="234" width="58" height="20" uuid="c6fcece4-b043-4e0d-a251-56cdf0a81860"/>
-				<text><![CDATA[Číslo účtu:]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="10" y="214" width="25" height="20" uuid="bae211f2-889f-4f77-a916-687761c9c55c"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[IČO:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="110" y="214" width="25" height="20" uuid="e9d42f01-43b5-4f26-a4eb-cd27fc7637f9"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[DIČ:]]></text>
 			</staticText>
 		</band>
@@ -316,6 +358,9 @@
 			</staticText>
 			<staticText>
 				<reportElement x="282" y="12" width="54" height="20" uuid="95721420-88c9-4199-8707-8680349954dd"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[Počet]]></text>
 			</staticText>
 			<staticText>
@@ -364,10 +409,16 @@
 			</textField>
 			<textField>
 				<reportElement x="54" y="0" width="228" height="20" uuid="f050b72a-982f-498c-b162-1a2e9fc08d93"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ITEM_TITLE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="3" width="54" height="20" uuid="ffe74dd5-e1be-4a3a-a3db-5adcb274829a"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ITEM_CODE}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -377,13 +428,9 @@
 			<staticText>
 				<reportElement x="282" y="1" width="100" height="20" uuid="6f4bd6c3-34ec-4c5f-837d-f369490422d3"/>
 				<textElement>
-					<font isBold="true"/>
+					<font isBold="true" pdfEncoding="Cp1250"/>
 				</textElement>
 				<text><![CDATA[Částka k úhradě:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="282" y="20" width="79" height="20" uuid="eb89da11-987c-45c0-af65-323ccd6d22ca"/>
-				<text><![CDATA[DPH %]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="282" y="40" width="79" height="20" uuid="06fec4a2-0df5-4d3a-909e-9a8106245f33"/>
@@ -411,23 +458,25 @@
 				<text><![CDATA[Podpis a/nebo razítko:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="361" y="21" width="183" height="20" uuid="7d426142-d0c0-4eb0-ad28-e55b32d63623"/>
-				<textFieldExpression><![CDATA[$F{SUMMARY_DPH_PERCENTAGE}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="361" y="41" width="183" height="20" uuid="2d2e5b6e-0467-491f-8755-fda9b06db440"/>
-				<textFieldExpression><![CDATA[$F{SUMMARY_BASE_PRICE}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SUMMARY_BASE_PRICE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="361" y="61" width="183" height="20" uuid="1c50fed8-6eff-4bc0-b71f-9658b122d905"/>
-				<textFieldExpression><![CDATA[$F{SUMMARY_DPH}]]></textFieldExpression>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SUMMARY_DPH}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="361" y="80" width="183" height="20" uuid="103f910e-c498-42cb-8e28-427bf9a8df77"/>
 				<textElement>
-					<font size="14" isBold="true"/>
+					<font size="14" isBold="true" pdfEncoding="Cp1250"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{SUMMARY_PRICE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{SUMMARY_PRICE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

@@ -184,6 +184,26 @@ public class Queries {
     }
     
     /**
+     * Returns method with the id.
+     * @param id
+     * @return method 
+     */
+    public static Method getMethod(String id){
+        Method method= new Method();
+        Session s = sessionFactory.openSession();
+        
+        try {
+            Query q = s.createQuery("from Method where id = '" + id + "'");
+            method = (Method) q.uniqueResult();
+            return method;
+        }catch(HibernateException e){
+        } finally {
+            s.close();
+        }
+        return method;
+    }
+    
+    /**
      * End of line for the person.
      * @param person 
      */

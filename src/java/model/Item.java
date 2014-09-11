@@ -41,8 +41,8 @@ public class Item  implements java.io.Serializable {
        this.code = code;
        
        //Count VAT variables
-       this.priceWithoutVat= price;
-       this.priceWithVat = priceWithoutVat *(25.0/100.0) + priceWithoutVat;
+      // this.priceWithoutVat= price;
+      // this.priceWithVat = priceWithoutVat *(25.0/100.0) + priceWithoutVat;
        
     }
    

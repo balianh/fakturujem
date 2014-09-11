@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -52,7 +51,18 @@ public class InvoiceBean implements Serializable {
     private List<Rate> rates;
 
     public void printInvoice(ActionEvent actionEvent) throws IOException, JRException {
-        controller.Printer.printInvoice(actionEvent, selectedInvoice, getItems(), getRecipient(), getCustomer(), getRecipient());
+        
+         if (!singleContact) {
+             recipient = customer;
+         }
+         
+         selectedInvoice.setMethodIdmethod(method.getId());
+         controller.Printer.printInvoice(actionEvent, getSelectedInvoice(), 
+                 getInvoiceItems(), Queries.getPerson(logedID,true), getCustomer(), getRecipient());
+       
+         if (!singleContact) {
+             recipient = new Person();
+         }
     }
 
     /**
@@ -197,7 +207,7 @@ public class InvoiceBean implements Serializable {
 
         int total = 0;
 
-        for (Item i : items) {
+        for (Item i : invoiceItems) {
             total += i.getPriceWithVat();
         }
 
