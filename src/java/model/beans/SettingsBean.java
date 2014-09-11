@@ -7,9 +7,10 @@ package model.beans;
 
 import controller.HttpSessionUtil;
 import controller.Queries;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -20,44 +21,45 @@ import model.Person;
  *
  * @author fiktivni
  */
-@Named(value = "settingsBean")
-@Dependent
-public class SettingsBean {
+@Named("settingsBean")
+@SessionScoped
+public class SettingsBean implements Serializable {
 
-    private Person user;
+    private Person user, originalUser;
     private Account account;
-
-    /**
-     * Creates a new instance of SettingsBean
-     */
-    public SettingsBean() {
-    }
 
     @PostConstruct
     public void init() {
         String sessionId = getUserID();
-        this.user = Queries.getPerson(sessionId, true);
-        this.account = Queries.getAccount(sessionId);
+        user = Queries.getUser(sessionId);
+        account = Queries.getAccount(sessionId);
+        originalUser = user;
     }
 
     public void updateUser() {
         Queries.updatePerson(user);
+        originalUser = user;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uloženo"));
     }
 
     public String deleteUser() {
         Queries.deleteAccount(account);
-        Queries.deletePerson(user);
-        return "index";
+        Queries.deletePerson(originalUser);
+        return logout();
     }
 
-    public String getUserID() {
+    private String getUserID() {
         HttpSession s = HttpSessionUtil.getSession();
         String userID = "";
         if (s != null) {
             userID = (s.getAttribute("logedid").toString());
         }
         return userID;
+    }
+    
+    private String logout(){
+        HttpSessionUtil.getSession().invalidate();
+        return "index";
     }
 
     public Person getUser() {
@@ -66,6 +68,22 @@ public class SettingsBean {
 
     public void setUser(Person user) {
         this.user = user;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Person getOriginalUser() {
+        return originalUser;
+    }
+
+    public void setOriginalUser(Person originalUser) {
+        this.originalUser = originalUser;
     }
 
 }

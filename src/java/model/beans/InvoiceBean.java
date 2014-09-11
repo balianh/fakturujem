@@ -221,7 +221,7 @@ public class InvoiceBean implements Serializable {
         selectedInvoice.setTotal(total);
         int savedInvoiceID = Queries.createInvoice(selectedInvoice);
 
-        Queries.createInvoiceHasPerson(new InvoiceHasPerson(savedInvoiceID, Queries.getPerson(logedID,true).getId(), 1));
+        Queries.createInvoiceHasPerson(new InvoiceHasPerson(savedInvoiceID, Queries.getUser(logedID).getId(), 1));
 
         /*
          Save recipient, customer and fill invoice with their ID and return her ID to variable

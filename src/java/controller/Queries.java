@@ -141,19 +141,18 @@ public class Queries {
     }
     
     /**
-     * Returns personal informations.
+     * Returns user's details.
      * @param accountId
-     * @param isOwner
      * @return user
      */
-    public static Person getPerson(String accountId, boolean isOwner) {
+    public static Person getUser(String accountId) {
 
         Session s = sessionFactory.openSession();
         Person user = new Person();
 
         try {
             Query q = s.createQuery("from Person where "
-                    + "account_idaccount ='" + accountId + "' and isowner = " + isOwner);
+                    + "account_idaccount ='" + accountId + "' and isowner = " + true);
             user = (Person) q.uniqueResult();
             return user;
         } catch (HibernateException e) {
